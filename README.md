@@ -2,6 +2,7 @@
 [![Pre-Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml)
 [![Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml)
 [![Build status]()]()
+![Hit Counter](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjago-bikin-web1212%2Fhit-counter)
 
 <hr>
 
@@ -9,22 +10,22 @@
 
 
 ### Kelompok E06:
-  1. **Restu Ahmad Ar Ridho - 2206028951**
-  2. **Nadhira Widyaniswari - 2206811884**
-  3. **Gamma Farrel - 2206025035**
-  4. **Daffa Mohamad Fathoni - 2206824161**
+  1. **[Restu Ahmad Ar Ridho](https://github.com/restuaar) - 2206028951**
+  2. **[Nadhira Widyaniswari](https://github.com/NadhiraWidyaniswari) - 2206811884**
+  3. **[Gamma Farrel](https://github.com/gammafarrel) - 2206025035**
+  4. **[Daffa Mohamad Fathoni](https://github.com/fathonidf) - 2206824161**
 
 
 ## :link: Tautan Link Django dan Flutter :link:
-- #### Link to website [Books Buddy](http://books-buddy-e06-tk.pbp.cs.ui.ac.id/)
-- #### Link to app [TBA]()
+- Link to website [Books Buddy](http://books-buddy-e06-tk.pbp.cs.ui.ac.id/)
+- Link to app [TBA]()
 
 
 ## :books: Books Buddy (BB) :books:
 
 **Books Buddy** merupakan sebuah aplikasi yang dirancang untuk mendukung gerakan Indonesia membaca dengan menyediakan fitur yang dapat memudahkan pengguna untuk mencari, mengelola dan berbagi informasi mengenai buku sesama pengguna aplikasi. Books Buddy juga memfasilitasi pengguna dengan memberi informasi mengenai kegiatan-kegiatan yang ingin diadakan untuk dipublikasikan di dalam aplikasi sehingga pengguna dapat menemukan kegiatan yang menarik sesuai dengan minatnya.
 
-Aplikasi ini dirancang untuk memberdayakan pembaca untuk lebih mendalam dalam eksplorasi buku, terhubung dengan komunitas pembaca, dan berpartisipasi dalam banyak acara yang akan menginspirasi pengguna. Dengan aplikasi ini, kami berharap pengguna dapat terpicu untuk ikut serta dalam gerakan membaca buku di Indonesia. Selamat datang di aplikasi kami!
+Aplikasi ini dirancang untuk memberdayakan pembaca untuk lebih mendalam dalam eksplorasi buku, terhubung dengan komunitas pembaca, dan berpartisipasi dalam banyak acara yang akan menginspirasi pengguna. Dengan aplikasi ini, kami berharap pengguna dapat terpicu untuk ikut serta dalam gerakan membaca buku di Indonesia. **Selamat datang di aplikasi kami!**
 
 Pengguna akan diarahkan ke halaman **Sign Up/Log in** sebagai Reguler/Member User. Pengguna diwajibkan untuk Log In sebagai User untuk mengakses seluruh fasilitas modul yang akan diberikan. Saat proses pembuatan akun tersebut, pengguna akan diminta untuk memilih Role untuk akun tersebut. Perincian masing-masing Role adalah sebagai berikut:
 
@@ -34,7 +35,7 @@ Pengguna akan diarahkan ke halaman **Sign Up/Log in** sebagai Reguler/Member Use
 | Pengguna reguler hanya memiliki akses pada fitur My Buddy, Find Buddy, dan melakukan RSVP pada Event Buddy. Reguler User tidak dapat membuat forum pada Reach Buddy dan menambah event pada Event Buddy.| Member User merupakan versi lebih lengkap dari Reguler User yang hanya dapat mengakses beberapa modul. Member User dapat bergabung dengan komunitas Reach Buddy, dimana Member User dapat berdiskusi antar sesama Member User. Member User juga dapat menambahkan informasi mengenai kegiatan dan membuka RSVP bagi Reguler User maupun Member User jika ingin mengikuti suatu kegiatan.|
 
 
-## Features
+## :iphone: Features :iphone:
 
 Adapun fitur utama dalam aplikasi ini adalah sebagai berikut:
 - **Login Page**:
@@ -51,7 +52,7 @@ Adapun fitur utama dalam aplikasi ini adalah sebagai berikut:
   4. Event Buddy
 
 
-## Moduls
+## :open_file_folder: Moduls :open_file_folder:
 
 ### 1. :school_satchel: My Buddy (Koleksi Buku) :school_satchel: :
 Pada modul “My Buddy” pengguna dengan mudah melacak dan mengelola koleksi buku pribadinya. Pengguna dapat memfilter koleksi bukunya sesuai keinginan seperti buku yang dimiliki, yang ingin dibaca, dan sedang dibaca. Pada setiap buku terdapat informasi mengenai judul buku dan ulasan yang diberikan oleh pengguna serta track page.
