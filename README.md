@@ -38,18 +38,12 @@ Pengguna akan diarahkan ke halaman **Sign Up/Log in** sebagai Reguler/Member Use
 ## :iphone: Features :iphone:
 
 Adapun fitur utama dalam aplikasi ini adalah sebagai berikut:
-- **Login Page**:
-  1. Login
-  2. Sign Up
-- **Main Menu**:
-  1. Welcoming User
-  2. Preview of moduls
-  3. Bottom drawer
-- **Moduls**
-  1. My Buddy
-  2. Find Buddy
-  3. Reach Buddy
-  4. Event Buddy
+| Feature | Content |
+| :---: | :---: |
+| **Login Page** | Login <br/> Register |
+| **Main Menu**  | Welcoming User <br/> Preview Modul-Modul |
+| **Moduls**     | My Buddy <br/> Find Buddy <br/> Reach Buddy <br/> Event Buddy |
+
 
 
 ## :open_file_folder: Moduls :open_file_folder:
