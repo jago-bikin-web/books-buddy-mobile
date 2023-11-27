@@ -1,85 +1,81 @@
+[![Staging](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/staging.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/staging.yml)
+[![Pre-Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml)
+[![Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml)
+[![Build status]()]()
+![Hit Counter](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjago-bikin-web1212%2Fhit-counter)
+
+<hr>
+
 # :computer: TUGAS KELOMPOK PROYEK AKHIR SEMESTER PEMROGRAMAN BERBASIS PLATFORM :computer:
 
+
 ### Kelompok E06:
+  1. **[Restu Ahmad Ar Ridho](https://github.com/restuaar) - 2206028951**
+  2. **[Nadhira Widyaniswari](https://github.com/NadhiraWidyaniswari) - 2206811884**
+  3. **[Gamma Farrel](https://github.com/gammafarrel) - 2206025035**
+  4. **[Daffa Mohamad Fathoni](https://github.com/fathonidf) - 2206824161**
 
-  1. **Restu Ahmad Ar Ridho - 2206028951**
 
-  2. **Nadhira Widyaniswari - 2206811884**
+## :link: Tautan Link Django dan Flutter :link:
+- Link to website [Books Buddy](http://books-buddy-e06-tk.pbp.cs.ui.ac.id/)
+- Link to app [TBA]()
 
-  3. **Gamma Farrel - 2206025035**
-
-  4. **Daffa Mohamad Fathoni - 2206824161**
-
-## :link: Tautan Web Django :link:
-
-Link to [Books Buddy](http://books-buddy-e06-tk.pbp.cs.ui.ac.id/)
 
 ## :books: Books Buddy (BB) :books:
 
 **Books Buddy** merupakan sebuah aplikasi yang dirancang untuk mendukung gerakan Indonesia membaca dengan menyediakan fitur yang dapat memudahkan pengguna untuk mencari, mengelola dan berbagi informasi mengenai buku sesama pengguna aplikasi. Books Buddy juga memfasilitasi pengguna dengan memberi informasi mengenai kegiatan-kegiatan yang ingin diadakan untuk dipublikasikan di dalam aplikasi sehingga pengguna dapat menemukan kegiatan yang menarik sesuai dengan minatnya.
 
+Aplikasi ini dirancang untuk memberdayakan pembaca untuk lebih mendalam dalam eksplorasi buku, terhubung dengan komunitas pembaca, dan berpartisipasi dalam banyak acara yang akan menginspirasi pengguna. Dengan aplikasi ini, kami berharap pengguna dapat terpicu untuk ikut serta dalam gerakan membaca buku di Indonesia. **Selamat datang di aplikasi kami!**
+
 Pengguna akan diarahkan ke halaman **Sign Up/Log in** sebagai Reguler/Member User. Pengguna diwajibkan untuk Log In sebagai User untuk mengakses seluruh fasilitas modul yang akan diberikan. Saat proses pembuatan akun tersebut, pengguna akan diminta untuk memilih Role untuk akun tersebut. Perincian masing-masing Role adalah sebagai berikut:
 
 ## :point_up: Role :point_up:
-|Reguler User |Member User |
-| --- | --- |
+|Reguler User | Member User |
+| :---: | :---: |
 | Pengguna reguler hanya memiliki akses pada fitur My Buddy, Find Buddy, dan melakukan RSVP pada Event Buddy. Reguler User tidak dapat membuat forum pada Reach Buddy dan menambah event pada Event Buddy.| Member User merupakan versi lebih lengkap dari Reguler User yang hanya dapat mengakses beberapa modul. Member User dapat bergabung dengan komunitas Reach Buddy, dimana Member User dapat berdiskusi antar sesama Member User. Member User juga dapat menambahkan informasi mengenai kegiatan dan membuka RSVP bagi Reguler User maupun Member User jika ingin mengikuti suatu kegiatan.|
 
-## Features
+
+## :iphone: Features :iphone:
 
 Adapun fitur utama dalam aplikasi ini adalah sebagai berikut:
+- **Login Page**:
+  1. Login
+  2. Sign Up
+- **Main Menu**:
+  1. Welcoming User
+  2. Preview of moduls
+  3. Bottom drawer
+- **Moduls**
+  1. My Buddy
+  2. Find Buddy
+  3. Reach Buddy
+  4. Event Buddy
 
-**Login Page**:
 
-1. Login
+## :open_file_folder: Moduls :open_file_folder:
 
-2. Sign Up
-
-**Main Menu**:
-
-1. Welcoming User
-
-2. Preview of moduls
-
-3. Bottom drawer
-
-## Moduls
-
-### 1. :school_satchel: MyBuddy (Koleksi Buku) :school_satchel: :
-
-Pada modul “MyBuddy” pengguna dengan mudah melacak dan mengelola koleksi buku pribadinya. Pengguna dapat memfilter koleksi bukunya sesuai keinginan seperti buku yang dimiliki, yang ingin dibaca, dan sedang dibaca. Pada setiap buku terdapat informasi mengenai judul buku dan ulasan yang diberikan oleh pengguna serta track page.
-
-#### Reguler User dan Member User 
-
+### 1. :school_satchel: My Buddy (Koleksi Buku) :school_satchel: :
+Pada modul “My Buddy” pengguna dengan mudah melacak dan mengelola koleksi buku pribadinya. Pengguna dapat memfilter koleksi bukunya sesuai keinginan seperti buku yang dimiliki, yang ingin dibaca, dan sedang dibaca. Pada setiap buku terdapat informasi mengenai judul buku dan ulasan yang diberikan oleh pengguna serta track page.
+#### Reguler User dan Member User
 Pengguna yang telah masuk ke dalam aplikasi dapat menyimpan koleksi bukunya secara pribadi untuk dibaca pada lain kesempatan.
 
-### 2. :mag_right: FindBuddy (Jelajahi Dunia Buku) :mag_right: :
-
-Dengan menggunakan API, "FindBuddy" akan menampilkan buku buku yang terdapat pada API yang digunakan sehingga memungkinkan pengguna menjelajahi banyak buku dengan mudah. Pengguna dapat mencari buku berdasarkan berbagai kriteria seperti judul, penulis, atau genre. Informasi seperti deskripsi buku dan sampulnya akan membantu pengguna memilih buku yang tepat dan dapat menambahkan kedalam modul “MyBuddy”.
-
+### 2. :mag_right: Find Buddy (Jelajahi Dunia Buku) :mag_right: :
+Dengan menggunakan API, "Find Buddy" akan menampilkan buku buku yang terdapat pada API yang digunakan sehingga memungkinkan pengguna menjelajahi banyak buku dengan mudah. Pengguna dapat mencari buku berdasarkan berbagai kriteria seperti judul, penulis, atau genre. Informasi seperti deskripsi buku dan sampulnya akan membantu pengguna memilih buku yang tepat.
 #### Reguler User dan Member User
-
 Pengguna yang telah masuk ke dalam aplikasi dapat mencari buku sesuai dengan minat pengguna.
 
-### 3. :incoming_envelope: ReachBuddy (Berkomunikasi dalam Komunitas Pembaca) :incoming_envelope: :
-
-Pada modul “ReachBuddy", pengguna dapat mengeksplorasi dan bertemu dengan komunitas pembaca yang ada. Setiap pengguna akan bertukar wawasan terkait bukunya yang ingin dibahas. Pada postingan tersebut akan ditampilkan detail buku yang diulas, dan pengguna yang melihat postingan tersebut dapat melihat buku tersebut sehingga memunculkan informasi buku tersebut.
-
-#### Member User
-
+### 3. :incoming_envelope: Reach Buddy (Berkomunikasi dalam Komunitas Pembaca) :incoming_envelope: :
+Pada modul “Reach Buddy", pengguna dapat mengeksplorasi dan bertemu dengan komunitas pembaca yang ada. Setiap pengguna akan bertukar wawasan terkait bukunya yang ingin dibahas. Pada postingan tersebut akan ditampilkan detail buku yang diulas, dan pengguna yang melihat postingan tersebut dapat melihat buku tersebut sehingga memunculkan informasi buku tersebut.
+#### Reguler User dan Member User
 Pengguna yang menjadi bagian dari komunitas dapat mengakses dan membuat postingan berisi ulasan, komentar, ataupun kritik terhadap buku yang dipilih pada modul “ReachBuddy” ini.
 
-### 4. :date: EventBuddy (Jadwalkan dan Daftar Acara Buku) :date:  :
+### 4. :date: Event Buddy (Jadwalkan dan Daftar Acara Buku) :date:  :
+Dengan “Event Buddy”, pengguna berkesempatan mengikuti kegiatan dengan tema literasi dan buku yang mengagumkan. Pengguna dapat mencari acara buku menarik di berbagai tempat dan mendaftar untuk menghadirinya. Informasi lengkap tentang deskripsi acara, tanggal, lokasi, tema, dan buku yang akan dibahas atau ditampilkan akan membuat pengguna selalu siap untuk acara berikutnya.
 
-Dengan “EventBuddy”, pengguna berkesempatan mengikuti kegiatan dengan tema literasi dan buku yang mengagumkan. Pengguna dapat mencari acara buku menarik di berbagai tempat dan mendaftar untuk menghadirinya. Informasi lengkap tentang deskripsi acara, tanggal, lokasi, tema, dan buku yang akan dibahas atau ditampilkan akan membuat pengguna selalu siap untuk acara berikutnya.
-
+#### Reguler User dan Member User
 |Reguler User|Member User|
-| --- | --- |
+| :---: | :---: |
 |Pengguna yang telah masuk ke dalam aplikasi dapat mendaftarkan diri mengikuti kegiatan yang akan dilaksanakan.| Pengguna yang merupakan bagian dari komunitas dapat menambahkan acara kegiatan yang berkaitan dengan buku dan dapat melihat daftar peserta yang terdaftar pada acara tertentu.|
-
-<hr>
-
-Aplikasi ini dirancang untuk memberdayakan pembaca untuk lebih mendalam dalam eksplorasi buku, terhubung dengan komunitas pembaca, dan berpartisipasi dalam banyak acara yang akan menginspirasi pengguna. Dengan aplikasi ini, kami berharap pengguna dapat terpicu untuk ikut serta dalam gerakan membaca buku di Indonesia. Selamat datang di aplikasi kami!
 
 #### **Pembagian peran** dalam mengerjakan modul masing-masing adalah sebagai berikut:
 
@@ -92,6 +88,8 @@ Aplikasi ini dirancang untuk memberdayakan pembaca untuk lebih mendalam dalam ek
 4. **Event Buddy** - [Nadhira Widyaniswari](https://github.com/NadhiraWidyaniswari)
 
 Sumber Data Set Buku: **Google Books API** 
+
+<hr>
 
 Beberapa hal yang perlu diperhatikan terkait hubungan antara proyek tengah semester dan akhir semester adalah:
 
