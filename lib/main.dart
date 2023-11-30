@@ -1,4 +1,5 @@
 import 'package:books_buddy/auth/screens/welcome.dart';
+import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -17,9 +18,12 @@ class MyApp extends StatelessWidget {
         CookieRequest request = CookieRequest();
         return request;
       },
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomePage(),
+        theme: ThemeData(
+          primaryColor: backgroundColour,
+        ),
+        home: const WelcomePage(),
       ),
     );
   }
