@@ -1,7 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
+import 'dart:convert';
+
+import 'package:books_buddy/auth/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class RegisterModal extends StatefulWidget {
   final BuildContext context;
@@ -25,6 +31,7 @@ class _RegisterModalState extends State<RegisterModal> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Wrap(
       children: [
         Container(
@@ -98,6 +105,17 @@ class _RegisterModalState extends State<RegisterModal> {
                           floatingLabelStyle: TextStyle(color: primaryColour),
                           prefixIcon: Icon(Icons.person_rounded),
                         ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _fullName = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 10,
@@ -117,24 +135,47 @@ class _RegisterModalState extends State<RegisterModal> {
                           floatingLabelStyle: TextStyle(color: primaryColour),
                           prefixIcon: Icon(Icons.person_outline_rounded),
                         ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _username = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: primaryColour, width: 2)),
-                            focusColor: primaryColour,
-                            hintText: "example@example.com",
-                            labelText: "Email",
-                            floatingLabelStyle: TextStyle(color: primaryColour),
-                            prefixIcon: Icon(Icons.email_rounded)),
+                              borderSide:
+                                  BorderSide(color: primaryColour, width: 2)),
+                          focusColor: primaryColour,
+                          hintText: "example@example.com",
+                          labelText: "Email",
+                          floatingLabelStyle: TextStyle(color: primaryColour),
+                          prefixIcon: Icon(Icons.email_rounded),
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _email = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 10,
@@ -178,29 +219,41 @@ class _RegisterModalState extends State<RegisterModal> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: primaryColour, width: 2)),
-                            focusColor: primaryColour,
-                            hintText: "********",
-                            labelText: "Password",
-                            floatingLabelStyle: TextStyle(color: primaryColour),
-                            prefixIcon: Icon(Icons.lock_rounded),
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _isVisible1 = !_isVisible1;
-                                });
-                              },
-                              child: !_isVisible1
-                                  ? Icon(Icons.visibility_rounded)
-                                  : Icon(Icons.visibility_off_rounded),
-                            )),
+                              borderSide:
+                                  BorderSide(color: primaryColour, width: 2)),
+                          focusColor: primaryColour,
+                          hintText: "********",
+                          labelText: "Password",
+                          floatingLabelStyle: TextStyle(color: primaryColour),
+                          prefixIcon: Icon(Icons.lock_rounded),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isVisible1 = !_isVisible1;
+                              });
+                            },
+                            child: !_isVisible1
+                                ? Icon(Icons.visibility_rounded)
+                                : Icon(Icons.visibility_off_rounded),
+                          ),
+                        ),
                         obscureText: !_isVisible1,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _password1 = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 10,
@@ -230,6 +283,20 @@ class _RegisterModalState extends State<RegisterModal> {
                                   : Icon(Icons.visibility_off_rounded),
                             )),
                         obscureText: !_isVisible2,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _password2 = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          if (value != _password1) {
+                            return "Password doesnt match!";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 25,
@@ -238,7 +305,50 @@ class _RegisterModalState extends State<RegisterModal> {
                         height: 60,
                         width: MediaQuery.of(context).size.width - 2 * 24,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                              final response = await request.postJson(
+                                "http://127.0.0.1:8000/auth/register/",
+                                jsonEncode(<String, String>{
+                                  'full_name': _fullName,
+                                  'username': _username,
+                                  'email': _email,
+                                  'status': _status!,
+                                  'password1': _password1,
+                                  'password2': _password2,
+                                }),
+                              );
+                              if (response['status']) {
+                                String message = response['message'];
+                                String uname = response['username'];
+                                // TODO: Ganti Ke App langsung
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Placeholder()),
+                                );
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(
+                                      content: Text(
+                                          "$message Selamat datang, $uname.")));
+                                _formKey.currentState!.reset();
+                              } else {
+                                String message = response['message'];
+                                Fluttertoast.showToast(
+                                  msg: message,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: primaryColour,
+                                  textColor: Colors.white,
+                                  webBgColor: "#DF760B",
+                                  webPosition: "center",
+                                );
+                              }
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: primaryColour,
                               shape: RoundedRectangleBorder(
@@ -264,7 +374,16 @@ class _RegisterModalState extends State<RegisterModal> {
                             ),
                           ),
                           InkWell(
-                            onTap: (){},
+                            onTap: () {
+                              Navigator.pop(context);
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return LoginModal(context);
+                                },
+                              );
+                            },
                             child: Text(
                               "Login",
                               style: defaultText.copyWith(

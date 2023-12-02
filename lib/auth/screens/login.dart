@@ -1,111 +1,263 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
+// import 'dart:convert';
+
+import 'package:books_buddy/auth/screens/register.dart';
+import 'package:books_buddy/auth/screens/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:books_buddy/shared/shared.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginApp extends StatelessWidget {
-  const LoginApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Login',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(),
-    );
-  }
-}
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginModal extends StatefulWidget {
+  final BuildContext context;
+  const LoginModal(this.context, {super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginModal> createState() => _LoginModalState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _LoginModalState extends State<LoginModal> {
+  final _formKey = GlobalKey<FormState>();
+  String _username = "";
+  String _password = "";
+
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Username',
-              ),
-            ),
-            const SizedBox(height: 12.0),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () async {
-                String username = _usernameController.text;
-                String password = _passwordController.text;
-
-                // Cek kredensial
-                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                // gunakan URL http://10.0.2.2/
-                final response =
-                    await request.login("http://<APP_URL_KAMU>/auth/login/", {
-                  'username': username,
-                  'password': password,
-                });
-
-                if (request.loggedIn) {
-                  String message = response['message'];
-                  String uname = response['username'];
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Placeholder()),
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                        content: Text("$message Selamat datang, $uname.")));
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Login Gagal'),
-                      content: Text(response['message']),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+    return Wrap(
+      children: [
+        Container(
+          color: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+                color: backgroundColour,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30))),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Welcome Back!",
+                                style: defaultText.copyWith(
+                                    fontSize: 20, color: blackColour),
+                              ),
+                              Text(
+                                "Login",
+                                style: defaultText.copyWith(
+                                    fontSize: 32,
+                                    color: primaryColour,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: Icon(Icons.cancel_outlined,
+                                      color: Colors.red)),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: primaryColour, width: 2)),
+                          focusColor: primaryColour,
+                          labelText: "Username",
+                          hintText: "Username",
+                          floatingLabelStyle: TextStyle(color: primaryColour),
+                          prefixIcon: Icon(Icons.person_rounded),
                         ),
-                      ],
-                    ),
-                  );
-                }
-              },
-              child: const Text('Login'),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _username = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: primaryColour, width: 2)),
+                          focusColor: primaryColour,
+                          hintText: "********",
+                          labelText: "Password",
+                          floatingLabelStyle: TextStyle(color: primaryColour),
+                          prefixIcon: Icon(Icons.lock_rounded),
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isVisible = !_isVisible;
+                              });
+                            },
+                            child: !_isVisible
+                                ? Icon(Icons.visibility_rounded)
+                                : Icon(Icons.visibility_off_rounded),
+                          ),
+                        ),
+                        obscureText: !_isVisible,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _password = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Required!";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      SizedBox(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width - 2 * 24,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final response = await request
+                                  .login("http://127.0.0.1:8000/auth/login/", {
+                                'username': _username,
+                                'password': _password,
+                              });
+
+                              if (request.loggedIn) {
+                                String message = response['message'];
+                                String uname = response['username'];
+
+                                // TODO: Navigasi ke main App
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WelcomePage()),
+                                );
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(SnackBar(
+                                      content: Text(
+                                          "$message Selamat datang, $uname.")));
+                              } else {
+                                String message = response['message'];
+
+                                Fluttertoast.showToast(
+                                  msg: message,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: primaryColour,
+                                  textColor: Colors.white,
+                                  webBgColor: "#DF760B",
+                                  webPosition: "center",
+                                );
+                              }
+                              _formKey.currentState!.reset();
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColour,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15))),
+                          child: Text(
+                            "Login",
+                            style: defaultText.copyWith(
+                                fontSize: 20, color: backgroundColour),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have an account? ",
+                            style: defaultText.copyWith(
+                              fontSize: 18,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return RegisterModal(context);
+                                },
+                              );
+                            },
+                            child: Text(
+                              "Register",
+                              style: defaultText.copyWith(
+                                fontSize: 18,
+                                color: primaryColour,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }

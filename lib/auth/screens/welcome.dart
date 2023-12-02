@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:books_buddy/auth/screens/login.dart';
+import 'package:books_buddy/auth/screens/register.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
@@ -46,76 +48,12 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   // NOTE: MENAMPILKAN MODAL REGISTER
                   showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return StatefulBuilder(builder:
-                            (BuildContext context, StateSetter setState) {
-                          return Wrap(
-                            children: [
-                              Container(
-                                color: Colors.transparent,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: secondaryColour,
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(30),
-                                          topRight: Radius.circular(30))),
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 24),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 25,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Hello...",
-                                                  style: defaultText.copyWith(
-                                                      fontSize: 20,
-                                                      color: blackColour),
-                                                ),
-                                                Text(
-                                                  "Register",
-                                                  style: defaultText.copyWith(
-                                                      fontSize: 32,
-                                                      color: blackColour,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Center(
-                                              child: InkWell(
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/close.png",
-                                                  height: 30,
-                                                  width: 30,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          );
-                        });
-                      });
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return RegisterModal(context);
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFDF760B),
@@ -136,7 +74,15 @@ class WelcomePage extends StatelessWidget {
               height: 60,
               width: MediaQuery.of(context).size.width - 2 * 24,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return LoginModal(context);
+                    },
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: backgroundColour,
                     shape: RoundedRectangleBorder(
