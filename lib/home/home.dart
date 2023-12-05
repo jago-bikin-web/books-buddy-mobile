@@ -19,36 +19,39 @@ class _HomePageState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PageProvider>(
-        builder: (context, pageProvider, child) => Scaffold(
-              backgroundColor: backgroundColour,
-              extendBody: true,
-              bottomNavigationBar: CurvedNavigationBar(
-                key: _bottomNavigationKey,
-                index: pageProvider.page,
-                height: 60.0,
-                items: <Widget>[
-                  Icon(Icons.list, size: 30),
-                  Icon(Icons.compare_arrows, size: 30),
-                  Icon(Icons.call_split, size: 30),
-                  Icon(Icons.perm_identity, size: 30),
-                ],
-                color: Colors.white,
-                buttonBackgroundColor: primaryColour,
-                backgroundColor: Colors.transparent,
-                animationCurve: Curves.easeInOut,
-                animationDuration: Duration(milliseconds: 300),
-                onTap: (index) {
-                  setState(() {
-                    pageProvider.setPage(index);
-                  });
-                },
-                letIndexChange: (index) => true,
-              ),
-              body: SafeArea(
-                bottom: false,
-                child: routing(pageProvider.page),
-              ),
-            ));
+      builder: (context, pageProvider, child) => Scaffold(
+        backgroundColor: backgroundColour,
+        extendBody: true,
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: pageProvider.page,
+          height: 55,
+          items: [
+            Icon(Icons.home_rounded, size: 30),
+            Icon(Icons.bookmark_outline_rounded, size: 30),
+            Icon(Icons.search_rounded, size: 30),
+            Icon(Icons.groups_2_outlined, size: 30),
+            Icon(Icons.calendar_today_rounded, size: 30),
+            Icon(Icons.perm_identity_rounded, size: 30),
+          ],
+          color: Colors.white,
+          buttonBackgroundColor: primaryColour,
+          backgroundColor: Colors.transparent,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 300),
+          onTap: (index) {
+            setState(() {
+              pageProvider.setPage(index);
+            });
+          },
+          letIndexChange: (index) => true,
+        ),
+        body: SafeArea(
+          bottom: false,
+          child: routing(pageProvider.page),
+        ),
+      ),
+    );
   }
 }
 

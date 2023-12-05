@@ -16,18 +16,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          Provider(
-            create: (_) {
-              CookieRequest request = CookieRequest();
-              return request;
-            },
-          ),
-          ChangeNotifierProvider(create: (context) => PageProvider(),),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: Home(),
-        ));
+      providers: [
+        Provider(
+          create: (_) {
+            CookieRequest request = CookieRequest();
+            return request;
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PageProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Home(),
+      ),
+    );
   }
 }

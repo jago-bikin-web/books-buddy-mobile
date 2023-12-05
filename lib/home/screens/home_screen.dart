@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:books_buddy/shared/page.dart';
+import 'package:books_buddy/home/widgets/book_section.dart';
+import 'package:books_buddy/home/widgets/moduls.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,7 +55,6 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Hi, FULL NAME USER!",
                 style: defaultText.copyWith(
-                  color: Colors.black,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -82,60 +81,15 @@ class _HomePageState extends State<HomePage> {
                       title: "Event Buddy", icon: Icons.calendar_today_rounded),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            BookSection(heading: "Discover More"),
+            SizedBox(
+              height: 50,
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class Moduls extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const Moduls({
-    Key? key,
-    required this.icon,
-    required this.title,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PageProvider>(
-      builder: (context, pageProvider, child) => Card(
-        color: Colors.white,
-        elevation: 2,
-        child: InkWell(
-          onTap: () {
-            pageProvider.setPage(3);
-          },
-          borderRadius: BorderRadius.circular(13),
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: SizedBox(
-              width: 85,
-              height: 80,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(icon),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: defaultText.copyWith(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-          ),
         ),
       ),
     );
