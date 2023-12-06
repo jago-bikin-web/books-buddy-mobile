@@ -3,7 +3,6 @@
 import 'package:books_buddy/auth/screens/login.dart';
 import 'package:books_buddy/auth/screens/register.dart';
 import 'package:books_buddy/shared/shared.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -103,15 +102,12 @@ class WelcomePage extends StatelessWidget {
               height: 60,
             ),
             Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  "© 2023 Books Buddy",
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(fontSize: 16),
-                    color: const Color(0xFFDF760B),
-                    fontWeight: FontWeight.w500,
-                  ),
-                )),
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                "© 2023 Books Buddy",
+                style: defaultText.copyWith(fontSize: 16, color: primaryColour),
+              ),
+            ),
           ],
         ),
       ),

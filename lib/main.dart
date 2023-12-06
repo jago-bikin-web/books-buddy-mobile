@@ -1,4 +1,7 @@
-import 'package:books_buddy/auth/screens/welcome.dart';
+// import 'package:books_buddy/auth/screens/welcome.dart';
+
+import 'package:books_buddy/home/home.dart';
+import 'package:books_buddy/shared/page.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +15,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) {
-        CookieRequest request = CookieRequest();
-        return request;
-      },
-      child: const MaterialApp(
+    return MultiProvider(
+      providers: [
+        Provider(
+          create: (_) {
+            CookieRequest request = CookieRequest();
+            return request;
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PageProvider(),
+        ),
+      ],
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: WelcomePage(),
+        home: Home(),
       ),
     );
   }
