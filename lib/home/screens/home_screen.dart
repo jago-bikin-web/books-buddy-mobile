@@ -86,6 +86,7 @@ class _HomePageState extends State<HomePage> {
               height: 24,
             ),
             BookSection(heading: "Discover More"),
+            BookSection(heading: "Your Collection"),
             SizedBox(
               height: 50,
             )
