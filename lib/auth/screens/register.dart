@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
+import 'dart:convert';
+
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/login.dart';
+import 'package:books_buddy/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
@@ -306,31 +310,31 @@ class _RegisterModalState extends State<RegisterModal> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                              final response = await request.login(
+                              final response = await request.postJson(
                                 "http://127.0.0.1:8000/auth/register/",
-                                {
+                                jsonEncode(<String, String>{
                                   'full_name': _fullName,
                                   'username': _username,
                                   'email': _email,
                                   'status': _status!,
                                   'password1': _password1,
                                   'password2': _password2,
-                                },
+                                }),
                               );
                               if (response['status']) {
-                                String message = response['message'];
-                                String uname = response['username'];
+                                
+                                logInUser = User.fromJson(response);
                                 // TODO: Ganti Ke App langsung
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Placeholder()),
+                                      builder: (context) => Home()),
                                 );
                                 ScaffoldMessenger.of(context)
                                   ..hideCurrentSnackBar()
                                   ..showSnackBar(SnackBar(
                                       content: Text(
-                                          "$message Selamat datang, $uname.")));
+                                          "${logInUser!.message} Selamat datang, ${logInUser!.fullName}.")));
                                 _formKey.currentState!.reset();
                               } else {
                                 // String message = response['message'];

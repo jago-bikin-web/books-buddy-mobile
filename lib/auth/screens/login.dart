@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/register.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:flutter/material.dart';
@@ -170,9 +171,7 @@ class _LoginModalState extends State<LoginModal> {
                               );
 
                               if (request.loggedIn) {
-                                String message = response['message'];
-                                String uname = response['username'];
-
+                                logInUser = User.fromJson(response);        
                                 // TODO: Navigasi ke main App
                                 Navigator.pushReplacement(
                                   context,
@@ -183,7 +182,7 @@ class _LoginModalState extends State<LoginModal> {
                                   ..hideCurrentSnackBar()
                                   ..showSnackBar(SnackBar(
                                       content: Text(
-                                          "$message Selamat datang, $uname.")));
+                                          "${logInUser!.message} Selamat datang, ${logInUser!.fullName}.")));
                               } else {
                                 // String message = response['message'];
 
