@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
 
-import 'dart:convert';
-
 import 'package:books_buddy/auth/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -308,16 +306,16 @@ class _RegisterModalState extends State<RegisterModal> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                              final response = await request.postJson(
+                              final response = await request.login(
                                 "http://127.0.0.1:8000/auth/register/",
-                                jsonEncode(<String, String>{
+                                {
                                   'full_name': _fullName,
                                   'username': _username,
                                   'email': _email,
                                   'status': _status!,
                                   'password1': _password1,
                                   'password2': _password2,
-                                }),
+                                },
                               );
                               if (response['status']) {
                                 String message = response['message'];
@@ -335,17 +333,17 @@ class _RegisterModalState extends State<RegisterModal> {
                                           "$message Selamat datang, $uname.")));
                                 _formKey.currentState!.reset();
                               } else {
-                                String message = response['message'];
-                                Fluttertoast.showToast(
-                                  msg: message,
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: primaryColour,
-                                  textColor: Colors.white,
-                                  webBgColor: "#DF760B",
-                                  webPosition: "center",
-                                );
+                                // String message = response['message'];
+                                // Fluttertoast.showToast(
+                                //   msg: message,
+                                //   toastLength: Toast.LENGTH_SHORT,
+                                //   gravity: ToastGravity.BOTTOM,
+                                //   timeInSecForIosWeb: 1,
+                                //   backgroundColor: primaryColour,
+                                //   textColor: Colors.white,
+                                //   webBgColor: "#DF760B",
+                                //   webPosition: "center",
+                                // );
                               }
                             }
                           },

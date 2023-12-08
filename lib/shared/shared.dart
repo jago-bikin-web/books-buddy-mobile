@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color backgroundColour = const Color(0xFFFAFAFA);
-Color primaryColour = const Color(0xFFDF760B);
-Color secondaryColour = const Color(0xFFF6B61E);
-Color tertiaryColour = const Color(0xFFFFEBAF);
-Color blackColour = const Color(0xFF0F0F0F);
+Color backgroundColour = const Color(0xFFF8E8E1);
+Color primaryColour = const Color(0xFFF8D038);
+Color secondaryColour = const Color(0xFFA08F65);
+Color tertiaryColour = const Color(0xFFC29B17);
+Color blackColour = const Color(0xFF1B3D2F);
 Color whiteColour = Colors.white;
+Gradient gradient = const LinearGradient(
+  colors: [
+    Color(0xffe9cf25),
+    Color(0xffdda90e),
+    Color(0xffbe7521),
+    Color(0xff995507)
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
 
 TextStyle defaultText = GoogleFonts.poppins(
     fontSize: 36, color: blackColour, fontWeight: FontWeight.w500);
