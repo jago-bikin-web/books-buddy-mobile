@@ -27,15 +27,39 @@ class _HomePageState extends State<Home> {
           index: pageProvider.page,
           height: 55,
           items: [
-            Icon(Icons.home_rounded, size: 30),
-            Icon(Icons.bookmark_outline_rounded, size: 30),
-            Icon(Icons.search_rounded, size: 30),
-            Icon(Icons.groups_2_outlined, size: 30),
-            Icon(Icons.calendar_today_rounded, size: 30),
-            Icon(Icons.perm_identity_rounded, size: 30),
+            Icon(
+              Icons.home_rounded,
+              size: 30,
+              color: tertiaryColour,
+            ),
+            Icon(
+              Icons.bookmark_outline_rounded,
+              size: 30,
+              color: tertiaryColour,
+            ),
+            Icon(
+              Icons.search_rounded,
+              size: 30,
+              color: tertiaryColour,
+            ),
+            Icon(
+              Icons.groups_2_outlined,
+              size: 30,
+              color: tertiaryColour,
+            ),
+            Icon(
+              Icons.calendar_today_rounded,
+              size: 30,
+              color: tertiaryColour,
+            ),
+            Icon(
+              Icons.perm_identity_rounded,
+              size: 30,
+              color: tertiaryColour,
+            ),
           ],
-          color: Colors.white,
-          buttonBackgroundColor: primaryColour,
+          color: secondaryColour,
+          buttonBackgroundColor: secondaryColour,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 300),
@@ -46,10 +70,16 @@ class _HomePageState extends State<Home> {
           },
           letIndexChange: (index) => true,
         ),
-        body: SafeArea(
-          bottom: false,
-          child: routing(pageProvider.page),
-        ),
+        body: Stack(children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: gradient,
+            ),
+          ),
+          routing(pageProvider.page),
+        ]),
       ),
     );
   }
