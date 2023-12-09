@@ -62,9 +62,12 @@ class WelcomePage extends StatelessWidget {
               const SizedBox(
                 height: 60,
               ),
-              SizedBox(
-                height: 60,
-                width: MediaQuery.of(context).size.width - 2 * 24,
+              Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width - 2 * 24,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    gradient: gradient),
                 child: ElevatedButton(
                   onPressed: () {
                     // NOTE: MENAMPILKAN MODAL REGISTER
@@ -77,7 +80,8 @@ class WelcomePage extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColour,
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       )),

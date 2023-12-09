@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous, use_build_context_synchronously
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/register.dart';
@@ -77,7 +77,7 @@ class _LoginModalState extends State<LoginModal> {
                                   height: 30,
                                   width: 30,
                                   child: Icon(Icons.cancel_outlined,
-                                      color: Colors.red)),
+                                      color: primaryColour)),
                             ),
                           )
                         ],
@@ -156,14 +156,17 @@ class _LoginModalState extends State<LoginModal> {
                       const SizedBox(
                         height: 25,
                       ),
-                      SizedBox(
+                      Container(
                         height: 60,
                         width: MediaQuery.of(context).size.width - 2 * 24,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: gradient),
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final response = await request.login(
-                                "http://127.0.0.1:8000/auth/login/",
+                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/login/",
                                 {
                                   'username': _username,
                                   'password': _password,
@@ -171,7 +174,7 @@ class _LoginModalState extends State<LoginModal> {
                               );
 
                               if (request.loggedIn) {
-                                logInUser = User.fromJson(response);        
+                                logInUser = User.fromJson(response);
                                 // TODO: Navigasi ke main App
                                 Navigator.pushReplacement(
                                   context,
@@ -202,7 +205,8 @@ class _LoginModalState extends State<LoginModal> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColour,
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15))),
                           child: Text(

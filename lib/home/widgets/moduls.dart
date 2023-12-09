@@ -15,10 +15,11 @@ class Moduls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double size = (MediaQuery.of(context).size.width - 160);
     return Consumer<PageProvider>(
       builder: (context, pageProvider, child) => Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: backgroundColour,
             borderRadius: BorderRadius.circular(13),
             boxShadow: const [
               BoxShadow(
@@ -42,7 +43,7 @@ class Moduls extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: SizedBox(
-              width: 85,
+              width: size/4,
               height: 80,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

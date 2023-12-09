@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/widgets/book_section.dart';
 import 'package:books_buddy/home/widgets/moduls.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -19,56 +20,83 @@ class _HomePageState extends State<HomePage> {
       bottom: false,
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 60,
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 24),
+              height: 40,
+              decoration: BoxDecoration(
+                  color: backgroundColour,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.elliptical(64, 32),
+                      bottomRight: Radius.elliptical(64, 32))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/logo.png",
+                      height: 30,
+                      width: 30,
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      "Books Buddy",
+                      style: defaultText.copyWith(
+                        color: primaryColour,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    "assets/images/logo.png",
-                    height: 30,
-                    width: 30,
-                    fit: BoxFit.contain,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hi, FULL NAME!",
+                        style: defaultText.copyWith(
+                            color: backgroundColour,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "username",
+                        style: defaultText.copyWith(
+                            fontSize: 16, color: Colors.black87),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    "Books Buddy",
-                    style: defaultText.copyWith(
-                      color: primaryColour,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: GestureDetector(
+                      child: Image.network("https://i.pravatar.cc/48?img=20"),
                     ),
                   )
                 ],
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                "Hi, FULL NAME USER!",
-                style: defaultText.copyWith(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 24,
-                vertical: 20,
               ),
-              child: Divider(),
+              child: Divider(
+                color: primaryColour,
+                thickness: 2,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.all(24),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -82,13 +110,28 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 24,
-            ),
-            BookSection(heading: "Discover More"),
-            BookSection(heading: "Your Collection"),
-            SizedBox(
-              height: 50,
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.elliptical(64, 32),
+                      topRight: Radius.elliptical(64, 32)),
+                  color: backgroundColour),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 24, bottom: 50),
+                child: Column(
+                  children: [
+                    BookSection(
+                      heading: "Discover More",
+                      url: "http://127.0.0.1:8000/api/get-random/",
+                    ),
+                    BookSection(
+                      heading: "Your Collection",
+                      url: "http://127.0.0.1:8000/api/get-random/",
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
