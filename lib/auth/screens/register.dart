@@ -314,7 +314,7 @@ class _RegisterModalState extends State<RegisterModal> {
                             if (_formKey.currentState!.validate()) {
                               // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                               final response = await request.postJson(
-                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/register/",
+                                "http://127.0.0.1:8000/auth/register/",
                                 jsonEncode(<String, String>{
                                   'full_name': _fullName,
                                   'username': _username,

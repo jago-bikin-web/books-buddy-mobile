@@ -92,11 +92,11 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                 itemBuilder: (context, index) {
                   String title = snapshot.data![index].fields.title;
                   String subTitle =
-                      (title.length < 12) ? title : title.substring(0, 12);
+                      (title.length < 12) ? title : "${title.substring(0, 12)}...";
                   String authors = snapshot.data![index].fields.authors;
                   String subAuthors = (authors.length < 12)
                       ? authors
-                      : authors.substring(0, 12);
+                      : "${authors.substring(0, 12)}...";
                   return GestureDetector(
                     onTap: () {},
                     child: Row(
@@ -157,7 +157,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                               height: 16,
                             ),
                             Text(
-                              "$subTitle...",
+                              subTitle,
                               style: defaultText.copyWith(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -167,7 +167,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                               height: 2,
                             ),
                             Text(
-                              "$subAuthors...",
+                              subAuthors,
                               style: defaultText.copyWith(
                                 fontSize: 12,
                               ),

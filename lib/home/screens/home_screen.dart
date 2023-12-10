@@ -3,6 +3,7 @@
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/widgets/book_section.dart';
 import 'package:books_buddy/home/widgets/moduls.dart';
+import 'package:books_buddy/home/widgets/photo_profile.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -76,13 +77,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: GestureDetector(
-                      child: Image.network("https://i.pravatar.cc/48?img=20"),
-                    ),
-                  )
+                  PhotoProfile(image: "https://i.pravatar.cc/48?img=20"),
                 ],
               ),
             ),

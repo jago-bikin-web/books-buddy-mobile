@@ -2,7 +2,6 @@
 
 // ignore_for_file: prefer_const_constructors
 
-// import 'package:books_buddy/auth/screens/welcome.dart';
 import 'package:books_buddy/auth/screens/welcome.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:books_buddy/shared/page.dart';
