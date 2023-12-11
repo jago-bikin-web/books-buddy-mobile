@@ -121,7 +121,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     BookSection(
                       heading: "Your Collection",
-                      url: "http://127.0.0.1:8000/api/get-random/",
+                      url: "http://127.0.0.1:8000/mybuddy/get-own-book/?username=${logInUser?.username}",
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -135,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     BookSectionDown(
                       url: "http://127.0.0.1:8000/api/get-random/",
-                    )
+                    ),
                   ],
                 ),
               ),
