@@ -2,6 +2,7 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/welcome.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:books_buddy/shared/page.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logInUser = null;
     return MultiProvider(
       providers: [
         Provider(
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Home(),
+        home: WelcomePage(),
       ),
     );
   }

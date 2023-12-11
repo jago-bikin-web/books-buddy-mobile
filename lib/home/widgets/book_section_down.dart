@@ -38,7 +38,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
     var response = await http.get(
       Uri.parse(widget.url),
       headers: {"Content-Type": "application/json"},
-    );
+    ); 
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
@@ -79,11 +79,11 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   String title = snapshot.data![index].fields.title;
-                  String subTitle = (title.length < 32)
+                  String subTitle = (title.length <= 32)
                       ? title
                       : "${title.substring(0, 32)}...";
                   String authors = snapshot.data![index].fields.authors;
-                  String subAuthors = (authors.length < 20)
+                  String subAuthors = (authors.length <= 20)
                       ? authors
                       : "${authors.substring(0, 20)}...";
                   return GestureDetector(
@@ -161,6 +161,19 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                   ),
                                   Row(
                                     children: [
+                                      Icon(
+                                        Icons.star_border_rounded,
+                                        color: primaryColour,
+                                      ),
+                                      Text(
+                                        snapshot
+                                            .data![index].fields.averageRating.toString(),
+                                        style: defaultText.copyWith(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text("• With ${snapshot
+                                            .data![index].fields.ratingsCount.toString()} Rate Count", style: defaultText.copyWith(fontSize: 10, color: Colors.black54),),
                                       Expanded(
                                         child: Text(
                                           snapshot

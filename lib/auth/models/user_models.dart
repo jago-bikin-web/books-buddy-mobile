@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-User? logInUser;
+late User? logInUser;
 
 User userFromJson(String str) => User.fromJson(json.decode(str));
 

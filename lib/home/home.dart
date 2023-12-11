@@ -2,6 +2,7 @@
 
 import 'package:books_buddy/home/screens/home_screen.dart';
 import 'package:books_buddy/home/screens/profile.dart';
+import 'package:books_buddy/mybuddy/screens/mybuddy.dart';
 import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _HomePageState extends State<Home> {
 
 Widget routing(int index) {
   if (index == 0) return HomePage();
-  if (index == 1) return Placeholder();
+  if (index == 1) return MyBuddy();
   if (index == 2) return Placeholder();
   if (index == 3) return Placeholder();
   if (index == 4) return Placeholder();
