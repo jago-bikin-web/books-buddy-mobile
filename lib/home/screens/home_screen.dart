@@ -2,7 +2,9 @@
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/widgets/book_section.dart';
+import 'package:books_buddy/home/widgets/book_section_down.dart';
 import 'package:books_buddy/home/widgets/moduls.dart';
+import 'package:books_buddy/home/widgets/photo_profile.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -76,13 +78,8 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: GestureDetector(
-                      child: Image.network("https://i.pravatar.cc/48?img=20"),
-                    ),
-                  )
+                  // TODO: Integrasiin sama yang udah login
+                  PhotoProfile(image: "https://i.pravatar.cc/48?img=20"),
                 ],
               ),
             ),
@@ -120,19 +117,32 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 24, bottom: 50),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BookSection(
-                      heading: "Discover More",
-                      url: "http://127.0.0.1:8000/api/get-random/",
-                    ),
-                    BookSection(
                       heading: "Your Collection",
+                      url: "http://127.0.0.1:8000/mybuddy/get-own-book/?username=${logInUser?.username}",
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        "Discover More",
+                        style: defaultText.copyWith(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    BookSectionDown(
                       url: "http://127.0.0.1:8000/api/get-random/",
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

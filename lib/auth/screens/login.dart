@@ -166,7 +166,7 @@ class _LoginModalState extends State<LoginModal> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final response = await request.login(
-                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/login/",
+                                "http://127.0.0.1:8000/auth/login/",
                                 {
                                   'username': _username,
                                   'password': _password,
@@ -175,6 +175,7 @@ class _LoginModalState extends State<LoginModal> {
 
                               if (request.loggedIn) {
                                 logInUser = User.fromJson(response);
+                                
                                 // TODO: Navigasi ke main App
                                 Navigator.pushReplacement(
                                   context,
