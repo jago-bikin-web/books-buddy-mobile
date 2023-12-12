@@ -93,10 +93,11 @@ class _UpdateModalState extends State<UpdateModal> {
                                 Navigator.pop(context, false);
                               },
                               child: SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: Icon(Icons.cancel_outlined,
-                                      color: primaryColour)),
+                                height: 30,
+                                width: 30,
+                                child: Icon(Icons.cancel_outlined,
+                                    color: primaryColour),
+                              ),
                             ),
                           )
                         ],
@@ -270,7 +271,7 @@ class _UpdateModalState extends State<UpdateModal> {
                               );
 
                               Navigator.pop(context, true);
-                              
+
                               _formKey.currentState!.reset();
                             }
                           },

@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:books_buddy/mybuddy/models/own_book_models.dart';
+import 'package:books_buddy/mybuddy/screens/reviewbook.dart';
 import 'package:books_buddy/mybuddy/screens/udpatebook.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -126,11 +127,6 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                   String subAuthors = (authors.length <= 24)
                       ? authors
                       : "${authors.substring(0, 24)}...";
-
-                  String ulasan = snapshot.data![index].ulasan;
-                  String subUlasan = ulasan.isEmpty
-                      ? "Looks like you haven't reviewed this book yet."
-                      : ulasan;
                   return GestureDetector(
                     onTap: () async {
                       final result = await showModalBottomSheet(
@@ -225,55 +221,65 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 8,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Review",
-                                        style: defaultText.copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 33,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.vertical,
-                                          physics: BouncingScrollPhysics(),
-                                          child: Text(
-                                            subUlasan,
-                                            style: defaultText.copyWith(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w300),
-                                            textAlign: TextAlign.justify,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          height: 20,
+                                          height: 30,
+                                          width: 90,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 1.5),
                                           decoration: BoxDecoration(
-                                            color: primaryColour,
+                                            color: whiteColour,
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                                BorderRadius.circular(20),
                                           ),
-                                          child: Text(
-                                            snapshot.data![index].status,
-                                            style: defaultText.copyWith(
-                                              color: backgroundColour,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
+                                          child: Center(
+                                            child: Text(
+                                              snapshot.data![index].status,
+                                              style: defaultText.copyWith(
+                                                color: primaryColour,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              builder: (context) {
+                                                return ReviewModal(
+                                                  context,
+                                                  book: snapshot.data![index],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: 90,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 1.5),
+                                            decoration: BoxDecoration(
+                                              color: primaryColour,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "Review",
+                                                style: defaultText.copyWith(
+                                                  color: backgroundColour,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -287,15 +293,17 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                               flex: 1,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Spacer(),
                                   Container(
+                                    height: 160,
                                     decoration: BoxDecoration(
                                       color: primaryColour.withOpacity(0.65),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         GestureDetector(
                                           onTap: () async {
@@ -322,18 +330,29 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                             ),
-                                            child: Icon(
-                                              Icons.arrow_drop_up_rounded,
-                                            ),
+                                            child: Image.asset(
+                                                "assets/images/panah_atas.png"),
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Text(
+                                          "PAGE",
+                                          style: defaultText.copyWith(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                            color: whiteColour,
                                           ),
                                         ),
                                         Text(
                                           snapshot.data![index].pageTrack
                                               .toString(),
                                           style: defaultText.copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: whiteColour,
+                                          ),
                                         ),
+                                        Spacer(),
                                         GestureDetector(
                                           onTap: () async {
                                             await http.patch(
@@ -359,22 +378,11 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            child: Icon(
-                                                Icons.arrow_drop_down_rounded),
+                                            child: Image.asset(
+                                                "assets/images/panah_bawah.png"),
                                           ),
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    snapshot.data![index].publishedDate
-                                        .toString()
-                                        .substring(0, 4),
-                                    textAlign: TextAlign.end,
-                                    style: defaultText.copyWith(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
