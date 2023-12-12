@@ -40,14 +40,13 @@ class _LoginModalState extends State<LoginModal> {
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
+                padding: EdgeInsets.only(
+                  top: 50, bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
                       Row(
                         children: [
                           Column(
