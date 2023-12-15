@@ -147,19 +147,10 @@ class _UpdateModalState extends State<UpdateModal> {
                         ],
                       ),
                       TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: primaryColour, width: 2)),
-                          focusColor: primaryColour,
-                          labelText: "Page",
+                        decoration: inputDecoration(
                           hintText: widget.book.pageTrack.toString(),
-                          floatingLabelStyle: TextStyle(color: primaryColour),
-                          prefixIcon: Icon(Icons.book_rounded),
+                          labelText: "Page",
+                          prefixIcon: Icons.book_rounded,
                         ),
                         onChanged: (String? value) {
                           if (value != null && value.isNotEmpty) {
@@ -205,18 +196,8 @@ class _UpdateModalState extends State<UpdateModal> {
                           Icons.arrow_drop_down_circle_rounded,
                           color: primaryColour,
                         ),
-                        decoration: InputDecoration(
-                          focusColor: primaryColour,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: primaryColour, width: 2)),
-                          labelText: "Status",
-                          floatingLabelStyle: TextStyle(color: primaryColour),
-                        ),
+                        decoration: inputDecoration(
+                            labelText: "Status", prefixIcon: null),
                       ),
                       const SizedBox(
                         height: 10,
@@ -225,18 +206,10 @@ class _UpdateModalState extends State<UpdateModal> {
                         minLines: 4,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: primaryColour, width: 2)),
-                          focusColor: primaryColour,
-                          labelText: "Review",
+                        decoration: inputDecoration(
                           hintText: widget.book.ulasan,
-                          floatingLabelStyle: TextStyle(color: primaryColour),
+                          labelText: "Review",
+                          prefixIcon: null,
                         ),
                         onChanged: (String? value) {
                           setState(() {

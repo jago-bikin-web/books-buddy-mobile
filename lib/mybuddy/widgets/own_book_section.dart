@@ -419,7 +419,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                                     horizontal: 10,
                                                     vertical: 1.5),
                                                 decoration: BoxDecoration(
-                                                  color: primaryColour,
+                                                  color: primaryColour.withOpacity(0.65),
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
