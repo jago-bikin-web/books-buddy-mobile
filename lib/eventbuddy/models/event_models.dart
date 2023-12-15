@@ -9,61 +9,57 @@ List<Event> eventFromJson(String str) => List<Event>.from(json.decode(str).map((
 String eventToJson(List<Event> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Event {
-    String model;
-    int pk;
-    Fields fields;
+    String bookThumbnail;
+    String eventName;
+    String eventDescription;
+    DateTime eventDate;
+    String eventUserName;
+    String eventUserEmail;
+    List<EventParticipant> eventParticipants;
 
     Event({
-        required this.model,
-        required this.pk,
-        required this.fields,
+        required this.bookThumbnail,
+        required this.eventName,
+        required this.eventDescription,
+        required this.eventDate,
+        required this.eventUserName,
+        required this.eventUserEmail,
+        required this.eventParticipants,
     });
 
     factory Event.fromJson(Map<String, dynamic> json) => Event(
-        model: json["model"],
-        pk: json["pk"],
-        fields: Fields.fromJson(json["fields"]),
+        bookThumbnail: json["book_thumbnail"],
+        eventName: json["event_name"],
+        eventDescription: json["event_description"],
+        eventDate: DateTime.parse(json["event_date"]),
+        eventUserName: json["event_user_name"],
+        eventUserEmail: json["event_user_email"],
+        eventParticipants: List<EventParticipant>.from(json["event_participants"].map((x) => EventParticipant.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "model": model,
-        "pk": pk,
-        "fields": fields.toJson(),
+        "book_thumbnail": bookThumbnail,
+        "event_name": eventName,
+        "event_description": eventDescription,
+        "event_date": eventDate,
+        "event_user_name": eventUserName,
+        "event_user_email": eventUserEmail,
+        "event_participants": List<dynamic>.from(eventParticipants.map((x) => x.toJson())),
     };
 }
 
-class Fields {
-    int book;
-    int user;
-    String name;
-    DateTime date;
-    String description;
-    List<int> participant;
+class EventParticipant {
+    String participantName;
 
-    Fields({
-        required this.book,
-        required this.user,
-        required this.name,
-        required this.date,
-        required this.description,
-        required this.participant,
+    EventParticipant({
+        required this.participantName,
     });
 
-    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        book: json["book"],
-        user: json["user"],
-        name: json["name"],
-        date: DateTime.parse(json["date"]),
-        description: json["description"],
-        participant: List<int>.from(json["participant"].map((x) => x)),
+    factory EventParticipant.fromJson(Map<String, dynamic> json) => EventParticipant(
+        participantName: json["participant_name"],
     );
 
     Map<String, dynamic> toJson() => {
-        "book": book,
-        "user": user,
-        "name": name,
-        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-        "description": description,
-        "participant": List<dynamic>.from(participant.map((x) => x)),
+        "participant_name": participantName,
     };
 }
