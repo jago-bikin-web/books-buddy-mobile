@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:books_buddy/findbuddy/widgets/book_section.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class FindBuddy extends StatefulWidget {
 }
 
 class _FindBuddyState extends State<FindBuddy> {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,23 +53,9 @@ class _FindBuddyState extends State<FindBuddy> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: primaryColour.withOpacity(0.2),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: "eg: Tanah Para Bedebah",
-                          prefixIcon: Icon(Icons.search_rounded)
-                        ),
-                      ),
-                    ),
                   ],
                 ),
+                BookSection(),
                 SizedBox(
                   height: 60,
                 )

@@ -45,7 +45,7 @@ class Fields {
     String isbn10;
     int pageCount;
     String categories;
-    int averageRating;
+    double averageRating;
     int ratingsCount;
     String smallThumbnail;
     String thumbnail;

@@ -100,14 +100,6 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          "Let's enrich My Buddy together by adding your favorite books!",
-                          style: defaultText.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        )
                       ],
                     ),
                   ),
@@ -116,7 +108,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
             }
             return SizedBox(
               height: 200 * snapshot.data!.length / 1 -
-                  (18.2 * snapshot.data!.length) +
+                  (19 * snapshot.data!.length) +
                   50,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,

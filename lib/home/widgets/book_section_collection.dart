@@ -77,9 +77,10 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           return Center(
-              child: CircularProgressIndicator(
-            color: primaryColour,
-          ));
+            child: CircularProgressIndicator(
+              color: primaryColour,
+            ),
+          );
         } else {
           if (!snapshot.hasData) {
             return Column(
