@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:books_buddy/auth/models/user_models.dart';
-import 'package:books_buddy/home/widgets/book_section.dart';
+import 'package:books_buddy/home/widgets/book_section_collection.dart';
 import 'package:books_buddy/home/widgets/book_section_down.dart';
 import 'package:books_buddy/home/widgets/moduls.dart';
 import 'package:books_buddy/home/widgets/photo_profile.dart';

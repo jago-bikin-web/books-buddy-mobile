@@ -2,6 +2,7 @@
 
 
 import 'package:books_buddy/eventbuddy/screens/event_list.dart';
+import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
 import 'package:books_buddy/reachbuddy/screens/reachbuddy.dart';
 import 'package:books_buddy/home/screens/home_screen.dart';
 import 'package:books_buddy/home/screens/profile.dart';
@@ -93,7 +94,7 @@ class _HomePageState extends State<Home> {
 Widget routing(int index) {
   if (index == 0) return HomePage();
   if (index == 1) return MyBuddy();
-  if (index == 2) return Placeholder();
+  if (index == 2) return FindBuddy();
   if (index == 3) return ThreadsPage();
   if (index == 4) return EventPage();
   return ProfileScreen();
