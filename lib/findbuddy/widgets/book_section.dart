@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:books_buddy/findbuddy/screens/displaybook.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/mybuddy/widgets/chip_filter.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -208,11 +209,17 @@ class _BookSectionState extends State<BookSection> {
                             : "${authors.substring(0, 20)}...";
                         return GestureDetector(
                           onTap: () {
-                            _navigateToBookDetailPage(snapshot.data![index]);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookDisplay(
+                                  book: snapshot.data![index],
+                                ),
+                              ),
+                            );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10),
+                            padding: EdgeInsets.symmetric(vertical: 10),
                             child: Container(
                               height: 160,
                               padding: EdgeInsets.all(10),
