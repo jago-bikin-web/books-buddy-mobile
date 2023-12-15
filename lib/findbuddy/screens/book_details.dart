@@ -7,15 +7,48 @@ class BooksDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> categories = books.fields.categories.split(',');
+
+    String getLanguageDisplayName(String languageCode) {
+      if (languageCode.toLowerCase() == 'en') {
+        return 'English';
+      } else if (languageCode.toLowerCase() == 'id') {
+        return 'Bahasa Indonesia';
+      } else {
+        return languageCode; // Jika bukan 'en' atau 'id', kembalikan nilainya tanpa perubahan
+      }
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-                "assets/images/not-found.png",
+            SizedBox(height: 16),
+           Padding(
+              padding: EdgeInsets.only(left: 16.0), // Ubah nilai sesuai dengan kebutuhan jarak
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: ElevatedButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white, // Warna ikon
+                  ),
+                  label: Text(''), // Tidak perlu label karena tombol tanpa teks
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.orange, // Warna latar belakang
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: Image.network(
+                '${books.fields.thumbnail}',
                 height: 150,
               ),
+            ),
             Padding(
               padding: EdgeInsets.all(16),
               child: Column(
@@ -31,6 +64,26 @@ class BooksDetailPage extends StatelessWidget {
                     '${books.fields.authors}',
                     style: TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8.0, // Adjust the spacing between chips
+                    children: categories.map((category) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 255, 164, 36),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        child: Text(
+                          category.trim(),
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      );
+                    }).toList(),
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -54,11 +107,7 @@ class BooksDetailPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   ),
                   Text(
-                    'Language: ${books.fields.language}',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Buy Link: ${books.fields.buyLink}',
+                    'Language: ${getLanguageDisplayName(books.fields.language)}',
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 20),
@@ -79,10 +128,6 @@ class BooksDetailPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('Back to Findbuddy'),
                   ),
                 ],
               ),
