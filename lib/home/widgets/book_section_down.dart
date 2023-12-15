@@ -33,6 +33,8 @@ class BookSectionBuilder extends StatefulWidget {
 }
 
 class _BookSectionBuilderState extends State<BookSectionBuilder> {
+  late Future<List<Books>> _data;
+
   Future<List<Books>> fetchBooks() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
@@ -54,9 +56,15 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _data = fetchBooks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchBooks(),
+      future: _data,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           return Center(
@@ -92,14 +100,6 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          "Let's enrich My Buddy together by adding your favorite books!",
-                          style: defaultText.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        )
                       ],
                     ),
                   ),
@@ -108,7 +108,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
             }
             return SizedBox(
               height: 200 * snapshot.data!.length / 1 -
-                  (18.2 * snapshot.data!.length) +
+                  (19 * snapshot.data!.length) +
                   50,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
