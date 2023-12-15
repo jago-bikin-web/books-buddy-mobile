@@ -39,10 +39,13 @@ class WelcomePage extends StatelessWidget {
           ListView(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             children: [
+              SizedBox(
+                height: 30,
+              ),
               Image.asset(
                 "assets/images/welcome.png",
-                height: 333,
-                fit: BoxFit.fill,
+                height: 300,
+                fit: BoxFit.contain,
               ),
               const SizedBox(
                 height: 15,

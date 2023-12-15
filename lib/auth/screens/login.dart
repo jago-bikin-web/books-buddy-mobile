@@ -40,14 +40,13 @@ class _LoginModalState extends State<LoginModal> {
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
+                padding: EdgeInsets.only(
+                    top: 25, bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
                       Row(
                         children: [
                           Column(
@@ -86,19 +85,10 @@ class _LoginModalState extends State<LoginModal> {
                         height: 25,
                       ),
                       TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: primaryColour, width: 2)),
-                          focusColor: primaryColour,
-                          labelText: "Username",
+                        decoration: inputDecoration(
                           hintText: "Username",
-                          floatingLabelStyle: TextStyle(color: primaryColour),
-                          prefixIcon: Icon(Icons.person_rounded),
+                          labelText: "Username",
+                          prefixIcon: Icons.person_outline_rounded,
                         ),
                         onChanged: (String? value) {
                           setState(() {
@@ -117,18 +107,37 @@ class _LoginModalState extends State<LoginModal> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: primaryColour.withOpacity(0.1),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: primaryColour, width: 2)),
-                          focusColor: primaryColour,
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: primaryColour, width: 2),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2),
+                          ),
                           hintText: "********",
                           labelText: "Password",
-                          floatingLabelStyle: TextStyle(color: primaryColour),
-                          prefixIcon: Icon(Icons.lock_rounded),
+                          labelStyle: defaultText.copyWith(
+                              fontSize: 14,
+                              color: blackColour,
+                              fontWeight: FontWeight.w600),
+                          floatingLabelStyle: defaultText.copyWith(
+                              fontSize: 14,
+                              color: primaryColour,
+                              fontWeight: FontWeight.bold),
+                          focusColor: primaryColour,
+                          prefixIcon: Icon(
+                            Icons.lock_rounded,
+                            color: tertiaryColour,
+                          ),
                           suffixIcon: InkWell(
                             onTap: () {
                               setState(() {
@@ -136,8 +145,14 @@ class _LoginModalState extends State<LoginModal> {
                               });
                             },
                             child: !_isVisible
-                                ? Icon(Icons.visibility_rounded)
-                                : Icon(Icons.visibility_off_rounded),
+                                ? Icon(
+                                    Icons.visibility_rounded,
+                                    color: blackColour,
+                                  )
+                                : Icon(
+                                    Icons.visibility_off_rounded,
+                                    color: blackColour,
+                                  ),
                           ),
                         ),
                         obscureText: !_isVisible,
@@ -166,7 +181,7 @@ class _LoginModalState extends State<LoginModal> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final response = await request.login(
-                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/login/",
+                                "http://127.0.0.1:8000/auth/login/",
                                 {
                                   'username': _username,
                                   'password': _password,
@@ -175,6 +190,7 @@ class _LoginModalState extends State<LoginModal> {
 
                               if (request.loggedIn) {
                                 logInUser = User.fromJson(response);
+
                                 // TODO: Navigasi ke main App
                                 Navigator.pushReplacement(
                                   context,

@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:books_buddy/home/models/book_models.dart';
+import 'package:books_buddy/mybuddy/models/own_book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -44,7 +44,7 @@ class BookSectionBuilder extends StatefulWidget {
 }
 
 class _BookSectionBuilderState extends State<BookSectionBuilder> {
-  Future<List<Books>> fetchBooks() async {
+  Future<List<OwnBooks>> fetchBooks() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(widget.url),
@@ -53,25 +53,34 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-    List<Books> listRandomBooks = [];
+    List<OwnBooks> listRandomBooks = [];
     for (var book in data) {
       if (book != null) {
-        listRandomBooks.add(Books.fromJson(book));
+        listRandomBooks.add(OwnBooks.fromJson(book));
       }
     }
     return listRandomBooks;
   }
 
+  late Future<List<OwnBooks>> _data;
+
+  @override
+  void initState() {
+    super.initState();
+    _data = fetchBooks();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchBooks(),
+      future: _data,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           return Center(
-              child: CircularProgressIndicator(
-            color: primaryColour,
-          ));
+            child: CircularProgressIndicator(
+              color: primaryColour,
+            ),
+          );
         } else {
           if (!snapshot.hasData) {
             return Column(
@@ -84,19 +93,51 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
               ],
             );
           } else {
+            if (snapshot.data!.length == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/not-found.png",
+                          height: 150,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Let's enrich My Buddy together by adding your favorite books!",
+                          style: defaultText.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
             return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.3,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  String title = snapshot.data![index].fields.title;
-                  String subTitle =
-                      (title.length < 12) ? title : title.substring(0, 12);
-                  String authors = snapshot.data![index].fields.authors;
-                  String subAuthors = (authors.length < 12)
+                  String title = snapshot.data![index].title;
+                  String subTitle = (title.length <= 12)
+                      ? title
+                      : "${title.substring(0, 12)}...";
+                  String authors = snapshot.data![index].authors;
+                  String subAuthors = (authors.length <= 12)
                       ? authors
-                      : authors.substring(0, 12);
+                      : "${authors.substring(0, 12)}...";
                   return GestureDetector(
                     onTap: () {},
                     child: Row(
@@ -108,8 +149,8 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                 top: 10,
                                 left: 5,
                               ),
-                              height: MediaQuery.of(context).size.height * 0.27,
-                              width: MediaQuery.of(context).size.width * 0.33,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              width: MediaQuery.of(context).size.width * 0.3,
                               child: Stack(
                                 children: [
                                   Container(
@@ -128,7 +169,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(
-                                        "${snapshot.data![index].fields.thumbnail}",
+                                        "${snapshot.data![index].thumbnail}",
                                         fit: BoxFit.fill,
                                       ),
                                     ),
@@ -157,7 +198,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                               height: 16,
                             ),
                             Text(
-                              "$subTitle...",
+                              subTitle,
                               style: defaultText.copyWith(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -167,7 +208,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                               height: 2,
                             ),
                             Text(
-                              "$subAuthors...",
+                              subAuthors,
                               style: defaultText.copyWith(
                                 fontSize: 12,
                               ),
