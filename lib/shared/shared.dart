@@ -23,3 +23,35 @@ Gradient gradient = const LinearGradient(
 
 TextStyle defaultText = GoogleFonts.poppins(
     fontSize: 36, color: blackColour, fontWeight: FontWeight.w500);
+
+InputDecoration inputDecoration({hintText, labelText, prefixIcon}) {
+  return InputDecoration(
+    filled: true,
+    fillColor: primaryColour.withOpacity(0.2),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide.none,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: primaryColour, width: 2),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.red, width: 2),
+    ),
+    hintText: hintText,
+    labelText: labelText,
+    labelStyle: defaultText.copyWith(
+        fontSize: 14, color: blackColour),
+    floatingLabelStyle: defaultText.copyWith(
+        fontSize: 14, color: primaryColour, fontWeight: FontWeight.w600),
+    focusColor: primaryColour,
+    prefixIcon: prefixIcon != null
+        ? Icon(
+            prefixIcon,
+            color: tertiaryColour,
+          )
+        : null,
+  );
+}

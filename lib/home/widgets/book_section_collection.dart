@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/mybuddy/models/own_book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -63,16 +62,25 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
     return listRandomBooks;
   }
 
+  late Future<List<OwnBooks>> _data;
+
+  @override
+  void initState() {
+    super.initState();
+    _data = fetchBooks();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchBooks(),
+      future: _data,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           return Center(
-              child: CircularProgressIndicator(
-            color: primaryColour,
-          ));
+            child: CircularProgressIndicator(
+              color: primaryColour,
+            ),
+          );
         } else {
           if (!snapshot.hasData) {
             return Column(
@@ -142,7 +150,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                 left: 5,
                               ),
                               height: MediaQuery.of(context).size.height * 0.2,
-                              width: MediaQuery.of(context).size.width * 0.33,
+                              width: MediaQuery.of(context).size.width * 0.3,
                               child: Stack(
                                 children: [
                                   Container(
