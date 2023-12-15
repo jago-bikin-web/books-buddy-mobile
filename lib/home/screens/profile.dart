@@ -150,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                               String message = response["message"];
                               if (response['status']) {
                                 logInUser = null;
-                                pageProvider.setPage(0);
+                                pageProvider.page = 0;
                                 String fullName = response["fullName"];
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(SnackBar(

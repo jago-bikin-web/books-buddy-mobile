@@ -41,7 +41,7 @@ class _LoginModalState extends State<LoginModal> {
               key: _formKey,
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(
-                  top: 50, bottom: MediaQuery.of(context).viewInsets.bottom),
+                  top: 25, bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(

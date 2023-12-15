@@ -33,6 +33,8 @@ class BookSectionBuilder extends StatefulWidget {
 }
 
 class _BookSectionBuilderState extends State<BookSectionBuilder> {
+  late Future<List<Books>> _data;
+
   Future<List<Books>> fetchBooks() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
@@ -54,9 +56,15 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _data = fetchBooks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchBooks(),
+      future: _data,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.data == null) {
           return Center(
