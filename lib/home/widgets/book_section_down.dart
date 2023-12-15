@@ -38,16 +38,18 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
     var response = await http.get(
       Uri.parse(widget.url),
       headers: {"Content-Type": "application/json"},
-    ); 
+    );
 
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     List<Books> listRandomBooks = [];
+
     for (var book in data) {
       if (book != null) {
         listRandomBooks.add(Books.fromJson(book));
       }
     }
+
     return listRandomBooks;
   }
 
@@ -73,8 +75,41 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
               ],
             );
           } else {
+            if (snapshot.data!.length == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/not-found.png",
+                          height: 150,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Let's enrich My Buddy together by adding your favorite books!",
+                          style: defaultText.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
             return SizedBox(
-              height: 200 * snapshot.data!.length / 1,
+              height: 200 * snapshot.data!.length / 1 -
+                  (18.2 * snapshot.data!.length) +
+                  50,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
@@ -113,7 +148,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "${snapshot.data![index].fields.thumbnail}",
+                                  snapshot.data![index].fields.thumbnail,
                                   width: 100,
                                   fit: BoxFit.fill,
                                 ),
@@ -154,8 +189,10 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                         snapshot
                                             .data![index].fields.description,
                                         style: defaultText.copyWith(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                        textAlign: TextAlign.justify,
                                       ),
                                     ),
                                   ),
@@ -167,13 +204,18 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                       ),
                                       Text(
                                         snapshot
-                                            .data![index].fields.averageRating.toString(),
+                                            .data![index].fields.averageRating
+                                            .toString(),
                                         style: defaultText.copyWith(
                                           fontSize: 14,
                                         ),
                                       ),
-                                      Text("• With ${snapshot
-                                            .data![index].fields.ratingsCount.toString()} Rate Count", style: defaultText.copyWith(fontSize: 10, color: Colors.black54),),
+                                      Text(
+                                        "• With ${snapshot.data![index].fields.ratingsCount.toString()} Rate Count",
+                                        style: defaultText.copyWith(
+                                            fontSize: 10,
+                                            color: Colors.black54),
+                                      ),
                                       Expanded(
                                         child: Text(
                                           snapshot

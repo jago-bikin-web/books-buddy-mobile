@@ -19,40 +19,44 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       bottom: false,
       child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height: 40,
+              height: 75,
               decoration: BoxDecoration(
                   color: backgroundColour,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.elliptical(64, 32),
                       bottomRight: Radius.elliptical(64, 32))),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/logo.png",
-                      height: 30,
-                      width: 30,
-                      fit: BoxFit.contain,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Books Buddy",
-                      style: defaultText.copyWith(
-                        color: primaryColour,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/logo.png",
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.contain,
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        "Books Buddy",
+                        style: defaultText.copyWith(
+                          color: primaryColour,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
