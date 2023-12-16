@@ -1,5 +1,3 @@
-// import 'package:books_buddy/auth/screens/welcome.dart';
-
 // ignore_for_file: prefer_const_constructors
 
 import 'package:books_buddy/auth/models/user_models.dart';
@@ -41,7 +39,8 @@ class MyApp extends StatelessWidget {
             cursorColor: primaryColour,
           ),
         ),
-        home: SplashScreen(nextScreen: Home()),
+        // home: SplashScreen(nextScreen: Home()),
+        home: Home(),
       ),
     );
   }

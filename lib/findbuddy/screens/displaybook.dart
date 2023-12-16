@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:books_buddy/eventbuddy/screens/create_event.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,31 @@ class _BookDisplayState extends State<BookDisplay> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    color: backgroundColour,
+                                    borderRadius: BorderRadius.circular(100)),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.arrow_back_rounded,
+                                    size: 30,
+                                    color: primaryColour,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                         Container(
                           height: 230,
                           width: 150,
@@ -270,13 +296,20 @@ class _BookDisplayState extends State<BookDisplay> {
                         children: [
                           Container(
                             height: 40,
-                            width: 180,
+                            width: 140,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: primaryColour),
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateEvent(
+                                      book: book,
+                                    ),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.transparent,
@@ -284,7 +317,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30))),
                               child: Text(
-                                "Back",
+                                "Add Event",
                                 style: defaultText.copyWith(
                                     fontSize: 16, color: backgroundColour),
                               ),
