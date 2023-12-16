@@ -1,5 +1,7 @@
-import 'dart:convert';
+// ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -21,17 +23,18 @@ class _EventFormState extends State<EventForm> {
 
   DateTime? _selectedDate;
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+   Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2100),
     );
 
-    if (picked != null && picked != _selectedDate) {
+    if (pickedDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       setState(() {
-        _selectedDate = picked;
+        _selectedDate = pickedDate;
       });
     }
   }
@@ -82,8 +85,8 @@ class _EventFormState extends State<EventForm> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Deskripsi",
-                    labelText: "Deskripsi",
+                    hintText: "Description",
+                    labelText: "Description",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -101,6 +104,7 @@ class _EventFormState extends State<EventForm> {
                   },
                 ),
               ),
+              
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () => _selectDate(context),
@@ -110,6 +114,9 @@ class _EventFormState extends State<EventForm> {
               _selectedDate != null
                   ? Text("Tanggal terpilih: ${_selectedDate!.toLocal()}".split(' ')[0])
                   : Text("Belum ada tanggal terpilih"),
+
+
+
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -127,12 +134,13 @@ class _EventFormState extends State<EventForm> {
                           jsonEncode(<String, String>{
                             'name': _name,
                             'description': _description,
+                            'date': _selectedDate!.toLocal().toString(),
                             // TODO: Sesuaikan field data sesuai dengan aplikasimu
                           }),
                         );
                         if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Produk baru berhasil disimpan!"),
+                            content: Text("Acara baru berhasil disimpan!"),
                           ));
                           Navigator.pushReplacement(
                             context,
