@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:books_buddy/findbuddy/screens/displaybook.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,16 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                       ? authors
                       : "${authors.substring(0, 20)}...";
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookDisplay(
+                            book: snapshot.data![index],
+                          ),
+                        ),
+                      );
+                    },
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 24, vertical: 10),

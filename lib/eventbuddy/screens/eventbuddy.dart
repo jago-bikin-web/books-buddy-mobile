@@ -1,34 +1,19 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:books_buddy/eventbuddy/widgets/event_list.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
-import 'package:books_buddy/mybuddy/widgets/floating_button.dart';
-import 'package:books_buddy/mybuddy/widgets/own_book_section.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 
-class MyBuddy extends StatefulWidget {
-  const MyBuddy({super.key});
+class EventBuddy extends StatefulWidget {
+  const EventBuddy({super.key});
 
   @override
-  State<MyBuddy> createState() => _MyBuddyState();
+  State<EventBuddy> createState() => _EventBuddyState();
 }
 
-class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 500),
-  )..forward();
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(0.0, 0.5),
-    end: Offset.zero,
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
+class _EventBuddyState extends State<EventBuddy>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,16 +47,14 @@ class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Text(
-                          "Your Collection",
+                          "Join Our Exciting Events!",
                           style: defaultText.copyWith(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      OwnBookSection(
-                          url:
-                              "http://127.0.0.1:8000/mybuddy/get-own-book/?username=test")
+                      EventSection()
                     ],
                   ),
                   SizedBox(
@@ -82,9 +65,21 @@ class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-        floatingActionButton: FloatingButtonAdd(
-          animation: _offsetAnimation,
-          toPage: 2,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: FloatingActionButton(
+            hoverColor: primaryColour.withOpacity(0.2),
+            hoverElevation: 5,
+            elevation: 3,
+            shape: const CircleBorder(),
+            onPressed: () {},
+            backgroundColor: primaryColour, // Replace with your primary color
+            child: const Icon(
+              Icons.add_rounded,
+              color: Colors.white,
+              size: 40,
+            ),
+          ),
         ),
       ),
     );
