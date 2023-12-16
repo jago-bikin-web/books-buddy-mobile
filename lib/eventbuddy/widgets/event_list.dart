@@ -103,14 +103,6 @@ class _EventSectionState extends State<EventSection> {
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  // String title = snapshot.data![index].fields.title;
-                  // String subTitle = (title.length <= 32)
-                  //     ? title
-                  //     : "${title.substring(0, 32)}...";
-                  // String authors = snapshot.data![index].fields.authors;
-                  // String subAuthors = (authors.length <= 20)
-                  //     ? authors
-                  //     : "${authors.substring(0, 20)}...";
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
                     child: GestureDetector(
@@ -169,7 +161,7 @@ class _EventSectionState extends State<EventSection> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.calendar_month_rounded),
+                                          Icon(Icons.calendar_month_rounded, size: 14,),
                                           SizedBox(
                                             width: 8,
                                           ),

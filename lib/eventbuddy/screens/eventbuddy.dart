@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:books_buddy/eventbuddy/screens/book_for_event.dart';
-import 'package:books_buddy/eventbuddy/screens/event_form.dart';
 import 'package:books_buddy/eventbuddy/widgets/event_list.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
-import 'package:books_buddy/mybuddy/widgets/own_book_section.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -75,15 +72,7 @@ class _EventBuddyState extends State<EventBuddy>
             hoverElevation: 5,
             elevation: 3,
             shape: const CircleBorder(),
-            onPressed: () {
-            // Navigasi ke halaman penambahan event
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => EventBook(), // Ganti dengan halaman penambahan event yang sesuai
-              ),
-            );
-          },
+            onPressed: () {},
             backgroundColor: primaryColour, // Replace with your primary color
             child: const Icon(
               Icons.add_rounded,
