@@ -4,6 +4,7 @@
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/welcome.dart';
+import 'package:books_buddy/auth/splash_screen.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             cursorColor: primaryColour,
           ),
         ),
-        home: Home(),
+        home: SplashScreen(nextScreen: Home()),
       ),
     );
   }

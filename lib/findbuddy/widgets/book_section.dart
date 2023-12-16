@@ -177,6 +177,14 @@ class _BookSectionState extends State<BookSection> {
                               SizedBox(
                                 height: 8,
                               ),
+                              Text(
+                                "Books are currently unavailable. Please try another option.",
+                                style: defaultText.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              )
                             ],
                           ),
                         ),

@@ -1,10 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, deprecated_member_use, use_full_hex_values_for_flutter_colors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class BookDisplay extends StatefulWidget {
   final Books book;
@@ -17,12 +20,13 @@ class BookDisplay extends StatefulWidget {
 class _BookDisplayState extends State<BookDisplay> {
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     Books book = widget.book;
     String subTitle = book.fields.title.length > 56
-        ? book.fields.title.substring(0, 56) + "..."
+        ? "${book.fields.title.substring(0, 56)}..."
         : book.fields.title;
     String subAuthors = book.fields.authors.length > 55
-        ? book.fields.authors.substring(0, 55) + "..."
+        ? "${book.fields.authors.substring(0, 55)}..."
         : book.fields.authors;
     return Scaffold(
       body: SafeArea(
@@ -205,6 +209,30 @@ class _BookDisplayState extends State<BookDisplay> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 24, right: 24),
+                      child: Container(
+                        height: 30,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 1.5),
+                        decoration: BoxDecoration(
+                          color: primaryColour,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            book.fields.categories,
+                            style: defaultText.copyWith(
+                              color: backgroundColour,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -269,7 +297,22 @@ class _BookDisplayState extends State<BookDisplay> {
                                 borderRadius: BorderRadius.circular(30),
                                 color: primaryColour),
                             child: ElevatedButton(
-                              onPressed: () {},
+                              // TODO: Integrasiin sama yang login
+                              onPressed: () async {
+                                final response = await request.postJson(
+                                  "http://127.0.0.1:8000/mybuddy/add-book-flutter/",
+                                  jsonEncode(
+                                    <String, String>{
+                                      'pk': '${book.pk}',
+                                      'username': 'test'
+                                    },
+                                  ),
+                                );
+
+                                if (response["status"]) {
+                                  Navigator.pop(context);
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.transparent,
                                   shadowColor: Colors.transparent,

@@ -13,61 +13,79 @@ class MyBuddy extends StatefulWidget {
   State<MyBuddy> createState() => _MyBuddyState();
 }
 
-class _MyBuddyState extends State<MyBuddy> {
+class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 500),
+  )..forward();
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: const Offset(0.0, 0.5),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: backgroundColour,
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TopBar(),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 8,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: backgroundColour,
+            ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TopBar(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 8,
+                    ),
+                    child: Divider(
+                      color: primaryColour,
+                      thickness: 2,
+                    ),
                   ),
-                  child: Divider(
-                    color: primaryColour,
-                    thickness: 2,
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(
-                        "Your Collection",
-                        style: defaultText.copyWith(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          "Your Collection",
+                          style: defaultText.copyWith(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    OwnBookSection(
-                        url:
-                            "http://127.0.0.1:8000/mybuddy/get-own-book/?username=restu")
-                  ],
-                ),
-                SizedBox(
-                  height: 60,
-                )
-              ],
+                      OwnBookSection(
+                          url:
+                              "http://127.0.0.1:8000/mybuddy/get-own-book/?username=test")
+                    ],
+                  ),
+                  SizedBox(
+                    height: 60,
+                  )
+                ],
+              ),
             ),
-          ),
-          FloatingButtonAdd(
-            toPage: 2,
-          )
-        ],
+          ],
+        ),
+        floatingActionButton: FloatingButtonAdd(
+          animation: _offsetAnimation,
+          toPage: 2,
+        ),
       ),
     );
   }
