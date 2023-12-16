@@ -2,6 +2,7 @@
 
 
 import 'package:books_buddy/eventbuddy/screens/eventbuddy.dart';
+import 'package:books_buddy/eventbuddy/widgets/event_list.dart';
 import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
 import 'package:books_buddy/reachbuddy/screens/reachbuddy.dart';
 import 'package:books_buddy/home/screens/home_screen.dart';
