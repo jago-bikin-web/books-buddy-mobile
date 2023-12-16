@@ -213,7 +213,7 @@ class _EventSectionState extends State<EventSection> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            if(logInUser?.username == snapshot.data![index].eventUsername){
+                                            if(logInUser!.username == snapshot.data![index].eventUsername){
                                               showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
