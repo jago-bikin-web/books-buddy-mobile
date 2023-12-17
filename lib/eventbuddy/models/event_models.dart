@@ -9,41 +9,45 @@ List<Event> eventFromJson(String str) => List<Event>.from(json.decode(str).map((
 String eventToJson(List<Event> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Event {
+    int eventPk;
     String bookThumbnail;
     String eventName;
     String eventDescription;
     DateTime eventDate;
-    String eventUserName;
-    String eventUserEmail;
+    String eventUserFullname;
+    String eventUsername;
     List<EventParticipant> eventParticipants;
 
     Event({
+        required this.eventPk,
         required this.bookThumbnail,
         required this.eventName,
         required this.eventDescription,
         required this.eventDate,
-        required this.eventUserName,
-        required this.eventUserEmail,
+        required this.eventUserFullname,
+        required this.eventUsername,
         required this.eventParticipants,
     });
 
     factory Event.fromJson(Map<String, dynamic> json) => Event(
+        eventPk: json["event_pk"],
         bookThumbnail: json["book_thumbnail"],
         eventName: json["event_name"],
         eventDescription: json["event_description"],
         eventDate: DateTime.parse(json["event_date"]),
-        eventUserName: json["event_user_name"],
-        eventUserEmail: json["event_user_email"],
+        eventUserFullname: json["event_user_fullname"],
+        eventUsername: json["event_username"],
         eventParticipants: List<EventParticipant>.from(json["event_participants"].map((x) => EventParticipant.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
+        "event_pk": eventPk,
         "book_thumbnail": bookThumbnail,
         "event_name": eventName,
         "event_description": eventDescription,
-        "event_date": eventDate,
-        "event_user_name": eventUserName,
-        "event_user_email": eventUserEmail,
+        "event_date": "${eventDate.year.toString().padLeft(4, '0')}-${eventDate.month.toString().padLeft(2, '0')}-${eventDate.day.toString().padLeft(2, '0')}",
+        "event_user_fullname": eventUserFullname,
+        "event_username": eventUsername,
         "event_participants": List<dynamic>.from(eventParticipants.map((x) => x.toJson())),
     };
 }

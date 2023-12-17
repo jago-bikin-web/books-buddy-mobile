@@ -10,15 +10,16 @@ import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class EventSection extends StatefulWidget {
-  const EventSection({super.key});
+class EventHome extends StatefulWidget {
+  const EventHome({super.key});
 
   @override
-  State<EventSection> createState() => _EventSectionState();
+  State<EventHome> createState() => _EventHomeState();
 }
 
-class _EventSectionState extends State<EventSection> {
+class _EventHomeState extends State<EventHome> {
   late Future<List<Event>> _data;
+  
 
   Future<List<Event>> fetchEvent(url) async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -214,147 +215,34 @@ class _EventSectionState extends State<EventSection> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         InkWell(
-                                          onTap: () {
-                                            if (logInUser!.username ==
-                                                snapshot.data![index]
-                                                    .eventUsername) {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  List<dynamic>
-                                                      participantNames =
-                                                      snapshot.data![index]
-                                                          .eventParticipants
-                                                          .map((participant) =>
-                                                              participant
-                                                                  .participantName)
-                                                          .toList();
-
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                      'Attendees for ${snapshot.data![index].eventName}',
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    backgroundColor:
-                                                        secondaryColour,
-                                                    contentPadding:
-                                                        EdgeInsets.all(32.0),
-                                                    content:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        children: [
-                                                          Text(
-                                                            'List of attendees:',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                          for (int i = 0;
-                                                              i <
-                                                                  participantNames
-                                                                      .length;
-                                                              i++)
-                                                            Text(
-                                                              '${i + 1}. ${participantNames[i]}',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text('Close'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    "You are not the organizer of this event."),
-                                              ));
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: 90,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 1.5),
-                                            decoration: BoxDecoration(
-                                              color: primaryColour,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Attendees",
-                                                style: defaultText.copyWith(
-                                                  color: backgroundColour,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
                                           onTap: () async {
-                                            final response =
-                                                await request.postJson(
-                                              "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
-                                              jsonEncode(
-                                                <String, String>{
-                                                  'username':
-                                                      logInUser!.username,
-                                                  'id': snapshot
-                                                      .data![index].eventPk
-                                                      .toString(),
-                                                },
-                                              ),
-                                            );
+                                            final response = await request.postJson(
+                                                "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                                jsonEncode(
+                                                  <String, String>{
+                                                    'username': logInUser!.username,
+                                                    'id' : snapshot.data![index].eventPk.toString(),
+                                                  },
+                                                ),
+                                              );
 
-                                            if (response["status"] == 1) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    "You have registered for this event."),
-                                              ));
-                                            }
+                                              if (response["status"]== 1) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("You have registered for this event."),
+                                                ));
+                                              }
 
-                                            if (response["status"] == 2) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    "Successfully registered! See you soon!"),
-                                              ));
-                                            }
+                                              if (response["status"] == 2) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("Successfully registered! See you soon!"),
+                                                ));
+                                              }
 
-                                            if (response["status"] == 3) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    "You are the organizer of this event."),
-                                              ));
-                                            }
+                                              if (response["status"] == 3) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("You are the organizer of this event."),
+                                                ));
+                                              }
                                           },
                                           child: Container(
                                             height: 30,
@@ -368,7 +256,7 @@ class _EventSectionState extends State<EventSection> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                "Registrasi",
+                                                "Register",
                                                 style: defaultText.copyWith(
                                                   color: backgroundColour,
                                                   fontWeight: FontWeight.bold,

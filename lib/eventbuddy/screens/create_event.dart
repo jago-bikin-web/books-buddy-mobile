@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -206,7 +207,7 @@ class _CreateEventState extends State<CreateEvent> {
                                 "http://127.0.0.1:8000/eventbuddy/create-event-flutter/",
                                 jsonEncode(
                                   <String, String>{
-                                    'username': 'restu',
+                                    'username': logInUser!.username,
                                     'pkBook': book.pk.toString(),
                                     'name': _name,
                                     'date': dateInput.text,
