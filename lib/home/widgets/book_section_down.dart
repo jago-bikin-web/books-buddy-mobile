@@ -108,9 +108,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
               );
             }
             return SizedBox(
-              height: 200 * snapshot.data!.length / 1 -
-                  (19 * snapshot.data!.length) +
-                  50,
+              height: 200 * snapshot.data!.length / 1,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {

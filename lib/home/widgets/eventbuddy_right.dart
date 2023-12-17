@@ -19,7 +19,6 @@ class EventHome extends StatefulWidget {
 
 class _EventHomeState extends State<EventHome> {
   late Future<List<Event>> _data;
-  
 
   Future<List<Event>> fetchEvent(url) async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -32,9 +31,9 @@ class _EventHomeState extends State<EventHome> {
 
     List<Event> listBooks = [];
 
-    for (var book in data) {
-      if (book != null) {
-        listBooks.add(Event.fromJson(book));
+    for (int i = 0; i < 3; i++) {
+      if (data[i] != null) {
+        listBooks.add(Event.fromJson(data[i]));
       }
     }
 
@@ -216,33 +215,43 @@ class _EventHomeState extends State<EventHome> {
                                       children: [
                                         InkWell(
                                           onTap: () async {
-                                            final response = await request.postJson(
-                                                "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
-                                                jsonEncode(
-                                                  <String, String>{
-                                                    'username': logInUser!.username,
-                                                    'id' : snapshot.data![index].eventPk.toString(),
-                                                  },
-                                                ),
-                                              );
+                                            final response =
+                                                await request.postJson(
+                                              "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                              jsonEncode(
+                                                <String, String>{
+                                                  'username':
+                                                      logInUser!.username,
+                                                  'id': snapshot
+                                                      .data![index].eventPk
+                                                      .toString(),
+                                                },
+                                              ),
+                                            );
 
-                                              if (response["status"]== 1) {
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text("You have registered for this event."),
-                                                ));
-                                              }
+                                            if (response["status"] == 1) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "You have registered for this event."),
+                                              ));
+                                            }
 
-                                              if (response["status"] == 2) {
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text("Successfully registered! See you soon!"),
-                                                ));
-                                              }
+                                            if (response["status"] == 2) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Successfully registered! See you soon!"),
+                                              ));
+                                            }
 
-                                              if (response["status"] == 3) {
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                  content: Text("You are the organizer of this event."),
-                                                ));
-                                              }
+                                            if (response["status"] == 3) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "You are the organizer of this event."),
+                                              ));
+                                            }
                                           },
                                           child: Container(
                                             height: 30,
