@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:books_buddy/auth/screens/login.dart';
 import 'package:books_buddy/auth/screens/register.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -39,7 +37,7 @@ class WelcomePage extends StatelessWidget {
           ListView(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Image.asset(
@@ -66,8 +64,8 @@ class WelcomePage extends StatelessWidget {
                 height: 60,
               ),
               Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width - 2 * 24,
+                height: 60,
+                width: MediaQuery.of(context).size.width - 2 * 24,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     gradient: gradient),

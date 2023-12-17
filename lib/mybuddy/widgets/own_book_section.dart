@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:convert';
 
 import 'package:books_buddy/mybuddy/models/own_book_models.dart';
@@ -110,7 +108,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -134,7 +132,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                             text: "All",
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         InkWell(
@@ -149,7 +147,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                             text: "Wishlist",
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         InkWell(
@@ -164,7 +162,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                             text: "Reading",
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 16,
                         ),
                         InkWell(
@@ -194,7 +192,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                             "assets/images/not-found.png",
                             height: 150,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
@@ -231,7 +229,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                           text: "All",
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
                       InkWell(
@@ -246,7 +244,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                           text: "Wishlist",
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
                       InkWell(
@@ -261,7 +259,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                           text: "Reading",
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
                       InkWell(
@@ -281,7 +279,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                 ),
                 SizedBox(
                   height: 228 * snapshot.data!.length / 1 -
-                      (snapshot.data!.length * 12.2) + 25,
+                      (snapshot.data!.length * 12.2) +
+                      25,
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -294,7 +293,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                           ? authors
                           : "${authors.substring(0, 24)}...";
                       return SlideTransition(
-                        position: index % 2 == 1 ? _offsetAnimation1 : _offsetAnimation2,
+                        position: index % 2 == 1
+                            ? _offsetAnimation1
+                            : _offsetAnimation2,
                         child: GestureDetector(
                           onTap: () async {
                             final result = await showModalBottomSheet(
@@ -307,9 +308,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                 );
                               },
                             );
-                        
+
                             if (result == null) return;
-                        
+
                             if (result) {
                               setState(() {
                                 _data = fetchBooks(filter);
@@ -317,12 +318,12 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                             }
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 10),
                             child: Container(
                               height: 180,
-                              padding:
-                                  EdgeInsets.only(top: 10, bottom: 10, left: 10),
+                              padding: const EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 10),
                               decoration: BoxDecoration(
                                 color: primaryColour.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(10),
@@ -331,7 +332,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black26,
@@ -350,7 +351,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
@@ -383,7 +384,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                         ),
                                         Expanded(
                                           child: SingleChildScrollView(
-                                            physics: BouncingScrollPhysics(),
+                                            physics: const BouncingScrollPhysics(),
                                             child: Text(
                                               snapshot.data![index].description,
                                               style: defaultText.copyWith(
@@ -394,7 +395,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 8),
+                                          padding:
+                                              const EdgeInsets.only(top: 8),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -402,7 +404,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                               Container(
                                                 height: 30,
                                                 width: 90,
-                                                padding: EdgeInsets.symmetric(
+                                                padding: const EdgeInsets.symmetric(
                                                     horizontal: 10,
                                                     vertical: 1.5),
                                                 decoration: BoxDecoration(
@@ -412,10 +414,12 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    snapshot.data![index].status,
+                                                    snapshot
+                                                        .data![index].status,
                                                     style: defaultText.copyWith(
                                                       color: primaryColour,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 12,
                                                     ),
                                                   ),
@@ -429,8 +433,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                     builder: (context) {
                                                       return ReviewModal(
                                                         context,
-                                                        book:
-                                                            snapshot.data![index],
+                                                        book: snapshot
+                                                            .data![index],
                                                       );
                                                     },
                                                   );
@@ -438,19 +442,21 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                 child: Container(
                                                   height: 30,
                                                   width: 90,
-                                                  padding: EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets.symmetric(
                                                       horizontal: 10,
                                                       vertical: 1.5),
                                                   decoration: BoxDecoration(
                                                     color: primaryColour
                                                         .withOpacity(0.65),
                                                     borderRadius:
-                                                        BorderRadius.circular(20),
+                                                        BorderRadius.circular(
+                                                            20),
                                                   ),
                                                   child: Center(
                                                     child: Text(
                                                       "Review",
-                                                      style: defaultText.copyWith(
+                                                      style:
+                                                          defaultText.copyWith(
                                                         color: backgroundColour,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -471,7 +477,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Container(
                                           height: 160,
@@ -509,13 +516,14 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                   height: 35,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(20),
+                                                        BorderRadius.circular(
+                                                            20),
                                                   ),
                                                   child: Image.asset(
                                                       "assets/images/panah_atas.png"),
                                                 ),
                                               ),
-                                              Spacer(),
+                                              const Spacer(),
                                               Text(
                                                 "PAGE",
                                                 style: defaultText.copyWith(
@@ -533,7 +541,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                   color: whiteColour,
                                                 ),
                                               ),
-                                              Spacer(),
+                                              const Spacer(),
                                               GestureDetector(
                                                 onTap: () async {
                                                   await http.patch(
@@ -558,7 +566,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                   height: 35,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(15),
+                                                        BorderRadius.circular(
+                                                            15),
                                                   ),
                                                   child: Image.asset(
                                                       "assets/images/panah_bawah.png"),

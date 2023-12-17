@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:ui';
@@ -79,7 +79,7 @@ class _BookDisplayState extends State<BookDisplay> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
@@ -102,11 +102,11 @@ class _BookDisplayState extends State<BookDisplay> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: BackdropFilter(
@@ -115,7 +115,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                 sigmaY: 10,
                               ),
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
+                                padding: const EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                   color: backgroundColour.withOpacity(0.3),
                                 ),
@@ -132,7 +132,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -154,7 +154,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -176,7 +176,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -201,7 +201,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -273,7 +273,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                 fontSize: 25,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(

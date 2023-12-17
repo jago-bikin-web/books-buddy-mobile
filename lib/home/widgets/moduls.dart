@@ -43,7 +43,7 @@ class Moduls extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: SizedBox(
-              width: size/4,
+              width: size / 4,
               height: 80,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -28,7 +28,11 @@ class FloatingButtonAdd extends StatelessWidget {
               pageProvider.setPage(toPage);
             },
             backgroundColor: primaryColour, // Replace with your primary color
-            child: const Icon(Icons.add_rounded, color: Colors.white, size: 40,),
+            child: const Icon(
+              Icons.add_rounded,
+              color: Colors.white,
+              size: 40,
+            ),
           ),
         ),
       ),

@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_final_fields
-
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:books_buddy/eventbuddy/screens/eventbuddy.dart';
-import 'package:books_buddy/eventbuddy/widgets/event_list.dart';
 import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
 import 'package:books_buddy/reachbuddy/screens/reachbuddy.dart';
 import 'package:books_buddy/home/screens/home_screen.dart';
@@ -15,12 +13,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<Home> {
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey =
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey =
       GlobalKey<CurvedNavigationBarState>();
 
   @override
@@ -69,7 +69,7 @@ class _HomePageState extends State<Home> {
           buttonBackgroundColor: secondaryColour,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration: const Duration(milliseconds: 300),
           onTap: (index) {
             setState(() {
               pageProvider.setPage(index);
@@ -93,10 +93,10 @@ class _HomePageState extends State<Home> {
 }
 
 Widget routing(int index) {
-  if (index == 0) return HomePage();
-  if (index == 1) return MyBuddy();
-  if (index == 2) return FindBuddy();
-  if (index == 3) return ThreadsPage();
-  if (index == 4) return EventBuddy();
-  return ProfileScreen();
+  if (index == 0) return const HomePage();
+  if (index == 1) return const MyBuddy();
+  if (index == 2) return const FindBuddy();
+  if (index == 3) return const ThreadsPage();
+  if (index == 4) return const EventBuddy();
+  return const ProfileScreen();
 }

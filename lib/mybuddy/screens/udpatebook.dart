@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -105,7 +105,7 @@ class _UpdateModalState extends State<UpdateModal> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black26,
@@ -124,14 +124,14 @@ class _UpdateModalState extends State<UpdateModal> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           SizedBox(
                             height: 70,
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               child: Text(
                                 widget.book.description,
                                 style: defaultText.copyWith(
@@ -140,7 +140,7 @@ class _UpdateModalState extends State<UpdateModal> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                         ],
@@ -172,7 +172,7 @@ class _UpdateModalState extends State<UpdateModal> {
                       ),
                       DropdownButtonFormField(
                         value: statusConvert(widget.book.status),
-                        items: [
+                        items: const [
                           DropdownMenuItem(
                             value: "W",
                             child: Text("Wishlist"),
