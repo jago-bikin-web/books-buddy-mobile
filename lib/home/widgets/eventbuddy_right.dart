@@ -103,7 +103,7 @@ class _EventHomeState extends State<EventHome> {
             return SizedBox(
               height: 200 * snapshot.data!.length / 1 -
                   (19 * snapshot.data!.length) +
-                  50,
+                  55,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {

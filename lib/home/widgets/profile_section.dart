@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +13,6 @@ class ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         Row(
@@ -41,7 +38,7 @@ class ProfileItem extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 12,
@@ -49,7 +46,7 @@ class ProfileItem extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
       ],

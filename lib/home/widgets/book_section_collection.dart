@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:convert';
 
 import 'package:books_buddy/mybuddy/models/own_book_models.dart';
@@ -89,7 +87,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -107,7 +105,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                           "assets/images/not-found.png",
                           height: 150,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text(
@@ -145,7 +143,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                         Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 top: 10,
                                 left: 5,
                               ),
@@ -161,7 +159,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                         BoxShadow(
                                           color: Colors.black.withOpacity(0.4),
                                           blurRadius: 5,
-                                          offset: Offset(8, 8),
+                                          offset: const Offset(8, 8),
                                           spreadRadius: 1,
                                         )
                                       ],
@@ -194,7 +192,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             Text(
@@ -204,7 +202,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
                             Text(
@@ -215,7 +213,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                             )
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 30,
                         ),
                       ],

@@ -1,12 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/eventbuddy/screens/create_event.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
-import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -81,7 +81,7 @@ class _BookDisplayState extends State<BookDisplay> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Padding(
@@ -104,11 +104,11 @@ class _BookDisplayState extends State<BookDisplay> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: BackdropFilter(
@@ -117,7 +117,8 @@ class _BookDisplayState extends State<BookDisplay> {
                                 sigmaY: 10,
                               ),
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                   color: backgroundColour.withOpacity(0.3),
                                 ),
@@ -134,7 +135,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -156,7 +157,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -178,7 +179,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -203,7 +204,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                             color: blackColour,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -275,7 +276,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                 fontSize: 25,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -296,79 +297,86 @@ class _BookDisplayState extends State<BookDisplay> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 40,
-                            width: 140,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: primaryColour),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CreateEvent(
-                                      book: book,
+                          if (logInUser!.role == "M")
+                            Container(
+                              height: 40,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: primaryColour),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CreateEvent(
+                                        book: book,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30))),
-                              child: Text(
-                                "Add Event",
-                                style: defaultText.copyWith(
-                                    fontSize: 16, color: backgroundColour),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
+                                child: Text(
+                                  "Add Event",
+                                  style: defaultText.copyWith(
+                                      fontSize: 13,
+                                      color: backgroundColour,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: primaryColour),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddThread(
-                                      book: book,
+                          if (logInUser!.role == "M")
+                            Container(
+                              height: 40,
+                              width: 135,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: primaryColour),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddThread(
+                                        book: book,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30))),
-                              child: Text(
-                                "Add Thread",
-                                style: defaultText.copyWith(
-                                    fontSize: 16, color: backgroundColour),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
+                                child: Text(
+                                  "Add Thread",
+                                  style: defaultText.copyWith(
+                                      fontSize: 13,
+                                      color: backgroundColour,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
                           Container(
                             height: 40,
-                            width: 180,
+                            width: 150,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: primaryColour),
                             child: ElevatedButton(
-                              // TODO: Integrasiin sama yang login
                               onPressed: () async {
                                 final response = await request.postJson(
                                   "http://127.0.0.1:8000/mybuddy/add-book-flutter/",
                                   jsonEncode(
                                     <String, String>{
                                       'pk': '${book.pk}',
-                                      'username': 'test'
+                                      'username': logInUser!.username
                                     },
                                   ),
                                 );
@@ -385,7 +393,9 @@ class _BookDisplayState extends State<BookDisplay> {
                               child: Text(
                                 "Add Collection",
                                 style: defaultText.copyWith(
-                                    fontSize: 16, color: backgroundColour),
+                                    fontSize: 13,
+                                    color: backgroundColour,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

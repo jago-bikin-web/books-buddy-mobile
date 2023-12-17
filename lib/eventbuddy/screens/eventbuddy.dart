@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:books_buddy/eventbuddy/widgets/event_list.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
+import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EventBuddy extends StatefulWidget {
   const EventBuddy({super.key});
@@ -30,9 +30,9 @@ class _EventBuddyState extends State<EventBuddy>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TopBar(),
+                  const TopBar(),
                   Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 8,
                     ),
@@ -54,10 +54,10 @@ class _EventBuddyState extends State<EventBuddy>
                           ),
                         ),
                       ),
-                      EventSection()
+                      const EventSection()
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   )
                 ],
@@ -65,19 +65,23 @@ class _EventBuddyState extends State<EventBuddy>
             ),
           ],
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 60),
-          child: FloatingActionButton(
-            hoverColor: primaryColour.withOpacity(0.2),
-            hoverElevation: 5,
-            elevation: 3,
-            shape: const CircleBorder(),
-            onPressed: () {},
-            backgroundColor: primaryColour, // Replace with your primary color
-            child: const Icon(
-              Icons.add_rounded,
-              color: Colors.white,
-              size: 40,
+        floatingActionButton: Consumer<PageProvider>(
+          builder: (context, pageProvider, child) => Padding(
+            padding: const EdgeInsets.only(bottom: 60),
+            child: FloatingActionButton(
+              hoverColor: primaryColour.withOpacity(0.2),
+              hoverElevation: 5,
+              elevation: 3,
+              shape: const CircleBorder(),
+              onPressed: () {
+                pageProvider.setPage(2);
+              },
+              backgroundColor: primaryColour, // Replace with your primary color
+              child: const Icon(
+                Icons.add_rounded,
+                color: Colors.white,
+                size: 40,
+              ),
             ),
           ),
         ),

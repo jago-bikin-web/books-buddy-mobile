@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -156,7 +156,7 @@ class _RegisterModalState extends State<RegisterModal> {
                       ),
                       DropdownButtonFormField(
                         value: _status,
-                        items: [
+                        items: const [
                           DropdownMenuItem(
                             value: "R",
                             child: Text("Reguler"),
@@ -186,7 +186,7 @@ class _RegisterModalState extends State<RegisterModal> {
                       TextFormField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: primaryColour.withOpacity(0.1),
+                          fillColor: primaryColour.withOpacity(0.2),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -201,12 +201,13 @@ class _RegisterModalState extends State<RegisterModal> {
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
-                          hintText: "********",
+                          hintText:
+                              _isVisible1 ? "carefulkeepsecret" : "********",
                           labelText: "Password",
                           labelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: blackColour,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w500),
                           floatingLabelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: primaryColour,
@@ -252,7 +253,7 @@ class _RegisterModalState extends State<RegisterModal> {
                       TextFormField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: primaryColour.withOpacity(0.1),
+                          fillColor: primaryColour.withOpacity(0.2),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -267,12 +268,13 @@ class _RegisterModalState extends State<RegisterModal> {
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
-                          hintText: "********",
+                          hintText:
+                              _isVisible2 ? "carefulkeepsecret" : "********",
                           labelText: "Confirm Password",
                           labelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: blackColour,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w500),
                           floatingLabelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: primaryColour,
@@ -341,11 +343,10 @@ class _RegisterModalState extends State<RegisterModal> {
                               );
                               if (response['status']) {
                                 logInUser = User.fromJson(response);
-                                // TODO: Ganti Ke App langsung
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Home()),
+                                      builder: (context) => const Home()),
                                 );
                                 ScaffoldMessenger.of(context)
                                   ..hideCurrentSnackBar()

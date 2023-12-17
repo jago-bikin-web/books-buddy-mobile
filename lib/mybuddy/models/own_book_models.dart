@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final ownBooks = ownBooksFromJson(jsonString);
-
 import 'dart:convert';
 
 List<OwnBooks> ownBooksFromJson(String str) =>
@@ -36,17 +32,16 @@ class OwnBooks {
   });
 
   factory OwnBooks.fromJson(Map<String, dynamic> json) => OwnBooks(
-        pk: json["pk"],
-        thumbnail: json["thumbnail"],
-        title: json["title"],
-        authors: json["authors"],
-        description: json["description"],
-        pageCount: json["page_count"],
-        pageTrack: json["page_track"],
-        ulasan: json["ulasan"],
-        status: json["status"],
-        publishedDate: json["publish_date"]
-      );
+      pk: json["pk"],
+      thumbnail: json["thumbnail"],
+      title: json["title"],
+      authors: json["authors"],
+      description: json["description"],
+      pageCount: json["page_count"],
+      pageTrack: json["page_track"],
+      ulasan: json["ulasan"],
+      status: json["status"],
+      publishedDate: json["publish_date"]);
 
   Map<String, dynamic> toJson() => {
         "pk": pk,

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -38,7 +38,7 @@ class _CreateEventState extends State<CreateEvent> {
         ),
         child: Column(
           children: [
-            TopBar(),
+            const TopBar(),
             Padding(
               padding: const EdgeInsets.only(left: 24, top: 10),
               child: Align(
@@ -101,7 +101,7 @@ class _CreateEventState extends State<CreateEvent> {
                       ),
                       Center(
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black26,
@@ -146,8 +146,9 @@ class _CreateEventState extends State<CreateEvent> {
                       TextFormField(
                         controller: dateInput,
                         decoration: inputDecoration(
-                            labelText: "Enter Date",
-                            prefixIcon: Icons.calendar_today_rounded),
+                          labelText: "Enter Date",
+                          prefixIcon: Icons.calendar_today_rounded,
+                        ),
                         readOnly: true,
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
@@ -155,6 +156,24 @@ class _CreateEventState extends State<CreateEvent> {
                             initialDate: DateTime.now(),
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2100),
+                            builder: (BuildContext context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                    primary: backgroundColour,
+                                    onPrimary: primaryColour,
+                                    onSurface: blackColour,
+                                  ),
+                                  textButtonTheme: TextButtonThemeData(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor:
+                                          primaryColour, // button text color
+                                    ),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
                           );
 
                           if (pickedDate != null) {

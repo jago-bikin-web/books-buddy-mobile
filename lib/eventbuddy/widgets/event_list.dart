@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -65,7 +65,7 @@ class _EventSectionState extends State<EventSection> {
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -83,7 +83,7 @@ class _EventSectionState extends State<EventSection> {
                           "assets/images/not-found.png",
                           height: 150,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text(
@@ -108,12 +108,12 @@ class _EventSectionState extends State<EventSection> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
                         height: 160,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: primaryColour.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(10),
@@ -122,7 +122,7 @@ class _EventSectionState extends State<EventSection> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration: BoxDecoration(boxShadow: [
+                              decoration: const BoxDecoration(boxShadow: [
                                 BoxShadow(
                                   color: Colors.black26,
                                   spreadRadius: 2,
@@ -139,7 +139,7 @@ class _EventSectionState extends State<EventSection> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -158,18 +158,18 @@ class _EventSectionState extends State<EventSection> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 4,
                                       ),
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.calendar_month_rounded,
                                             size: 14,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Text(
@@ -185,7 +185,7 @@ class _EventSectionState extends State<EventSection> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
@@ -196,7 +196,7 @@ class _EventSectionState extends State<EventSection> {
                                   ),
                                   Expanded(
                                     child: SingleChildScrollView(
-                                      physics: BouncingScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       child: Text(
                                         snapshot.data![index].eventDescription,
                                         style: defaultText.copyWith(
@@ -234,7 +234,7 @@ class _EventSectionState extends State<EventSection> {
                                                   return AlertDialog(
                                                     title: Text(
                                                       'Attendees for ${snapshot.data![index].eventName}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -245,12 +245,12 @@ class _EventSectionState extends State<EventSection> {
                                                     backgroundColor:
                                                         secondaryColour,
                                                     contentPadding:
-                                                        EdgeInsets.all(32.0),
+                                                        const EdgeInsets.all(32.0),
                                                     content:
                                                         SingleChildScrollView(
                                                       child: Column(
                                                         children: [
-                                                          Text(
+                                                          const Text(
                                                             'List of attendees:',
                                                             style: TextStyle(
                                                               color:
@@ -267,7 +267,7 @@ class _EventSectionState extends State<EventSection> {
                                                               i++)
                                                             Text(
                                                               '${i + 1}. ${participantNames[i]}',
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   color: Colors
                                                                       .black),
                                                             ),
@@ -280,7 +280,7 @@ class _EventSectionState extends State<EventSection> {
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
-                                                        child: Text('Close'),
+                                                        child: const Text('Close'),
                                                       ),
                                                     ],
                                                   );
@@ -288,7 +288,7 @@ class _EventSectionState extends State<EventSection> {
                                               );
                                             } else {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "You are not the organizer of this event."),
                                               ));
@@ -297,7 +297,7 @@ class _EventSectionState extends State<EventSection> {
                                           child: Container(
                                             height: 30,
                                             width: 90,
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 1.5),
                                             decoration: BoxDecoration(
                                               color: primaryColour,
@@ -334,7 +334,7 @@ class _EventSectionState extends State<EventSection> {
 
                                             if (response["status"] == 1) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "You have registered for this event."),
                                               ));
@@ -342,7 +342,7 @@ class _EventSectionState extends State<EventSection> {
 
                                             if (response["status"] == 2) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "Successfully registered! See you soon!"),
                                               ));
@@ -350,7 +350,7 @@ class _EventSectionState extends State<EventSection> {
 
                                             if (response["status"] == 3) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "You are the organizer of this event."),
                                               ));
@@ -359,7 +359,7 @@ class _EventSectionState extends State<EventSection> {
                                           child: Container(
                                             height: 30,
                                             width: 90,
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 1.5),
                                             decoration: BoxDecoration(
                                               color: primaryColour,
@@ -368,7 +368,7 @@ class _EventSectionState extends State<EventSection> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                "Registrasi",
+                                                "Register",
                                                 style: defaultText.copyWith(
                                                   color: backgroundColour,
                                                   fontWeight: FontWeight.bold,

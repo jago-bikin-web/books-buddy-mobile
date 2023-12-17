@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
-
 import 'dart:convert';
 
 late User? logInUser;
@@ -45,7 +41,7 @@ class User {
   Map<String, dynamic> toJson() => {
         "username": username,
         "fullName": fullName,
-        "userId" : userId,
+        "userId": userId,
         "email": email,
         "role": role,
         "profilePicture": profilePicture,

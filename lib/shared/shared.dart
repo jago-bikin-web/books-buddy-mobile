@@ -18,9 +18,6 @@ Gradient gradient = const LinearGradient(
   end: Alignment.centerRight,
 );
 
-// Color(0xFFFDFCF9)
-// Color(0xFFA08F65)
-
 TextStyle defaultText = GoogleFonts.poppins(
     fontSize: 36, color: blackColour, fontWeight: FontWeight.w500);
 
@@ -42,8 +39,7 @@ InputDecoration inputDecoration({hintText, labelText, prefixIcon}) {
     ),
     hintText: hintText,
     labelText: labelText,
-    labelStyle: defaultText.copyWith(
-        fontSize: 14, color: blackColour),
+    labelStyle: defaultText.copyWith(fontSize: 14, color: blackColour),
     floatingLabelStyle: defaultText.copyWith(
         fontSize: 14, color: primaryColour, fontWeight: FontWeight.w600),
     focusColor: primaryColour,

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/register.dart';
@@ -108,7 +108,7 @@ class _LoginModalState extends State<LoginModal> {
                       TextFormField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: primaryColour.withOpacity(0.1),
+                          fillColor: primaryColour.withOpacity(0.2),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -123,12 +123,13 @@ class _LoginModalState extends State<LoginModal> {
                             borderSide:
                                 const BorderSide(color: Colors.red, width: 2),
                           ),
-                          hintText: "********",
+                          hintText:
+                              _isVisible ? "carefulkeepsecret" : "********",
                           labelText: "Password",
                           labelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: blackColour,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w500),
                           floatingLabelStyle: defaultText.copyWith(
                               fontSize: 14,
                               color: primaryColour,
@@ -190,12 +191,10 @@ class _LoginModalState extends State<LoginModal> {
 
                               if (request.loggedIn) {
                                 logInUser = User.fromJson(response);
-
-                                // TODO: Navigasi ke main App
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Home()),
+                                      builder: (context) => const Home()),
                                 );
                                 ScaffoldMessenger.of(context)
                                   ..hideCurrentSnackBar()
