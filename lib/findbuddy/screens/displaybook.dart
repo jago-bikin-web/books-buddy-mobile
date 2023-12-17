@@ -5,6 +5,8 @@ import 'dart:ui';
 
 import 'package:books_buddy/eventbuddy/screens/create_event.dart';
 import 'package:books_buddy/home/models/book_models.dart';
+import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
+import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -318,6 +320,35 @@ class _BookDisplayState extends State<BookDisplay> {
                                       borderRadius: BorderRadius.circular(30))),
                               child: Text(
                                 "Add Event",
+                                style: defaultText.copyWith(
+                                    fontSize: 16, color: backgroundColour),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: primaryColour),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddThread(
+                                      book: book,
+                                    ),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30))),
+                              child: Text(
+                                "Add Thread",
                                 style: defaultText.copyWith(
                                     fontSize: 16, color: backgroundColour),
                               ),
