@@ -1,4 +1,6 @@
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
+import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
+import 'package:books_buddy/reachbuddy/screens/thread_detail.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +68,29 @@ class _ThreadsPageState extends State<ThreadsPage>
     super.dispose();
   }
 
+  void _navigateToAddThread(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => AddThread(book: null),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var begin = Offset(0.0, 1.0);
+          var end = Offset.zero;
+          var curve = Curves.easeInOut;
+
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+        transitionDuration: Duration(milliseconds: 300),
+        reverseTransitionDuration: Duration(milliseconds: 300),
+      ),
+    );
+  }
+
   Future<List<Threads>> fetchThreads() async {
     var url =
         Uri.parse('http://127.0.0.1:8000/reachbuddy/get-threads-flutter/');
@@ -126,6 +151,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                       ),
                     ],
                   ),
+                  SizedBox(height: 30),
                   _isLoading
                       ? Center(child: CircularProgressIndicator())
                       : ListView.builder(
@@ -136,95 +162,108 @@ class _ThreadsPageState extends State<ThreadsPage>
                             Threads thread = _allThreads[index];
                             String formattedDate = formatMonthDay(thread.date);
 
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 6),
-                              child: InkWell(
-                                onTap: () {
-                                  // Define onTap action
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                            return Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    // Define onTap action
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => ThreadDetail(thread: thread)));
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                thread.bookTitle,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                ),
+                                        SizedBox(height: 15),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    thread.bookTitle,
+                                                    style: defaultText.copyWith(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'by ${thread.bookAuthor}',
+                                                    style: defaultText.copyWith(
+                                                      color: Colors.grey,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                'by ${thread.bookAuthor}',
-                                                style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                thread.profileName,
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(width: 8),
-                                              CircleAvatar(
-                                                backgroundImage: NetworkImage(
-                                                    thread.profileImage),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 100, // Fixed width
-                                          height: 150, // Fixed height
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                6), // Rounded edges
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                  thread.bookImage),
-                                              fit: BoxFit.cover,
                                             ),
-                                          ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    thread.profileName,
+                                                    style: defaultText.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 14),
+                                                  ),
+                                                  SizedBox(width: 8),
+                                                  CircleAvatar(
+                                                    backgroundImage: NetworkImage(
+                                                        thread.profileImage),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(width: 20),
-                                        Expanded(
-                                          child: Text(thread.review),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 100, // Fixed width
+                                              height: 150, // Fixed height
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(
+                                                    6), // Rounded edges
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      thread.bookImage),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(width: 20),
+                                            Expanded(
+                                              child: Text(
+                                                thread.review,
+                                                style: defaultText.copyWith(
+                                                  fontSize: 14
+                                                ),
+                                                ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Divider(
+                                          height: 0,
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 10),
-                                    Divider(),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
                           },
                         ),
                   SizedBox(height: 60),
@@ -238,7 +277,7 @@ class _ThreadsPageState extends State<ThreadsPage>
           child: Padding(
             padding: EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () => _navigateToAddThread(context),
               backgroundColor: primaryColour, // Replace with your primary color
               child: Icon(Icons.edit_outlined, color: Colors.white, size: 40),
             ),
