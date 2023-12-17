@@ -1,5 +1,6 @@
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
+import 'package:books_buddy/reachbuddy/screens/thread_detail.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -68,27 +69,27 @@ class _ThreadsPageState extends State<ThreadsPage>
   }
 
   void _navigateToAddThread(BuildContext context) {
-  Navigator.of(context).push(
-    PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => AddThread(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1.0);
-        var end = Offset.zero;
-        var curve = Curves.easeInOut;
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => AddThread(book: null),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var begin = Offset(0.0, 1.0);
+          var end = Offset.zero;
+          var curve = Curves.easeInOut;
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
 
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
-        );
-      },
-      transitionDuration: Duration(milliseconds: 300),
-      reverseTransitionDuration: Duration(milliseconds: 300),
-    ),
-  );
-}
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+        transitionDuration: Duration(milliseconds: 300),
+        reverseTransitionDuration: Duration(milliseconds: 300),
+      ),
+    );
+  }
 
   Future<List<Threads>> fetchThreads() async {
     var url =
@@ -166,6 +167,8 @@ class _ThreadsPageState extends State<ThreadsPage>
                                 child: InkWell(
                                   onTap: () {
                                     // Define onTap action
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => ThreadDetail(thread: thread)));
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
