@@ -2,20 +2,24 @@
 
 import 'dart:convert';
 
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/eventbuddy/models/event_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
-class EventSection extends StatefulWidget {
-  const EventSection({super.key});
+class EventHome extends StatefulWidget {
+  const EventHome({super.key});
 
   @override
-  State<EventSection> createState() => _EventSectionState();
+  State<EventHome> createState() => _EventHomeState();
 }
 
-class _EventSectionState extends State<EventSection> {
+class _EventHomeState extends State<EventHome> {
   late Future<List<Event>> _data;
+  
 
   Future<List<Event>> fetchEvent(url) async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -45,6 +49,7 @@ class _EventSectionState extends State<EventSection> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return FutureBuilder(
       future: _data,
       builder: (context, AsyncSnapshot snapshot) {
@@ -207,31 +212,35 @@ class _EventSectionState extends State<EventSection> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            height: 30,
-                                            width: 90,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 1.5),
-                                            decoration: BoxDecoration(
-                                              color: primaryColour,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Edit",
-                                                style: defaultText.copyWith(
-                                                  color: backgroundColour,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
+                                          onTap: () async {
+                                            final response = await request.postJson(
+                                                "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                                jsonEncode(
+                                                  <String, String>{
+                                                    'username': logInUser!.username,
+                                                    'id' : snapshot.data![index].eventPk.toString(),
+                                                  },
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {},
+                                              );
+
+                                              if (response["status"]== 1) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("You have registered for this event."),
+                                                ));
+                                              }
+
+                                              if (response["status"] == 2) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("Successfully registered! See you soon!"),
+                                                ));
+                                              }
+
+                                              if (response["status"] == 3) {
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                  content: Text("You are the organizer of this event."),
+                                                ));
+                                              }
+                                          },
                                           child: Container(
                                             height: 30,
                                             width: 90,
@@ -244,31 +253,7 @@ class _EventSectionState extends State<EventSection> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                "Attendees",
-                                                style: defaultText.copyWith(
-                                                  color: backgroundColour,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {},
-                                          child: Container(
-                                            height: 30,
-                                            width: 90,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 1.5),
-                                            decoration: BoxDecoration(
-                                              color: primaryColour,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Registrasi",
+                                                "Register",
                                                 style: defaultText.copyWith(
                                                   color: backgroundColour,
                                                   fontWeight: FontWeight.bold,
