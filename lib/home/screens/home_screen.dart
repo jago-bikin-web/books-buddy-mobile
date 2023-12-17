@@ -3,6 +3,7 @@
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/widgets/book_section_collection.dart';
 import 'package:books_buddy/home/widgets/book_section_down.dart';
+import 'package:books_buddy/home/widgets/eventbuddy_right.dart';
 import 'package:books_buddy/home/widgets/moduls.dart';
 import 'package:books_buddy/home/widgets/photo_profile.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -143,6 +144,17 @@ class _HomePageState extends State<HomePage> {
                     BookSectionDown(
                       url: "http://127.0.0.1:8000/api/get-random/",
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        "What's new Books Buddy",
+                        style: defaultText.copyWith(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    EventHome(),
                   ],
                 ),
               ),
