@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:books_buddy/findbuddy/models/request_books_models.dart';
 import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
+import 'package:books_buddy/findbuddy/screens/request_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -15,18 +16,18 @@ class RequestBook extends StatefulWidget {
 }
 
 class _RequestBookState extends State<RequestBook> {
-
-  @override
   final _formKey = GlobalKey<FormState>();
   String _title = "";
   String _author = "";
+
+  @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Form Tambah Produk',
+            'Daftar Produk',
           ),
         ),
         backgroundColor: Colors.indigo,
@@ -73,7 +74,6 @@ class _RequestBookState extends State<RequestBook> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      // TODO: Tambahkan variabel yang sesuai
                       _author = value!;
                     });
                   },
@@ -95,8 +95,6 @@ class _RequestBookState extends State<RequestBook> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // Kirim ke Django dan tunggu respons
-                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                         final response = await request.postJson(
                           "http://127.0.0.1:8000/findbuddy/create-flutter/",
                           jsonEncode(<String, String>{
@@ -153,42 +151,32 @@ class _RequestBookState extends State<RequestBook> {
                   ),
                 ),
               ),
-              // FutureBuilder<List<RequestBooks>>(
-              //   future: fetchProduct(),
-              //   builder: (context, AsyncSnapshot<List<RequestBooks>> snapshot) {
-              //     if (snapshot.data == null) {
-              //       return const Center(child: CircularProgressIndicator());
-              //     } else {
-              //       return ListView.builder(
-              //         itemCount: snapshot.data!.length,
-              //         itemBuilder: (_, index) {
-              //           return GestureDetector(
-              //             child: Container(
-              //               margin: const EdgeInsets.symmetric(
-              //                   horizontal: 16, vertical: 12),
-              //               padding: const EdgeInsets.all(20.0),
-              //               child: Column(
-              //                 mainAxisAlignment: MainAxisAlignment.start,
-              //                 crossAxisAlignment: CrossAxisAlignment.start,
-              //                 children: [
-              //                   Text(
-              //                     "${snapshot.data![index].fields.title} - ${snapshot.data![index].fields.author}",
-              //                     style: const TextStyle(
-              //                       fontSize: 18.0,
-              //                       fontWeight: FontWeight.bold,
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //           );
-              //         },
-              //       );
-              //     }
-              //   },
-              // ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.indigo),
+              ),
+              onPressed: () {
+                // Tombol ke ListPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListPage()),
+                );
+              },
+              child: const Text(
+                "Books Request List",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );
