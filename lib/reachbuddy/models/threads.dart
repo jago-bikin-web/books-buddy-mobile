@@ -20,6 +20,7 @@ class Threads {
     DateTime date;
     String review;
     int likes;
+    int threadId;
 
     Threads({
         required this.bookId,
@@ -33,6 +34,7 @@ class Threads {
         required this.date,
         required this.review,
         required this.likes,
+        required this.threadId,
     });
 
     factory Threads.fromJson(Map<String, dynamic> json) => Threads(
@@ -47,6 +49,7 @@ class Threads {
         date: DateTime.parse(json["date"]),
         review: json["review"],
         likes: json["likes"],
+        threadId: json["thread_id"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -61,5 +64,6 @@ class Threads {
         "date": date.toIso8601String(),
         "review": review,
         "likes": likes,
+        "thread_id": threadId,
     };
 }
