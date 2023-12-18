@@ -1,3 +1,4 @@
+import 'package:books_buddy/findbuddy/screens/request_book.dart';
 import 'package:books_buddy/findbuddy/widgets/book_section.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -58,6 +59,28 @@ class _FindBuddyState extends State<FindBuddy> {
                 )
               ],
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom : 60),
+            child: Positioned(
+                    child: FloatingActionButton(
+                      hoverColor: primaryColour.withOpacity(0.2),
+                      hoverElevation: 5,
+                      elevation: 3,
+                      shape: const CircleBorder(),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RequestBook(),
+                        ));
+                      },
+                      backgroundColor: primaryColour, // Replace with your primary color
+                      child: const Icon(
+                        Icons.add_rounded,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
+                  ),
           ),
         ],
       ),
