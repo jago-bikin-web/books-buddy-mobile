@@ -26,11 +26,16 @@ class _ThreadsPageState extends State<ThreadsPage>
   late AnimationController _controller;
   late Animation<Offset> _animation;
 
-  final List<String> _threadSort = [
-    " Latest ",
-    "Oldest",
-    "My Threads",
-  ];
+  final List<String> _threadSort = (logInUser!.role == "M")
+      ? [
+          " Latest ",
+          "Oldest",
+          "My Threads",
+        ]
+      : [
+          " Latest ",
+          "Oldest",
+        ];
 
   String formatMonthDay(DateTime dateTime) {
     const monthNames = [
@@ -207,132 +212,164 @@ class _ThreadsPageState extends State<ThreadsPage>
                     ),
                   ),
                   _isLoading
-                      ? Center(child: CircularProgressIndicator(color: primaryColour,))
-                      : ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: _allThreads.length,
-                          itemBuilder: (context, index) {
-                            Threads thread = _allThreads[index];
+                      ? Center(
+                          child: CircularProgressIndicator(
+                          color: primaryColour,
+                        ))
+                      : _allThreads.isEmpty
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 20),
+                                Image.asset(
+                                  "assets/images/not-found.png",
+                                  height: 150,
+                                ),
+                                const SizedBox(height: 20), // Adds some space between the image and the text
+                                Text(
+                                  "It's empty here.. Let's share some of your views!",
+                                  style: defaultText.copyWith(
+                                    fontSize: 20, // Adjust the font size as needed
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            )
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _allThreads.length,
+                              itemBuilder: (context, index) {
+                                Threads thread = _allThreads[index];
 
-                            return Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ThreadDetail(
-                                          thread:
-                                              thread), // Replace with your target page
-                                    ),
-                                  ).then((value) {
-                                    if (value == true) {
-                                      _updateThreadsList(
-                                          filter); // Refresh the threads list
-                                    }
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 12),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 15),
-                                      Row(
+                                return Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ThreadDetail(
+                                              thread:
+                                                  thread), // Replace with your target page
+                                        ),
+                                      ).then((value) {
+                                        if (value == true) {
+                                          _updateThreadsList(
+                                              filter); // Refresh the threads list
+                                        }
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 12),
+                                      child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  thread.bookTitle,
-                                                  style: defaultText.copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
-                                                  ),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      thread.bookTitle,
+                                                      style:
+                                                          defaultText.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      thread.bookAuthor.length >
+                                                              15
+                                                          ? 'by ${thread.bookAuthor.substring(0, 15)}...'
+                                                          : 'by ${thread.bookAuthor}',
+                                                      style:
+                                                          defaultText.copyWith(
+                                                        color: Colors.grey,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  'by ${thread.bookAuthor}',
-                                                  style: defaultText.copyWith(
-                                                    color: Colors.grey,
-                                                    fontSize: 14,
-                                                  ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      thread.profileName,
+                                                      style:
+                                                          defaultText.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 14),
+                                                    ),
+                                                    const SizedBox(width: 8),
+                                                    CircleAvatar(
+                                                      backgroundImage:
+                                                          NetworkImage(thread
+                                                              .profileImage),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  thread.profileName,
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: 100, // Fixed width
+                                                height: 150, // Fixed height
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          6), // Rounded edges
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        thread.bookImage),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              Expanded(
+                                                child: Text(
+                                                  thread.review,
                                                   style: defaultText.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
                                                       fontSize: 14),
                                                 ),
-                                                const SizedBox(width: 8),
-                                                CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      thread.profileImage),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: 100, // Fixed width
-                                            height: 150, // Fixed height
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      6), // Rounded edges
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    thread.bookImage),
-                                                fit: BoxFit.cover,
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                          const SizedBox(width: 20),
-                                          Expanded(
-                                            child: Text(
-                                              thread.review,
-                                              style: defaultText.copyWith(
-                                                  fontSize: 14),
-                                            ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Divider(
+                                            height: 0,
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Divider(
-                                        height: 0,
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                                );
+                              },
+                            ),
                   const SizedBox(height: 60),
                 ],
               ),

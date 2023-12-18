@@ -85,6 +85,7 @@ class _AddThreadState extends State<AddThread> {
                                       );
 
                                       if (response["status"]) {
+                                        pageProvider.setPage(3);
                                         Navigator.pop(context);
                                       }
 
