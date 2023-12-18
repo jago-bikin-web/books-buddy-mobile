@@ -4,10 +4,10 @@ import 'dart:convert';
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/login.dart';
+import 'package:books_buddy/auth/widgets/simplealertdialog.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -329,7 +329,7 @@ class _RegisterModalState extends State<RegisterModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                              // TODO : INTEGRASIKAN LINK
                               final response = await request.postJson(
                                 "http://127.0.0.1:8000/auth/register/",
                                 jsonEncode(<String, String>{
@@ -355,17 +355,17 @@ class _RegisterModalState extends State<RegisterModal> {
                                           "${logInUser!.message} Selamat datang, ${logInUser!.fullName}.")));
                                 _formKey.currentState!.reset();
                               } else {
-                                // String message = response['message'];
-                                // Fluttertoast.showToast(
-                                //   msg: message,
-                                //   toastLength: Toast.LENGTH_SHORT,
-                                //   gravity: ToastGravity.BOTTOM,
-                                //   timeInSecForIosWeb: 1,
-                                //   backgroundColor: primaryColour,
-                                //   textColor: Colors.white,
-                                //   webBgColor: "#DF760B",
-                                //   webPosition: "center",
-                                // );
+                                String message = response['message'];
+
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SimpleAlertDialog(
+                                        imageAsset: "assets/images/denied.png",
+                                        title: "Register unsuccessful",
+                                        message: message);
+                                  },
+                                );
                               }
                             }
                           },

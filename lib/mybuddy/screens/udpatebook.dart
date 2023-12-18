@@ -6,7 +6,6 @@ import 'package:books_buddy/mybuddy/models/own_book_models.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:http/http.dart' as http;
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class UpdateModal extends StatefulWidget {
   final BuildContext context;
@@ -228,6 +227,7 @@ class _UpdateModalState extends State<UpdateModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
+                              // TODO : INTEGRASIKAN LINK
                               await http.put(
                                 Uri.parse(
                                     "http://127.0.0.1:8000/mybuddy/update-book-flutter/"),

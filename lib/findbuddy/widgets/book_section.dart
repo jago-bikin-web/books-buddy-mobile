@@ -72,6 +72,7 @@ class _BookSectionState extends State<BookSection> {
     super.initState();
     _dataCategory.sort();
     _data = fetchBooks(
+      // TODO : INTEGRASIKAN LINK
         "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
   }
 
@@ -103,11 +104,12 @@ class _BookSectionState extends State<BookSection> {
               setState(() {
                 query = value;
                 _data = fetchBooks(
+                  // TODO : INTEGRASIKAN LINK
                     "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
               });
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           SizedBox(
@@ -122,6 +124,7 @@ class _BookSectionState extends State<BookSection> {
                     onTap: () {
                       setState(() {
                         filter = _dataCategory[index];
+                        // TODO : INTEGRASIKAN LINK
                         _data = fetchBooks(
                             "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
                       });
@@ -135,7 +138,7 @@ class _BookSectionState extends State<BookSection> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           FutureBuilder(
@@ -154,7 +157,7 @@ class _BookSectionState extends State<BookSection> {
                         "Tidak ada data produk.",
                         style: TextStyle(color: primaryColour, fontSize: 20),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                     ],
                   );
                 } else {
@@ -172,7 +175,7 @@ class _BookSectionState extends State<BookSection> {
                                 "assets/images/not-found.png",
                                 height: 150,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Text(
@@ -216,10 +219,10 @@ class _BookSectionState extends State<BookSection> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Container(
                               height: 160,
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: primaryColour.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(10),
@@ -228,7 +231,7 @@ class _BookSectionState extends State<BookSection> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(boxShadow: [
+                                    decoration: const BoxDecoration(boxShadow: [
                                       BoxShadow(
                                         color: Colors.black26,
                                         spreadRadius: 2,
@@ -245,7 +248,7 @@ class _BookSectionState extends State<BookSection> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
@@ -276,7 +279,8 @@ class _BookSectionState extends State<BookSection> {
                                         ),
                                         Expanded(
                                           child: SingleChildScrollView(
-                                            physics: BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             child: Text(
                                               snapshot.data![index].fields
                                                   .description,

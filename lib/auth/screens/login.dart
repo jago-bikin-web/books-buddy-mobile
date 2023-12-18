@@ -2,12 +2,12 @@
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/register.dart';
+import 'package:books_buddy/auth/widgets/simplealertdialog.dart';
 import 'package:books_buddy/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginModal extends StatefulWidget {
   final BuildContext context;
@@ -181,6 +181,7 @@ class _LoginModalState extends State<LoginModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
+                              // TODO : INTEGRASIKAN LINK
                               final response = await request.login(
                                 "http://127.0.0.1:8000/auth/login/",
                                 {
@@ -202,18 +203,17 @@ class _LoginModalState extends State<LoginModal> {
                                       content: Text(
                                           "${logInUser!.message} Selamat datang, ${logInUser!.fullName}.")));
                               } else {
-                                // String message = response['message'];
+                                String message = response['message'];
 
-                                // Fluttertoast.showToast(
-                                //   msg: message,
-                                //   toastLength: Toast.LENGTH_SHORT,
-                                //   gravity: ToastGravity.BOTTOM,
-                                //   timeInSecForIosWeb: 1,
-                                //   backgroundColor: primaryColour,
-                                //   textColor: Colors.white,
-                                //   webBgColor: "#DF760B",
-                                //   webPosition: "center",
-                                // );
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return SimpleAlertDialog(
+                                        imageAsset: "assets/images/denied.png",
+                                        title: "Login unsuccessful",
+                                        message: message);
+                                  },
+                                );
                               }
 
                               _formKey.currentState!.reset();

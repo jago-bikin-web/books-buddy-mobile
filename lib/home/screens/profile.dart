@@ -148,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                               gradient: gradient),
                           child: ElevatedButton(
                             onPressed: () async {
-                              // TODO : Integrasiin link
+                              // TODO : INTEGRASIKAN LINK
                               final response = await request.logout(
                                 "http://127.0.0.1:8000/auth/logout/",
                               );

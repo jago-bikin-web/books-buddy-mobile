@@ -49,12 +49,19 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
   late Future<List<OwnBooks>> _data;
+
   String filter = "All";
+  final List<String> _filterCategory = [
+    "All",
+    "Wishlist",
+    "Reading",
+    "Finished",
+  ];
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -118,66 +125,29 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 24, vertical: 3),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              filter = "All";
-                              _data = fetchBooks(filter);
-                            });
-                          },
-                          child: ChipFilter(
-                            filter: filter,
-                            text: "All",
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              filter = "Wishlist";
-                              _data = fetchBooks(filter);
-                            });
-                          },
-                          child: ChipFilter(
-                            filter: filter,
-                            text: "Wishlist",
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              filter = "Reading";
-                              _data = fetchBooks(filter);
-                            });
-                          },
-                          child: ChipFilter(
-                            filter: filter,
-                            text: "Reading",
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              filter = "Finished";
-                              _data = fetchBooks(filter);
-                            });
-                          },
-                          child: ChipFilter(
-                            filter: filter,
-                            text: "Finished",
-                          ),
-                        ),
-                      ],
+                    child: SizedBox(
+                      height: 30,
+                      child: ListView.builder(
+                        itemCount: _filterCategory.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  filter = _filterCategory[index];
+                                  _data = fetchBooks(filter);
+                                });
+                              },
+                              child: ChipFilter(
+                                filter: filter,
+                                text: _filterCategory[index],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -215,72 +185,35 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 3),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            filter = "All";
-                            _data = fetchBooks(filter);
-                          });
-                        },
-                        child: ChipFilter(
-                          filter: filter,
-                          text: "All",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            filter = "Wishlist";
-                            _data = fetchBooks(filter);
-                          });
-                        },
-                        child: ChipFilter(
-                          filter: filter,
-                          text: "Wishlist",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            filter = "Reading";
-                            _data = fetchBooks(filter);
-                          });
-                        },
-                        child: ChipFilter(
-                          filter: filter,
-                          text: "Reading",
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            filter = "Finished";
-                            _data = fetchBooks(filter);
-                          });
-                        },
-                        child: ChipFilter(
-                          filter: filter,
-                          text: "Finished",
-                        ),
-                      ),
-                    ],
+                  child: SizedBox(
+                    height: 30,
+                    child: ListView.builder(
+                      itemCount: _filterCategory.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                filter = _filterCategory[index];
+                                _data = fetchBooks(filter);
+                              });
+                            },
+                            child: ChipFilter(
+                              filter: filter,
+                              text: _filterCategory[index],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: 228 * snapshot.data!.length / 1 -
-                      (snapshot.data!.length * 12.2) +
-                      25,
+                  height: 210 * snapshot.data!.length / 1 -
+                        (10 * snapshot.data!.length) +
+                        80,
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -384,7 +317,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                         ),
                                         Expanded(
                                           child: SingleChildScrollView(
-                                            physics: const BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             child: Text(
                                               snapshot.data![index].description,
                                               style: defaultText.copyWith(
@@ -404,9 +338,10 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                               Container(
                                                 height: 30,
                                                 width: 90,
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 1.5),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 1.5),
                                                 decoration: BoxDecoration(
                                                   color: whiteColour,
                                                   borderRadius:
@@ -442,12 +377,13 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                 child: Container(
                                                   height: 30,
                                                   width: 90,
-                                                  padding: const EdgeInsets.symmetric(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
                                                       horizontal: 10,
                                                       vertical: 1.5),
                                                   decoration: BoxDecoration(
                                                     color: primaryColour
-                                                        .withOpacity(0.65),
+                                                        .withOpacity(0.9),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20),
@@ -474,109 +410,129 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                   ),
                                   Expanded(
                                     flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 160,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                primaryColour.withOpacity(0.65),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  await http.patch(
-                                                      Uri.parse(
-                                                          "http://127.0.0.1:8000/mybuddy/add-page-track/"),
-                                                      headers: {
-                                                        "Content-Type":
-                                                            "application/json"
-                                                      },
-                                                      body: jsonEncode(<String,
-                                                          String>{
-                                                        'pk': snapshot
-                                                            .data![index].pk
-                                                            .toString(),
-                                                      }));
-                                                  setState(() {
-                                                    _data = fetchBooks(filter);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 160,
+                                            decoration: BoxDecoration(
+                                              color: primaryColour
+                                                  .withOpacity(0.9),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    // TODO : INTEGRASIKAN LINK
+                                                    await http.patch(
+                                                        Uri.parse(
+                                                            "http://127.0.0.1:8000/mybuddy/add-page-track/"),
+                                                        headers: {
+                                                          "Content-Type":
+                                                              "application/json"
+                                                        },
+                                                        body:
+                                                            jsonEncode(<String,
+                                                                String>{
+                                                          'pk': snapshot
+                                                              .data![index].pk
+                                                              .toString(),
+                                                        }));
+                                                    setState(() {
+                                                      _data =
+                                                          fetchBooks(filter);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: 35,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: Image.asset(
+                                                        "assets/images/panah_atas.png"),
                                                   ),
-                                                  child: Image.asset(
-                                                      "assets/images/panah_atas.png"),
                                                 ),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                "PAGE",
-                                                style: defaultText.copyWith(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: whiteColour,
-                                                ),
-                                              ),
-                                              Text(
-                                                snapshot.data![index].pageTrack
-                                                    .toString(),
-                                                style: defaultText.copyWith(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: whiteColour,
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  await http.patch(
-                                                      Uri.parse(
-                                                          "http://127.0.0.1:8000/mybuddy/sub-page-track/"),
-                                                      headers: {
-                                                        "Content-Type":
-                                                            "application/json"
-                                                      },
-                                                      body: jsonEncode(<String,
-                                                          String>{
-                                                        'pk': snapshot
-                                                            .data![index].pk
-                                                            .toString(),
-                                                      }));
-                                                  setState(() {
-                                                    _data = fetchBooks(filter);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
+                                                const Spacer(),
+                                                Text(
+                                                  "PAGE",
+                                                  style: defaultText.copyWith(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: whiteColour,
                                                   ),
-                                                  child: Image.asset(
-                                                      "assets/images/panah_bawah.png"),
                                                 ),
-                                              ),
-                                            ],
+                                                Text(
+                                                  snapshot
+                                                      .data![index].pageTrack
+                                                      .toString(),
+                                                  style: defaultText.copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: whiteColour,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "/ ${snapshot.data![index].pageCount}"
+                                                      .toString(),
+                                                  style: defaultText.copyWith(
+                                                    fontSize: 9.5,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: whiteColour,
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    // TODO : INTEGRASIKAN LINK
+                                                    await http.patch(
+                                                        Uri.parse(
+                                                            "http://127.0.0.1:8000/mybuddy/sub-page-track/"),
+                                                        headers: {
+                                                          "Content-Type":
+                                                              "application/json"
+                                                        },
+                                                        body:
+                                                            jsonEncode(<String,
+                                                                String>{
+                                                          'pk': snapshot
+                                                              .data![index].pk
+                                                              .toString(),
+                                                        }));
+                                                    setState(() {
+                                                      _data =
+                                                          fetchBooks(filter);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: 35,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                    ),
+                                                    child: Image.asset(
+                                                        "assets/images/panah_bawah.png"),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],

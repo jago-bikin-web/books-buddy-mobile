@@ -43,6 +43,7 @@ class _EventSectionState extends State<EventSection> {
   @override
   void initState() {
     super.initState();
+    // TODO : INTEGRASIKAN LINK
     _data = fetchEvent("http://127.0.0.1:8000/eventbuddy/get-event-flutter/");
   }
 
@@ -318,6 +319,7 @@ class _EventSectionState extends State<EventSection> {
                                         ),
                                         InkWell(
                                           onTap: () async {
+                                            // TODO : INTEGRASIKAN LINK
                                             final response =
                                                 await request.postJson(
                                               "http://127.0.0.1:8000/eventbuddy/regis-flutter/",

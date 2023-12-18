@@ -219,9 +219,9 @@ class _CreateEventState extends State<CreateEvent> {
                             borderRadius: BorderRadius.circular(15),
                             gradient: gradient),
                         child: ElevatedButton(
-                          // TODO: INTEGRASIIN LAGI
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
+                              // TODO : INTEGRASIKAN LINK
                               final response = await request.postJson(
                                 "http://127.0.0.1:8000/eventbuddy/create-event-flutter/",
                                 jsonEncode(

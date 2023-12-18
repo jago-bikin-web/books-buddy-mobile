@@ -122,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // TODO : INTEGRASIKAN LINK
                     BookSection(
                       heading: "Your Collection",
                       url:
@@ -141,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const BookSectionDown(
+                      // TODO : INTEGRASIKAN LINK
                       url: "http://127.0.0.1:8000/api/get-random/",
                     ),
                     Padding(
