@@ -43,7 +43,6 @@ class BookSectionBuilder extends StatefulWidget {
 
 class _BookSectionBuilderState extends State<BookSectionBuilder> {
   Future<List<OwnBooks>> fetchBooks() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(widget.url),
       headers: {"Content-Type": "application/json"},
@@ -136,88 +135,85 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                   String subAuthors = (authors.length <= 12)
                       ? authors
                       : "${authors.substring(0, 12)}...";
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                top: 10,
-                                left: 5,
-                              ),
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.4),
-                                          blurRadius: 5,
-                                          offset: const Offset(8, 8),
-                                          spreadRadius: 1,
-                                        )
+                  return Row(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                              top: 10,
+                              left: 5,
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: <BoxShadow>[
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.4),
+                                        blurRadius: 5,
+                                        offset: const Offset(8, 8),
+                                        spreadRadius: 1,
+                                      )
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      "${snapshot.data![index].thumbnail}",
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.27,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.4),
+                                        Colors.transparent,
+                                        Colors.black.withOpacity(0.4),
                                       ],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        "${snapshot.data![index].thumbnail}",
-                                        fit: BoxFit.fill,
-                                      ),
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
                                     ),
                                   ),
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.27,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.black.withOpacity(0.4),
-                                          Colors.transparent,
-                                          Colors.black.withOpacity(0.4),
-                                        ],
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              height: 16,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(
+                            subTitle,
+                            style: defaultText.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Text(
-                              subTitle,
-                              style: defaultText.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                              ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            subAuthors,
+                            style: defaultText.copyWith(
+                              fontSize: 12,
                             ),
-                            const SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              subAuthors,
-                              style: defaultText.copyWith(
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                    ],
                   );
                 },
               ),

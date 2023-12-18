@@ -1,3 +1,4 @@
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/mybuddy/widgets/floating_button.dart';
 import 'package:books_buddy/mybuddy/widgets/own_book_section.dart';
@@ -67,9 +68,9 @@ class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      const OwnBookSection(
+                      OwnBookSection(
                           url:
-                              "http://127.0.0.1:8000/mybuddy/get-own-book/?username=test")
+                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/get-own-book/?username=${logInUser!.username}")
                     ],
                   ),
                   const SizedBox(

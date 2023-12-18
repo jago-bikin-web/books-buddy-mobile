@@ -21,7 +21,6 @@ class _EventSectionState extends State<EventSection> {
   late Future<List<Event>> _data;
 
   Future<List<Event>> fetchEvent(url) async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
@@ -43,7 +42,8 @@ class _EventSectionState extends State<EventSection> {
   @override
   void initState() {
     super.initState();
-    _data = fetchEvent("http://127.0.0.1:8000/eventbuddy/get-event-flutter/");
+    _data = fetchEvent(
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/get-event-flutter/");
   }
 
   @override
@@ -108,7 +108,8 @@ class _EventSectionState extends State<EventSection> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 24),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -245,7 +246,8 @@ class _EventSectionState extends State<EventSection> {
                                                     backgroundColor:
                                                         secondaryColour,
                                                     contentPadding:
-                                                        const EdgeInsets.all(32.0),
+                                                        const EdgeInsets.all(
+                                                            32.0),
                                                     content:
                                                         SingleChildScrollView(
                                                       child: Column(
@@ -280,7 +282,8 @@ class _EventSectionState extends State<EventSection> {
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
-                                                        child: const Text('Close'),
+                                                        child:
+                                                            const Text('Close'),
                                                       ),
                                                     ],
                                                   );
@@ -320,7 +323,7 @@ class _EventSectionState extends State<EventSection> {
                                           onTap: () async {
                                             final response =
                                                 await request.postJson(
-                                              "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/regis-flutter/",
                                               jsonEncode(
                                                 <String, String>{
                                                   'username':

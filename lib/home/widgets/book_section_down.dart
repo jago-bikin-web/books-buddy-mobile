@@ -35,7 +35,6 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
   late Future<List<Books>> _data;
 
   Future<List<Books>> fetchBooks() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(widget.url),
       headers: {"Content-Type": "application/json"},
@@ -105,7 +104,8 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                 ),
               );
             }
-            return SizedBox(
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               height: 200 * snapshot.data!.length / 1,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
@@ -131,7 +131,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                     },
                     child: Padding(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                          const EdgeInsets.symmetric(vertical: 10),
                       child: Container(
                         height: 160,
                         padding: const EdgeInsets.all(10),

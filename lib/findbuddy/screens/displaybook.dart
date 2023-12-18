@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:books_buddy/auth/models/user_models.dart';
+import 'package:books_buddy/auth/widgets/simplealertdialog.dart';
 import 'package:books_buddy/eventbuddy/screens/create_event.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
 import 'package:books_buddy/shared/shared.dart';
-import 'package:books_buddy/shared/page.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +26,8 @@ class _BookDisplayState extends State<BookDisplay> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     Books book = widget.book;
-    String subTitle = book.fields.title.length > 56
-        ? "${book.fields.title.substring(0, 56)}..."
+    String subTitle = book.fields.title.length > 42
+        ? "${book.fields.title.substring(0, 42)}..."
         : book.fields.title;
     String subAuthors = book.fields.authors.length > 55
         ? "${book.fields.authors.substring(0, 55)}..."
@@ -298,7 +298,7 @@ class _BookDisplayState extends State<BookDisplay> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if (logInUser!.role == "M")
+                          if (logInUser!.role == "M") 
                             Container(
                               height: 40,
                               width: 120,
@@ -332,38 +332,38 @@ class _BookDisplayState extends State<BookDisplay> {
                               ),
                             ),
                           if (logInUser!.role == "M")
-                              Container(
-                            height: 40,
-                            width: 135,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: primaryColour),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AddThread(
-                                      book: book,
+                            Container(
+                              height: 40,
+                              width: 135,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: primaryColour),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AddThread(
+                                        book: book,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30))),
-                              child: Text(
-                                "Add Thread",
-                                style: defaultText.copyWith(
-                                    fontSize: 13,
-                                    color: backgroundColour,
-                                    fontWeight: FontWeight.bold),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30))),
+                                child: Text(
+                                  "Add Thread",
+                                  style: defaultText.copyWith(
+                                      fontSize: 13,
+                                      color: backgroundColour,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
                           Container(
                             height: 40,
                             width: 150,
@@ -373,7 +373,7 @@ class _BookDisplayState extends State<BookDisplay> {
                             child: ElevatedButton(
                               onPressed: () async {
                                 final response = await request.postJson(
-                                  "http://127.0.0.1:8000/mybuddy/add-book-flutter/",
+                                  "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/add-book-flutter/",
                                   jsonEncode(
                                     <String, String>{
                                       'pk': '${book.pk}',
@@ -381,9 +381,33 @@ class _BookDisplayState extends State<BookDisplay> {
                                     },
                                   ),
                                 );
-
+                      
                                 if (response["status"]) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const SimpleAlertDialog(
+                                        imageAsset: "assets/images/save.png",
+                                        title: "Success",
+                                        message:
+                                            "The book has been added to My Buddy",
+                                      );
+                                    },
+                                  );
+                      
                                   Navigator.pop(context);
+                                } else {
+                                  String message = response["message"];
+                                  await showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SimpleAlertDialog(
+                                        imageAsset: "assets/images/denied.png",
+                                        title: "Failed",
+                                        message: message,
+                                      );
+                                    },
+                                  );
                                 }
                               },
                               style: ElevatedButton.styleFrom(

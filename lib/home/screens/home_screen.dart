@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                     BookSection(
                       heading: "Your Collection",
                       url:
-                          "http://127.0.0.1:8000/mybuddy/get-own-book/?username=${logInUser!.username}",
+                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/get-own-book/?username=${logInUser!.username}",
                     ),
                     const SizedBox(
                       height: 20,
@@ -142,10 +142,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const BookSectionDown(
-                      url: "http://127.0.0.1:8000/api/get-random/",
+                      url:
+                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/api/get-random/",
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding: const EdgeInsets.only(left: 24, right: 24),
                       child: Text(
                         "Reach Others!",
                         style: defaultText.copyWith(
@@ -157,7 +158,10 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const ThreadsHome(),
+                    const Padding(
+                        padding:
+                            EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                        child: Center(child: ThreadsHome())),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Text(

@@ -6,7 +6,6 @@ import 'package:books_buddy/mybuddy/models/own_book_models.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:http/http.dart' as http;
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class UpdateModal extends StatefulWidget {
   final BuildContext context;
@@ -59,7 +58,10 @@ class _UpdateModalState extends State<UpdateModal> {
               key: _formKey,
               child: SingleChildScrollView(
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  margin: EdgeInsets.only(
+                      left: 24,
+                      right: 24,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -230,7 +232,7 @@ class _UpdateModalState extends State<UpdateModal> {
                             if (_formKey.currentState!.validate()) {
                               await http.put(
                                 Uri.parse(
-                                    "http://127.0.0.1:8000/mybuddy/update-book-flutter/"),
+                                    "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/update-book-flutter/"),
                                 headers: {"Content-Type": "application/json"},
                                 body: jsonEncode(
                                   <String, String>{

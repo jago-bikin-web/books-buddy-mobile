@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/mybuddy/widgets/chip_filter.dart';
@@ -76,9 +78,9 @@ class _ThreadsPageState extends State<ThreadsPage>
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            AddThread(book: null),
+            const AddThread(book: null),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          var begin = Offset(0.0, 1.0);
+          var begin = const Offset(0.0, 1.0);
           var end = Offset.zero;
           var curve = Curves.easeInOut;
 
@@ -91,15 +93,15 @@ class _ThreadsPageState extends State<ThreadsPage>
             child: child,
           );
         },
-        transitionDuration: Duration(milliseconds: 300),
-        reverseTransitionDuration: Duration(milliseconds: 300),
+        transitionDuration: const Duration(milliseconds: 300),
+        reverseTransitionDuration: const Duration(milliseconds: 300),
       ),
     );
   }
 
   Future<List<Threads>> fetchThreads() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/reachbuddy/get-threads-flutter/');
+    var url = Uri.parse(
+        'https://books-buddy-e06-tk.pbp.cs.ui.ac.id/reachbuddy/get-threads-flutter/');
     var response =
         await http.get(url, headers: {"Content-Type": "application/json"});
     var data = jsonDecode(utf8.decode(response.bodyBytes));
@@ -110,33 +112,32 @@ class _ThreadsPageState extends State<ThreadsPage>
   }
 
   void _updateThreadsList(String sortBy) {
-  setState(() {
-    _isLoading = true; // Show loading indicator while fetching data
-  });
-  fetchThreads().then((threads) {
     setState(() {
-      if (sortBy == "Oldest") {
-        _allThreads = threads.where((thread) {
-          return thread.date.isBefore(DateTime.now());
-        }).toList()
-          ..sort((a, b) => a.date.compareTo(b.date));
-      } else if (sortBy == "My Threads") {
-        _allThreads = threads.where((thread) {
-          return thread.profileName == logInUser!.username; 
-        }).toList()
-        ..sort((a, b) => b.date.compareTo(a.date));
-      } else {
-        // Default sorting by latest
-        _allThreads = threads.where((thread) {
-          return thread.date.isBefore(DateTime.now());
-        }).toList()
-          ..sort((a, b) => b.date.compareTo(a.date));
-      }
-      _isLoading = false; // Hide loading indicator once data is fetched
+      _isLoading = true; // Show loading indicator while fetching data
     });
-  });
-}
-
+    fetchThreads().then((threads) {
+      setState(() {
+        if (sortBy == "Oldest") {
+          _allThreads = threads.where((thread) {
+            return thread.date.isBefore(DateTime.now());
+          }).toList()
+            ..sort((a, b) => a.date.compareTo(b.date));
+        } else if (sortBy == "My Threads") {
+          _allThreads = threads.where((thread) {
+            return thread.profileName == logInUser!.username;
+          }).toList()
+            ..sort((a, b) => b.date.compareTo(a.date));
+        } else {
+          // Default sorting by latest
+          _allThreads = threads.where((thread) {
+            return thread.date.isBefore(DateTime.now());
+          }).toList()
+            ..sort((a, b) => b.date.compareTo(a.date));
+        }
+        _isLoading = false; // Hide loading indicator once data is fetched
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +155,10 @@ class _ThreadsPageState extends State<ThreadsPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TopBar(),
+                  const TopBar(),
                   // Header container
                   Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                       vertical: 8,
                     ),
@@ -206,14 +207,13 @@ class _ThreadsPageState extends State<ThreadsPage>
                     ),
                   ),
                   _isLoading
-                      ? Center(child: CircularProgressIndicator())
+                      ? Center(child: CircularProgressIndicator(color: primaryColour,))
                       : ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: _allThreads.length,
                           itemBuilder: (context, index) {
                             Threads thread = _allThreads[index];
-                            String formattedDate = formatMonthDay(thread.date);
 
                             return Material(
                               color: Colors.transparent,
@@ -222,22 +222,25 @@ class _ThreadsPageState extends State<ThreadsPage>
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ThreadDetail(thread: thread), // Replace with your target page
+                                      builder: (context) => ThreadDetail(
+                                          thread:
+                                              thread), // Replace with your target page
                                     ),
                                   ).then((value) {
                                     if (value == true) {
-                                      _updateThreadsList(filter); // Refresh the threads list
+                                      _updateThreadsList(
+                                          filter); // Refresh the threads list
                                     }
                                   });
                                 },
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 12),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 15),
+                                      const SizedBox(height: 15),
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -278,7 +281,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                                                           FontWeight.bold,
                                                       fontSize: 14),
                                                 ),
-                                                SizedBox(width: 8),
+                                                const SizedBox(width: 8),
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
                                                       thread.profileImage),
@@ -288,7 +291,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -307,7 +310,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 20),
+                                          const SizedBox(width: 20),
                                           Expanded(
                                             child: Text(
                                               thread.review,
@@ -317,10 +320,10 @@ class _ThreadsPageState extends State<ThreadsPage>
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
-                                      Divider(
+                                      const Divider(
                                         height: 0,
                                       ),
                                     ],
@@ -330,7 +333,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                             );
                           },
                         ),
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                 ],
               ),
             ),
@@ -339,14 +342,14 @@ class _ThreadsPageState extends State<ThreadsPage>
         floatingActionButton: SlideTransition(
           position: _animation,
           child: Padding(
-            padding: EdgeInsets.only(bottom: 60.0),
+            padding: const EdgeInsets.only(bottom: 60.0),
             child: FloatingActionButton(
               onPressed: () {
                 if (logInUser!.role == "M") {
                   _navigateToAddThread(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text("You are not a registered Member"),
                       duration: Duration(seconds: 2),
                     ),
@@ -354,7 +357,8 @@ class _ThreadsPageState extends State<ThreadsPage>
                 }
               },
               backgroundColor: primaryColour, // Replace with your primary color
-              child: Icon(Icons.edit_outlined, color: Colors.white, size: 40),
+              child: const Icon(Icons.edit_outlined,
+                  color: Colors.white, size: 40),
             ),
           ),
         ),

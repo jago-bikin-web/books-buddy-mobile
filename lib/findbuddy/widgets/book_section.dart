@@ -7,8 +7,6 @@ import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:books_buddy/findbuddy/screens/book_details.dart';
-
 class BookSection extends StatefulWidget {
   const BookSection({super.key});
 
@@ -52,7 +50,6 @@ class _BookSectionState extends State<BookSection> {
   int booksPerPage = 10;
 
   Future<List<Books>> fetchBooks(url) async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
@@ -76,14 +73,7 @@ class _BookSectionState extends State<BookSection> {
     super.initState();
     _dataCategory.sort();
     _data = fetchBooks(
-        "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
-  }
-
-  void _navigateToBookDetailPage(Books book) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BooksDetailPage(books: book)),
-    );
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
   }
 
   @override
@@ -114,11 +104,11 @@ class _BookSectionState extends State<BookSection> {
               setState(() {
                 query = value;
                 _data = fetchBooks(
-                    "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
+                    "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
               });
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           SizedBox(
@@ -134,7 +124,7 @@ class _BookSectionState extends State<BookSection> {
                       setState(() {
                         filter = _dataCategory[index];
                         _data = fetchBooks(
-                            "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
+                            "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
                       });
                     },
                     child: ChipFilter(
@@ -146,7 +136,7 @@ class _BookSectionState extends State<BookSection> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           FutureBuilder(
@@ -165,7 +155,7 @@ class _BookSectionState extends State<BookSection> {
                         "Tidak ada data produk.",
                         style: TextStyle(color: primaryColour, fontSize: 20),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                     ],
                   );
                 } else {
@@ -183,7 +173,7 @@ class _BookSectionState extends State<BookSection> {
                                 "assets/images/not-found.png",
                                 height: 150,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Text(
@@ -227,10 +217,10 @@ class _BookSectionState extends State<BookSection> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Container(
                               height: 160,
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: primaryColour.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(10),
@@ -239,7 +229,7 @@ class _BookSectionState extends State<BookSection> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(boxShadow: [
+                                    decoration: const BoxDecoration(boxShadow: [
                                       BoxShadow(
                                         color: Colors.black26,
                                         spreadRadius: 2,
@@ -256,7 +246,7 @@ class _BookSectionState extends State<BookSection> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
@@ -287,7 +277,8 @@ class _BookSectionState extends State<BookSection> {
                                         ),
                                         Expanded(
                                           child: SingleChildScrollView(
-                                            physics: BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             child: Text(
                                               snapshot.data![index].fields
                                                   .description,
