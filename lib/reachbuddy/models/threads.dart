@@ -9,6 +9,7 @@ List<Threads> threadsFromJson(String str) => List<Threads>.from(json.decode(str)
 String threadsToJson(List<Threads> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Threads {
+    int bookId;
     String bookTitle;
     String bookImage;
     String bookAuthor;
@@ -21,6 +22,7 @@ class Threads {
     int likes;
 
     Threads({
+        required this.bookId,
         required this.bookTitle,
         required this.bookImage,
         required this.bookAuthor,
@@ -34,6 +36,7 @@ class Threads {
     });
 
     factory Threads.fromJson(Map<String, dynamic> json) => Threads(
+        bookId: json["book_id"],
         bookTitle: json["book_title"],
         bookImage: json["book_image"],
         bookAuthor: json["book_author"],
@@ -47,6 +50,7 @@ class Threads {
     );
 
     Map<String, dynamic> toJson() => {
+        "book_id": bookId,
         "book_title": bookTitle,
         "book_image": bookImage,
         "book_author": bookAuthor,

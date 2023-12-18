@@ -8,6 +8,7 @@ import 'package:books_buddy/eventbuddy/screens/create_event.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
 import 'package:books_buddy/shared/shared.dart';
+import 'package:books_buddy/shared/page.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -331,38 +332,38 @@ class _BookDisplayState extends State<BookDisplay> {
                               ),
                             ),
                           if (logInUser!.role == "M")
-                            Container(
-                              height: 40,
-                              width: 135,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: primaryColour),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddThread(
-                                        book: book,
-                                      ),
+                              Container(
+                            height: 40,
+                            width: 135,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: primaryColour),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddThread(
+                                      book: book,
                                     ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.transparent,
-                                    shadowColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30))),
-                                child: Text(
-                                  "Add Thread",
-                                  style: defaultText.copyWith(
-                                      fontSize: 13,
-                                      color: backgroundColour,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30))),
+                              child: Text(
+                                "Add Thread",
+                                style: defaultText.copyWith(
+                                    fontSize: 13,
+                                    color: backgroundColour,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
+                          ),
                           Container(
                             height: 40,
                             width: 150,
