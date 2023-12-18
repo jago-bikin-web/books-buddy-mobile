@@ -48,6 +48,8 @@ class _BookSectionState extends State<BookSection> {
   ];
 
   late Future<List<Books>> _data;
+  int currentPage = 1;
+  int booksPerPage = 10;
 
   Future<List<Books>> fetchBooks(url) async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
