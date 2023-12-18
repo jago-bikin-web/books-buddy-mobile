@@ -16,73 +16,73 @@ class _FindBuddyState extends State<FindBuddy> {
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            color: backgroundColour,
-          ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TopBar(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 8,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: backgroundColour,
+            ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TopBar(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 8,
+                    ),
+                    child: Divider(
+                      color: primaryColour,
+                      thickness: 2,
+                    ),
                   ),
-                  child: Divider(
-                    color: primaryColour,
-                    thickness: 2,
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(
-                        "Discover Your Book",
-                        style: defaultText.copyWith(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          "Discover Your Book",
+                          style: defaultText.copyWith(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const BookSection(),
-                const SizedBox(
-                  height: 60,
-                )
-              ],
+                    ],
+                  ),
+                  const BookSection(),
+                  const SizedBox(
+                    height: 60,
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: FloatingActionButton(
+            hoverColor: primaryColour.withOpacity(0.2),
+            hoverElevation: 5,
+            elevation: 3,
+            shape: const CircleBorder(),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const RequestBook(),
+              ));
+            },
+            backgroundColor: primaryColour, // Replace with your primary color
+            child: const Icon(
+              Icons.add_rounded,
+              color: Colors.white,
+              size: 40,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom : 60),
-            child: Positioned(
-                    child: FloatingActionButton(
-                      hoverColor: primaryColour.withOpacity(0.2),
-                      hoverElevation: 5,
-                      elevation: 3,
-                      shape: const CircleBorder(),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RequestBook(),
-                        ));
-                      },
-                      backgroundColor: primaryColour, // Replace with your primary color
-                      child: const Icon(
-                        Icons.add_rounded,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-          ),
-        ],
+        ),
       ),
     );
   }

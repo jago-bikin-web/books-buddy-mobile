@@ -7,8 +7,6 @@ import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:books_buddy/findbuddy/screens/book_details.dart';
-
 class BookSection extends StatefulWidget {
   const BookSection({super.key});
 
@@ -52,7 +50,6 @@ class _BookSectionState extends State<BookSection> {
   int booksPerPage = 10;
 
   Future<List<Books>> fetchBooks(url) async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
@@ -76,15 +73,8 @@ class _BookSectionState extends State<BookSection> {
     super.initState();
     _dataCategory.sort();
     _data = fetchBooks(
-      // TODO : INTEGRASIKAN LINK
+        // TODO : INTEGRASIKAN LINK
         "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
-  }
-
-  void _navigateToBookDetailPage(Books book) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BooksDetailPage(books: book)),
-    );
   }
 
   @override
@@ -115,7 +105,7 @@ class _BookSectionState extends State<BookSection> {
               setState(() {
                 query = value;
                 _data = fetchBooks(
-                  // TODO : INTEGRASIKAN LINK
+                    // TODO : INTEGRASIKAN LINK
                     "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
               });
             },

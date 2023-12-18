@@ -1,12 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
-import 'package:books_buddy/findbuddy/models/request_books_models.dart';
-import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
 import 'package:books_buddy/findbuddy/screens/request_list.dart';
+import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:http/http.dart' as http;
 
 class RequestBook extends StatefulWidget {
   const RequestBook({Key? key}) : super(key: key);
@@ -25,14 +25,16 @@ class _RequestBookState extends State<RequestBook> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Daftar Produk',
-          ),
+        title: Text(
+          'Book Request',
+          style: defaultText.copyWith(
+              color: whiteColour, fontWeight: FontWeight.bold, fontSize: 24),
         ),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        centerTitle: true,
+        backgroundColor: primaryColour,
+        foregroundColor: whiteColour,
       ),
+      backgroundColor: backgroundColour,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -42,13 +44,8 @@ class _RequestBookState extends State<RequestBook> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Judul",
-                    labelText: "Judul",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
+                  decoration: inputDecoration(
+                      hintText: "Title", labelText: "Title", prefixIcon: null),
                   onChanged: (String? value) {
                     setState(() {
                       _title = value!;
@@ -56,7 +53,7 @@ class _RequestBookState extends State<RequestBook> {
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Judul tidak boleh kosong!";
+                      return "Required!";
                     }
                     return null;
                   },
@@ -65,12 +62,10 @@ class _RequestBookState extends State<RequestBook> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                  decoration: inputDecoration(
                     hintText: "Author",
                     labelText: "Author",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    prefixIcon: null,
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -90,11 +85,11 @@ class _RequestBookState extends State<RequestBook> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                    ),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColour),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        // TODO: INTEGRASI LINK
                         final response = await request.postJson(
                           "http://127.0.0.1:8000/findbuddy/create-flutter/",
                           jsonEncode(<String, String>{
@@ -105,21 +100,36 @@ class _RequestBookState extends State<RequestBook> {
                         if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Produk baru berhasil disimpan!"),
+                              content: Text("Request berhasil disimpan!"),
                             ),
                           );
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Produk berhasil tersimpan'),
+                                backgroundColor: whiteColour,
+                                title: Text('Request berhasil tersimpan',
+                                    style: defaultText.copyWith(
+                                        color: primaryColour, fontSize: 18)),
                                 content: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text('Nama: $_title'),
-                                      Text('Deskripsi: $_author'),
+                                      Text(
+                                        'Nama: $_title',
+                                        style: defaultText.copyWith(
+                                            color: primaryColour,
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Deskripsi: $_author',
+                                        style: defaultText.copyWith(
+                                            color: primaryColour,
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 14),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -144,9 +154,12 @@ class _RequestBookState extends State<RequestBook> {
                         }
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       "Save",
-                      style: TextStyle(color: Colors.white),
+                      style: defaultText.copyWith(
+                          color: whiteColour,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14),
                     ),
                   ),
                 ),
@@ -161,19 +174,20 @@ class _RequestBookState extends State<RequestBook> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.indigo),
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: primaryColour),
               onPressed: () {
                 // Tombol ke ListPage
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ListPage()),
+                  MaterialPageRoute(builder: (context) => const ListPage()),
                 );
               },
-              child: const Text(
+              child: Text(
                 "Books Request List",
-                style: TextStyle(color: Colors.white),
+                style: defaultText.copyWith(
+                    color: whiteColour,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 14),
               ),
             ),
           ],

@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:books_buddy/findbuddy/models/request_books_models.dart';
+import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,8 +14,8 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-   Future<List<RequestBooks>> fetchProduct() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+  Future<List<RequestBooks>> fetchProduct() async {
+   //TODO : INTEGRASIIN LINK
     var url = Uri.parse('http://127.0.0.1:8000/findbuddy/get-request/');
     var response = await http.get(
       url,
@@ -23,20 +26,28 @@ class _ListPageState extends State<ListPage> {
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     // melakukan konversi data json menjadi object Product
-    List<RequestBooks> list_product = [];
+    List<RequestBooks> listProduct = [];
     for (var d in data) {
       if (d != null) {
-        list_product.add(RequestBooks.fromJson(d));
+        listProduct.add(RequestBooks.fromJson(d));
       }
     }
-    return list_product;
+    return listProduct;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: backgroundColour,
         appBar: AppBar(
-          title: const Text('Daftar Request'),
+          title: Text(
+            'Request List',
+            style: defaultText.copyWith(
+                color: whiteColour, fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+          centerTitle: true,
+          backgroundColor: primaryColour,
+          foregroundColor: whiteColour,
         ),
         body: FutureBuilder(
             future: fetchProduct(),
@@ -45,37 +56,36 @@ class _ListPageState extends State<ListPage> {
                 return const Center(child: CircularProgressIndicator());
               } else {
                 if (!snapshot.hasData) {
-                  return const Column(
+                  return Column(
                     children: [
                       Text(
-                        "Tidak ada data produk.",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        "Tidak ada data.",
+                        style: defaultText.copyWith(
+                            fontSize: 20, color: primaryColour),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                     ],
                   );
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (_, index) {
-                      return GestureDetector(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${snapshot.data![index].fields.title} || ${snapshot.data![index].fields.author} ",
-                                style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold),
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 4),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              color: primaryColour.withOpacity(0.2),
+                              child: Text(
+                                "${index + 1}. ${snapshot.data![index].fields.title} - ${snapshot.data![index].fields.author}",
+                                style: defaultText.copyWith(fontSize: 18),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       );
                     },

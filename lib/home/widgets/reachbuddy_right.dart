@@ -1,15 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
-
 import 'dart:convert';
 
-import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/reachbuddy/screens/thread_detail.dart';
 import 'package:books_buddy/reachbuddy/models/threads.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:books_buddy/shared/page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 class ThreadsHome extends StatefulWidget {
@@ -23,27 +19,26 @@ class _ThreadsHomeState extends State<ThreadsHome> {
   late Future<List<Threads>> _data;
 
   Future<List<Threads>> fetchThreads(url) async {
-  // ... existing code ...
+    // ... existing code ...
 
-  var response = await http.get(
-    Uri.parse(url),
-    headers: {"Content-Type": "application/json"},
-  );
+    var response = await http.get(
+      Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+    );
 
-  var data = jsonDecode(utf8.decode(response.bodyBytes));
-  List<Threads> listThreads = [];
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+    List<Threads> listThreads = [];
 
-  for (var threadData in data) {
-    listThreads.add(Threads.fromJson(threadData));
+    for (var threadData in data) {
+      listThreads.add(Threads.fromJson(threadData));
+    }
+
+    // Sort the threads by date in descending order (newest first)
+    listThreads.sort((a, b) => b.date.compareTo(a.date));
+
+    // Take the top three latest threads
+    return listThreads.take(3).toList();
   }
-
-  // Sort the threads by date in descending order (newest first)
-  listThreads.sort((a, b) => b.date.compareTo(a.date));
-
-  // Take the top three latest threads
-  return listThreads.take(3).toList();
-}
-
 
   @override
   void initState() {
@@ -54,7 +49,6 @@ class _ThreadsHomeState extends State<ThreadsHome> {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     return FutureBuilder(
       future: _data,
       builder: (context, AsyncSnapshot snapshot) {
@@ -71,7 +65,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -89,7 +83,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                           "assets/images/not-found.png",
                           height: 150,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text(
@@ -106,7 +100,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                 ),
               );
             }
-            return Container(
+            return SizedBox(
               height: 200, // Set a fixed height for the container
               child: ListView.builder(
                 scrollDirection: Axis
@@ -130,7 +124,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                               },
                               child: Container(
                                 width: 120, // Set a fixed width for each item
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     horizontal:
                                         8), // Add some horizontal margin
                                 child: Column(
@@ -147,7 +141,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                                             .cover, // Cover the entire space of the box
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                         height:
                                             10), // Space between image and profile info
                                     Row(
@@ -161,7 +155,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                                           radius:
                                               16, // Adjust the radius to make the avatar smaller
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                             width:
                                                 8), // Space between avatar and name
                                         Flexible(
@@ -179,10 +173,7 @@ class _ThreadsHomeState extends State<ThreadsHome> {
                                     ),
                                   ],
                                 ),
-                              )
-                            )
-                          )
-                        );
+                              ))));
                 },
               ),
             );

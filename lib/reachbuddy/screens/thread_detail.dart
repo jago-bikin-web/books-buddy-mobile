@@ -1,9 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/findbuddy/screens/displaybook.dart';
-import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
-import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:books_buddy/shared/page.dart';
@@ -129,7 +129,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
               Container(
                 decoration: BoxDecoration(
                   color: backgroundColour,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.elliptical(64, 20),
                       topRight: Radius.elliptical(64, 20)),
                 ),
@@ -140,7 +140,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                     // Column for the content
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +233,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                           ))
                         ],
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 12.0),
                       Text(
                         'Posted ${formatMonthDay(widget.thread.date)}',
                         style: defaultText.copyWith(
@@ -280,7 +280,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                           ),
                         ],
                       ),
-                      Divider(color: Colors.grey),
+                      const Divider(color: Colors.grey),
                       widget.thread.profileName == logInUser!.username
                           ? Consumer<PageProvider>(
                               builder: (context, pageProvider, child) =>
@@ -296,16 +296,18 @@ class _ThreadDetailState extends State<ThreadDetail> {
 
                                         if (response.statusCode == 200) {
                                           // Successfully deleted
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(
-                                              content: Text("Berhasil menghapus thread!"),
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  "Berhasil menghapus thread!"),
                                               duration: Duration(seconds: 1),
                                             ),
                                           );
                                           Navigator.pop(context, true);
                                         }
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.delete, // Trash icon
                                         color: Colors.white,
                                       ),
@@ -315,7 +317,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                                             color: Colors.white, fontSize: 16),
                                       ),
                                       style: ElevatedButton.styleFrom(
-                                        primary:
+                                        backgroundColor:
                                             Colors.red, // Red background color
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(

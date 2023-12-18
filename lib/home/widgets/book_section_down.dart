@@ -35,7 +35,6 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
   late Future<List<Books>> _data;
 
   Future<List<Books>> fetchBooks() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(widget.url),
       headers: {"Content-Type": "application/json"},

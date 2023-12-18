@@ -33,21 +33,7 @@ class OwnBookBuilder extends StatefulWidget {
   State<OwnBookBuilder> createState() => _OwnBookBuilderState();
 }
 
-class _OwnBookBuilderState extends State<OwnBookBuilder>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 500),
-  )..forward();
-  late final Animation<Offset> _offsetAnimation1 = Tween<Offset>(
-    begin: const Offset(-0.5, 0),
-    end: Offset.zero,
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-  late final Animation<Offset> _offsetAnimation2 = Tween<Offset>(
-    begin: const Offset(0.5, 0),
-    end: Offset.zero,
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
+class _OwnBookBuilderState extends State<OwnBookBuilder> {
   late Future<List<OwnBooks>> _data;
 
   String filter = "All";
@@ -57,12 +43,6 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
     "Reading",
     "Finished",
   ];
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -212,8 +192,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                 ),
                 SizedBox(
                   height: 210 * snapshot.data!.length / 1 -
-                        (10 * snapshot.data!.length) +
-                        80,
+                      (10 * snapshot.data!.length) +
+                      80,
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -225,117 +205,149 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                       String subAuthors = (authors.length <= 24)
                           ? authors
                           : "${authors.substring(0, 24)}...";
-                      return SlideTransition(
-                        position: index % 2 == 1
-                            ? _offsetAnimation1
-                            : _offsetAnimation2,
-                        child: GestureDetector(
-                          onTap: () async {
-                            final result = await showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) {
-                                return UpdateModal(
-                                  context,
-                                  book: snapshot.data![index],
-                                );
-                              },
-                            );
+                      return GestureDetector(
+                        onTap: () async {
+                          final result = await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return UpdateModal(
+                                context,
+                                book: snapshot.data![index],
+                              );
+                            },
+                          );
 
-                            if (result == null) return;
+                          if (result == null) return;
 
-                            if (result) {
-                              setState(() {
-                                _data = fetchBooks(filter);
-                              });
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 10),
-                            child: Container(
-                              height: 180,
-                              padding: const EdgeInsets.only(
-                                  top: 10, bottom: 10, left: 10),
-                              decoration: BoxDecoration(
-                                color: primaryColour.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                          spreadRadius: 2,
-                                          blurRadius: 8,
-                                          offset: Offset(2, 2),
-                                        ),
-                                      ],
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        snapshot.data![index].thumbnail,
-                                        width: 110,
-                                        fit: BoxFit.fill,
+                          if (result) {
+                            setState(() {
+                              _data = fetchBooks(filter);
+                            });
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 10),
+                          child: Container(
+                            height: 180,
+                            padding: const EdgeInsets.only(
+                                top: 10, bottom: 10, left: 10),
+                            decoration: BoxDecoration(
+                              color: primaryColour.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        spreadRadius: 2,
+                                        blurRadius: 8,
+                                        offset: Offset(2, 2),
                                       ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      snapshot.data![index].thumbnail,
+                                      width: 110,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    flex: 5,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              subTitle,
-                                              style: defaultText.copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              "By $subAuthors",
-                                              style: defaultText.copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w300,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Expanded(
-                                          child: SingleChildScrollView(
-                                            physics:
-                                                const BouncingScrollPhysics(),
-                                            child: Text(
-                                              snapshot.data![index].description,
-                                              style: defaultText.copyWith(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w300),
-                                              textAlign: TextAlign.justify,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  flex: 5,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            subTitle,
+                                            style: defaultText.copyWith(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
+                                          Text(
+                                            "By $subAuthors",
+                                            style: defaultText.copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          child: Text(
+                                            snapshot.data![index].description,
+                                            style: defaultText.copyWith(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w300),
+                                            textAlign: TextAlign.justify,
+                                          ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: 90,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 1.5),
+                                              decoration: BoxDecoration(
+                                                color: whiteColour,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  snapshot.data![index].status,
+                                                  style: defaultText.copyWith(
+                                                    color: primaryColour,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                showModalBottomSheet(
+                                                  context: context,
+                                                  isScrollControlled: true,
+                                                  builder: (context) {
+                                                    return ReviewModal(
+                                                      context,
+                                                      book:
+                                                          snapshot.data![index],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Container(
                                                 height: 30,
                                                 width: 90,
                                                 padding:
@@ -343,16 +355,16 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                         horizontal: 10,
                                                         vertical: 1.5),
                                                 decoration: BoxDecoration(
-                                                  color: whiteColour,
+                                                  color: primaryColour
+                                                      .withOpacity(0.9),
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    snapshot
-                                                        .data![index].status,
+                                                    "Review",
                                                     style: defaultText.copyWith(
-                                                      color: primaryColour,
+                                                      color: backgroundColour,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 12,
@@ -360,183 +372,136 @@ class _OwnBookBuilderState extends State<OwnBookBuilder>
                                                   ),
                                                 ),
                                               ),
-                                              InkWell(
-                                                onTap: () {
-                                                  showModalBottomSheet(
-                                                    context: context,
-                                                    isScrollControlled: true,
-                                                    builder: (context) {
-                                                      return ReviewModal(
-                                                        context,
-                                                        book: snapshot
-                                                            .data![index],
-                                                      );
-                                                    },
-                                                  );
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 160,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                primaryColour.withOpacity(0.9),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  // TODO : INTEGRASIKAN LINK
+                                                  await http.patch(
+                                                      Uri.parse(
+                                                          "http://127.0.0.1:8000/mybuddy/add-page-track/"),
+                                                      headers: {
+                                                        "Content-Type":
+                                                            "application/json"
+                                                      },
+                                                      body: jsonEncode(<String,
+                                                          String>{
+                                                        'pk': snapshot
+                                                            .data![index].pk
+                                                            .toString(),
+                                                      }));
+                                                  setState(() {
+                                                    _data = fetchBooks(filter);
+                                                  });
                                                 },
                                                 child: Container(
-                                                  height: 30,
-                                                  width: 90,
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 1.5),
+                                                  width: 35,
+                                                  height: 35,
                                                   decoration: BoxDecoration(
-                                                    color: primaryColour
-                                                        .withOpacity(0.9),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20),
                                                   ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Review",
-                                                      style:
-                                                          defaultText.copyWith(
-                                                        color: backgroundColour,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
+                                                  child: Image.asset(
+                                                      "assets/images/panah_atas.png"),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              Text(
+                                                "PAGE",
+                                                style: defaultText.copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: whiteColour,
+                                                ),
+                                              ),
+                                              Text(
+                                                snapshot.data![index].pageTrack
+                                                    .toString(),
+                                                style: defaultText.copyWith(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: whiteColour,
+                                                ),
+                                              ),
+                                              Text(
+                                                "/ ${snapshot.data![index].pageCount}"
+                                                    .toString(),
+                                                style: defaultText.copyWith(
+                                                  fontSize: 9.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: whiteColour,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  // TODO : INTEGRASIKAN LINK
+                                                  await http.patch(
+                                                      Uri.parse(
+                                                          "http://127.0.0.1:8000/mybuddy/sub-page-track/"),
+                                                      headers: {
+                                                        "Content-Type":
+                                                            "application/json"
+                                                      },
+                                                      body: jsonEncode(<String,
+                                                          String>{
+                                                        'pk': snapshot
+                                                            .data![index].pk
+                                                            .toString(),
+                                                      }));
+                                                  setState(() {
+                                                    _data = fetchBooks(filter);
+                                                  });
+                                                },
+                                                child: Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
                                                   ),
+                                                  child: Image.asset(
+                                                      "assets/images/panah_bawah.png"),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 160,
-                                            decoration: BoxDecoration(
-                                              color: primaryColour
-                                                  .withOpacity(0.9),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    // TODO : INTEGRASIKAN LINK
-                                                    await http.patch(
-                                                        Uri.parse(
-                                                            "http://127.0.0.1:8000/mybuddy/add-page-track/"),
-                                                        headers: {
-                                                          "Content-Type":
-                                                              "application/json"
-                                                        },
-                                                        body:
-                                                            jsonEncode(<String,
-                                                                String>{
-                                                          'pk': snapshot
-                                                              .data![index].pk
-                                                              .toString(),
-                                                        }));
-                                                    setState(() {
-                                                      _data =
-                                                          fetchBooks(filter);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: Image.asset(
-                                                        "assets/images/panah_atas.png"),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Text(
-                                                  "PAGE",
-                                                  style: defaultText.copyWith(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: whiteColour,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  snapshot
-                                                      .data![index].pageTrack
-                                                      .toString(),
-                                                  style: defaultText.copyWith(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: whiteColour,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "/ ${snapshot.data![index].pageCount}"
-                                                      .toString(),
-                                                  style: defaultText.copyWith(
-                                                    fontSize: 9.5,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: whiteColour,
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    // TODO : INTEGRASIKAN LINK
-                                                    await http.patch(
-                                                        Uri.parse(
-                                                            "http://127.0.0.1:8000/mybuddy/sub-page-track/"),
-                                                        headers: {
-                                                          "Content-Type":
-                                                              "application/json"
-                                                        },
-                                                        body:
-                                                            jsonEncode(<String,
-                                                                String>{
-                                                          'pk': snapshot
-                                                              .data![index].pk
-                                                              .toString(),
-                                                        }));
-                                                    setState(() {
-                                                      _data =
-                                                          fetchBooks(filter);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    width: 35,
-                                                    height: 35,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15),
-                                                    ),
-                                                    child: Image.asset(
-                                                        "assets/images/panah_bawah.png"),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             ),
                           ),
                         ),

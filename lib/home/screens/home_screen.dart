@@ -147,7 +147,8 @@ class _HomePageState extends State<HomePage> {
                       url: "http://127.0.0.1:8000/api/get-random/",
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      padding:
+                          const EdgeInsets.only(left: 24, right: 24),
                       child: Text(
                         "Reach Others!",
                         style: defaultText.copyWith(
@@ -159,7 +160,10 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const ThreadsHome(),
+                    const Padding(
+                        padding:
+                            EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                        child: Center(child: ThreadsHome())),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Text(

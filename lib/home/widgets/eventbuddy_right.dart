@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 
@@ -21,7 +21,6 @@ class _EventHomeState extends State<EventHome> {
   late Future<List<Event>> _data;
 
   Future<List<Event>> fetchEvent(url) async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
@@ -66,7 +65,7 @@ class _EventHomeState extends State<EventHome> {
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -84,7 +83,7 @@ class _EventHomeState extends State<EventHome> {
                           "assets/images/not-found.png",
                           height: 150,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Text(
@@ -109,12 +108,13 @@ class _EventHomeState extends State<EventHome> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 24),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
                         height: 160,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: primaryColour.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(10),
@@ -123,7 +123,7 @@ class _EventHomeState extends State<EventHome> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration: BoxDecoration(boxShadow: [
+                              decoration: const BoxDecoration(boxShadow: [
                                 BoxShadow(
                                   color: Colors.black26,
                                   spreadRadius: 2,
@@ -140,7 +140,7 @@ class _EventHomeState extends State<EventHome> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -159,18 +159,18 @@ class _EventHomeState extends State<EventHome> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 4,
                                       ),
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.calendar_month_rounded,
                                             size: 14,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Text(
@@ -186,7 +186,7 @@ class _EventHomeState extends State<EventHome> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Text(
@@ -197,7 +197,7 @@ class _EventHomeState extends State<EventHome> {
                                   ),
                                   Expanded(
                                     child: SingleChildScrollView(
-                                      physics: BouncingScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       child: Text(
                                         snapshot.data![index].eventDescription,
                                         style: defaultText.copyWith(
@@ -233,7 +233,7 @@ class _EventHomeState extends State<EventHome> {
 
                                             if (response["status"] == 1) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "You have registered for this event."),
                                               ));
@@ -241,7 +241,7 @@ class _EventHomeState extends State<EventHome> {
 
                                             if (response["status"] == 2) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "Successfully registered! See you soon!"),
                                               ));
@@ -249,7 +249,7 @@ class _EventHomeState extends State<EventHome> {
 
                                             if (response["status"] == 3) {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content: Text(
                                                     "You are the organizer of this event."),
                                               ));
@@ -258,7 +258,7 @@ class _EventHomeState extends State<EventHome> {
                                           child: Container(
                                             height: 30,
                                             width: 90,
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 1.5),
                                             decoration: BoxDecoration(
                                               color: primaryColour,

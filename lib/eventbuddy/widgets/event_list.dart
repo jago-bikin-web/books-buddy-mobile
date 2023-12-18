@@ -109,7 +109,8 @@ class _EventSectionState extends State<EventSection> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 24),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -246,7 +247,8 @@ class _EventSectionState extends State<EventSection> {
                                                     backgroundColor:
                                                         secondaryColour,
                                                     contentPadding:
-                                                        const EdgeInsets.all(32.0),
+                                                        const EdgeInsets.all(
+                                                            32.0),
                                                     content:
                                                         SingleChildScrollView(
                                                       child: Column(
@@ -281,7 +283,8 @@ class _EventSectionState extends State<EventSection> {
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
-                                                        child: const Text('Close'),
+                                                        child:
+                                                            const Text('Close'),
                                                       ),
                                                     ],
                                                   );

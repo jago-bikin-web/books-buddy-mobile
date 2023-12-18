@@ -71,7 +71,6 @@ class WelcomePage extends StatelessWidget {
                     gradient: gradient),
                 child: ElevatedButton(
                   onPressed: () {
-                    // NOTE: MENAMPILKAN MODAL REGISTER
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,

@@ -1,12 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:books_buddy/shared/shared.dart';
 import 'package:books_buddy/shared/page.dart';
-import 'package:books_buddy/findbuddy/screens/findbuddy.dart';
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class AddThread extends StatefulWidget {
 
 class _AddThreadState extends State<AddThread> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _review = "";
 
   @override
@@ -47,7 +47,7 @@ class _AddThreadState extends State<AddThread> {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.close),
+                          icon: const Icon(Icons.close),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                         Expanded(
@@ -62,13 +62,6 @@ class _AddThreadState extends State<AddThread> {
                         Consumer<PageProvider>(
                           builder: (context, pageProvider, child) =>
                               ElevatedButton(
-                            child: Text(
-                              'Post',
-                              style: defaultText.copyWith(
-                                color: whiteColour,
-                                fontSize: 18,
-                              ),
-                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: primaryColour,
                               shape: RoundedRectangleBorder(
@@ -99,19 +92,26 @@ class _AddThreadState extends State<AddThread> {
                                       _formKey.currentState!.reset();
                                     }
                                   },
+                            child: Text(
+                              'Post',
+                              style: defaultText.copyWith(
+                                color: whiteColour,
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://lh3.googleusercontent.com/ogw/ANLem4ZbY8Sgfn4eFNL5PA-7d8A3wXO1DFwh8Q9zaK3u1Q=s32-c-mo"),
+                        backgroundImage:
+                            NetworkImage(logInUser!.profilePicture),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: TextFormField(
                           controller: _controller,
@@ -140,7 +140,7 @@ class _AddThreadState extends State<AddThread> {
                     ],
                   ),
                   // ... Rest of your widgets
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Center(
                     child: widget.book == null
                         ? Consumer<PageProvider>(
@@ -156,11 +156,6 @@ class _AddThreadState extends State<AddThread> {
                                   pageProvider.setPage(2);
                                   Navigator.of(context).pop();
                                 },
-                                child: Text(
-                                  'Choose the Book',
-                                  style: defaultText.copyWith(
-                                      color: backgroundColour, fontSize: 20),
-                                ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.transparent,
                                   shadowColor: Colors.transparent,
@@ -168,14 +163,19 @@ class _AddThreadState extends State<AddThread> {
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
                                 ),
+                                child: Text(
+                                  'Choose the Book',
+                                  style: defaultText.copyWith(
+                                      color: backgroundColour, fontSize: 20),
+                                ),
                               ),
                             ),
                           )
                         : Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Container(
                               height: 160,
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: primaryColour.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(10),
@@ -184,7 +184,7 @@ class _AddThreadState extends State<AddThread> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(boxShadow: [
+                                    decoration: const BoxDecoration(boxShadow: [
                                       BoxShadow(
                                         color: Colors.black26,
                                         spreadRadius: 2,
@@ -201,7 +201,7 @@ class _AddThreadState extends State<AddThread> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
@@ -239,7 +239,8 @@ class _AddThreadState extends State<AddThread> {
                                         ),
                                         Expanded(
                                           child: SingleChildScrollView(
-                                            physics: BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             child: Text(
                                               widget.book!.fields.description,
                                               style: defaultText.copyWith(

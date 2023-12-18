@@ -170,8 +170,8 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                   ),
                                 ),
                                 Container(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.27,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.27,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
