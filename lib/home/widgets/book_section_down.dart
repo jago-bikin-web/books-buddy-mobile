@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:convert';
 
+import 'package:books_buddy/findbuddy/screens/displaybook.dart';
 import 'package:books_buddy/home/models/book_models.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +78,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                   "Tidak ada data produk.",
                   style: TextStyle(color: primaryColour, fontSize: 20),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
               ],
             );
           } else {
@@ -97,7 +96,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                           "assets/images/not-found.png",
                           height: 150,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                       ],
@@ -107,9 +106,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
               );
             }
             return SizedBox(
-              height: 200 * snapshot.data!.length / 1 -
-                  (19 * snapshot.data!.length) +
-                  50,
+              height: 200 * snapshot.data!.length / 1,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
@@ -122,13 +119,22 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                       ? authors
                       : "${authors.substring(0, 20)}...";
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookDisplay(
+                            book: snapshot.data![index],
+                          ),
+                        ),
+                      );
+                    },
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                       child: Container(
                         height: 160,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: primaryColour.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(10),
@@ -137,7 +143,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              decoration: BoxDecoration(boxShadow: [
+                              decoration: const BoxDecoration(boxShadow: [
                                 BoxShadow(
                                   color: Colors.black26,
                                   spreadRadius: 2,
@@ -154,7 +160,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             Expanded(
@@ -184,7 +190,7 @@ class _BookSectionBuilderState extends State<BookSectionBuilder> {
                                   ),
                                   Expanded(
                                     child: SingleChildScrollView(
-                                      physics: BouncingScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       child: Text(
                                         snapshot
                                             .data![index].fields.description,

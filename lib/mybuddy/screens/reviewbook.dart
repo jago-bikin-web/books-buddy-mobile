@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronous, use_build_context_synchronously
-
 import 'package:books_buddy/mybuddy/models/own_book_models.dart';
 import 'package:flutter/material.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -55,7 +53,7 @@ class _ReviewModalState extends State<ReviewModal> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black26,
@@ -74,14 +72,14 @@ class _ReviewModalState extends State<ReviewModal> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SizedBox(
                           height: 70,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             child: Text(
                               widget.book.description,
                               style: defaultText.copyWith(
@@ -90,13 +88,13 @@ class _ReviewModalState extends State<ReviewModal> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.all(14),
+                      padding: const EdgeInsets.all(14),
                       width: MediaQuery.of(context).size.width - 24 * 2,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),

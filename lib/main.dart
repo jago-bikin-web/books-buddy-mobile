@@ -1,10 +1,6 @@
-// import 'package:books_buddy/auth/screens/welcome.dart';
-
-// ignore_for_file: prefer_const_constructors
-
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/welcome.dart';
-import 'package:books_buddy/home/home.dart';
+import 'package:books_buddy/auth/splash_screen.dart';
 import 'package:books_buddy/shared/page.dart';
 import 'package:books_buddy/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +36,9 @@ class MyApp extends StatelessWidget {
             cursorColor: primaryColour,
           ),
         ),
-        home: Home(),
+        home: const SplashScreen(
+          nextScreen: WelcomePage(),
+        ),
       ),
     );
   }

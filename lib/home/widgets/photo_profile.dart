@@ -21,7 +21,6 @@ class PhotoProfile extends StatelessWidget {
           tag: "profile",
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            clipBehavior: Clip.antiAliasWithSaveLayer,
             child: GestureDetector(
               child: Image.network(image),
             ),

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:convert';
 
 import 'package:books_buddy/findbuddy/screens/displaybook.dart';
@@ -186,6 +184,14 @@ class _BookSectionState extends State<BookSection> {
                               SizedBox(
                                 height: 8,
                               ),
+                              Text(
+                                "Books are currently unavailable. Please try another option.",
+                                style: defaultText.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              )
                             ],
                           ),
                         ),

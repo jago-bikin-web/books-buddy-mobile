@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/auth/screens/welcome.dart';
@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-//TODO: Integrasiin Sama yang login
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -26,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
               height: 75,
               decoration: BoxDecoration(
                   color: backgroundColour,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.elliptical(64, 32),
                       bottomRight: Radius.elliptical(64, 32))),
               child: Align(
@@ -43,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                         width: 30,
                         fit: BoxFit.contain,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Text(
@@ -73,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                         height: 120,
                         width: 120,
                         image: NetworkImage(
-                          "https://i.pravatar.cc/48?img=20",
+                          logInUser!.profilePicture,
                         ),
                       ),
                     ),
@@ -85,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.elliptical(64, 32),
                         topRight: Radius.elliptical(64, 32)),
                     color: backgroundColour),
@@ -101,19 +100,21 @@ class ProfileScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
-                      ProfileItem(title: "Full Name", value: "INI FULL NAME"),
-                      ProfileItem(title: "Username", value: "ini username"),
-                      SizedBox(
+                      ProfileItem(
+                          title: "Full Name", value: logInUser!.fullName),
+                      ProfileItem(
+                          title: "Username", value: logInUser!.username),
+                      const SizedBox(
                         height: 16,
                       ),
                       Divider(
                         color: primaryColour,
                         thickness: 3,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Text(
@@ -123,15 +124,18 @@ class ProfileScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
-                      ProfileItem(title: "ID User", value: "2"),
-                      ProfileItem(title: "Email", value: "email@meail.com"),
+                      ProfileItem(
+                          title: "ID User",
+                          value: logInUser!.userId.toString()),
+                      ProfileItem(title: "Email", value: logInUser!.email),
                       ProfileItem(
                           title: "Role",
-                          value: ("M" == "M" ? "Member" : "Reguler")),
-                      SizedBox(
+                          value:
+                              (logInUser!.role == "M" ? "Member" : "Reguler")),
+                      const SizedBox(
                         height: 20,
                       ),
                       Align(
@@ -144,6 +148,7 @@ class ProfileScreen extends StatelessWidget {
                               gradient: gradient),
                           child: ElevatedButton(
                             onPressed: () async {
+                              // TODO : Integrasiin link
                               final response = await request.logout(
                                 "http://127.0.0.1:8000/auth/logout/",
                               );
