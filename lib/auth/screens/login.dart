@@ -181,9 +181,8 @@ class _LoginModalState extends State<LoginModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              // TODO : INTEGRASIKAN LINK
                               final response = await request.login(
-                                "http://127.0.0.1:8000/auth/login/",
+                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/login/",
                                 {
                                   'username': _username,
                                   'password': _password,

@@ -21,7 +21,6 @@ class _EventSectionState extends State<EventSection> {
   late Future<List<Event>> _data;
 
   Future<List<Event>> fetchEvent(url) async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var response = await http.get(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
@@ -43,8 +42,8 @@ class _EventSectionState extends State<EventSection> {
   @override
   void initState() {
     super.initState();
-    // TODO : INTEGRASIKAN LINK
-    _data = fetchEvent("http://127.0.0.1:8000/eventbuddy/get-event-flutter/");
+    _data = fetchEvent(
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/get-event-flutter/");
   }
 
   @override
@@ -322,10 +321,9 @@ class _EventSectionState extends State<EventSection> {
                                         ),
                                         InkWell(
                                           onTap: () async {
-                                            // TODO : INTEGRASIKAN LINK
                                             final response =
                                                 await request.postJson(
-                                              "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/regis-flutter/",
                                               jsonEncode(
                                                 <String, String>{
                                                   'username':

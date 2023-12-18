@@ -100,8 +100,8 @@ class _ThreadsPageState extends State<ThreadsPage>
   }
 
   Future<List<Threads>> fetchThreads() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/reachbuddy/get-threads-flutter/');
+    var url = Uri.parse(
+        'https://books-buddy-e06-tk.pbp.cs.ui.ac.id/reachbuddy/get-threads-flutter/');
     var response =
         await http.get(url, headers: {"Content-Type": "application/json"});
     var data = jsonDecode(utf8.decode(response.bodyBytes));
@@ -207,7 +207,7 @@ class _ThreadsPageState extends State<ThreadsPage>
                     ),
                   ),
                   _isLoading
-                      ? const Center(child: CircularProgressIndicator())
+                      ? Center(child: CircularProgressIndicator(color: primaryColour,))
                       : ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,

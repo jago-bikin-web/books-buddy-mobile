@@ -26,8 +26,8 @@ class _BookDisplayState extends State<BookDisplay> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     Books book = widget.book;
-    String subTitle = book.fields.title.length > 56
-        ? "${book.fields.title.substring(0, 56)}..."
+    String subTitle = book.fields.title.length > 42
+        ? "${book.fields.title.substring(0, 42)}..."
         : book.fields.title;
     String subAuthors = book.fields.authors.length > 55
         ? "${book.fields.authors.substring(0, 55)}..."
@@ -298,7 +298,7 @@ class _BookDisplayState extends State<BookDisplay> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          if (logInUser!.role == "M")
+                          if (logInUser!.role == "M") 
                             Container(
                               height: 40,
                               width: 120,
@@ -372,9 +372,8 @@ class _BookDisplayState extends State<BookDisplay> {
                                 color: primaryColour),
                             child: ElevatedButton(
                               onPressed: () async {
-                                // TODO : INTEGRASIKAN LINK
                                 final response = await request.postJson(
-                                  "http://127.0.0.1:8000/mybuddy/add-book-flutter/",
+                                  "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/add-book-flutter/",
                                   jsonEncode(
                                     <String, String>{
                                       'pk': '${book.pk}',
@@ -382,7 +381,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                     },
                                   ),
                                 );
-
+                      
                                 if (response["status"]) {
                                   await showDialog(
                                     context: context,
@@ -395,7 +394,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                       );
                                     },
                                   );
-
+                      
                                   Navigator.pop(context);
                                 } else {
                                   String message = response["message"];

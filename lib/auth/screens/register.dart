@@ -329,9 +329,8 @@ class _RegisterModalState extends State<RegisterModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              // TODO : INTEGRASIKAN LINK
                               final response = await request.postJson(
-                                "http://127.0.0.1:8000/auth/register/",
+                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/register/",
                                 jsonEncode(<String, String>{
                                   'full_name': _fullName,
                                   'username': _username,

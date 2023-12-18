@@ -19,7 +19,7 @@ class SimpleAlertDialog extends StatelessWidget {
     return GiffyDialog(
       giffy: Container(
         padding: const EdgeInsets.all(8.0),
-        child: Image.network(imageAsset, height: 200, fit: BoxFit.contain),
+        child: Image.asset(imageAsset, height: 200, fit: BoxFit.contain),
       ),
       backgroundColor: whiteColour,
       elevation: 0,

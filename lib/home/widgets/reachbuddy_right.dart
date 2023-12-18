@@ -43,8 +43,8 @@ class _ThreadsHomeState extends State<ThreadsHome> {
   @override
   void initState() {
     super.initState();
-    _data =
-        fetchThreads("http://127.0.0.1:8000/reachbuddy/get-threads-flutter/");
+    _data = fetchThreads(
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/reachbuddy/get-threads-flutter/");
   }
 
   @override

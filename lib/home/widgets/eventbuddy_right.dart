@@ -30,9 +30,15 @@ class _EventHomeState extends State<EventHome> {
 
     List<Event> listBooks = [];
 
-    for (int i = 0; i < 3; i++) {
-      if (data[i] != null) {
-        listBooks.add(Event.fromJson(data[i]));
+    if (data.length > 3) {
+      for (int i = 0; i < 3; i++) {
+        if (data[i] != null) {
+          listBooks.add(Event.fromJson(data[i]));
+        }
+      }
+    } else {
+      for (var event in data) {
+        if (event != null) listBooks.add(Event.fromJson(event));
       }
     }
 
@@ -42,8 +48,8 @@ class _EventHomeState extends State<EventHome> {
   @override
   void initState() {
     super.initState();
-    // TODO : INTEGRASIKAN LINK
-    _data = fetchEvent("http://127.0.0.1:8000/eventbuddy/get-event-flutter/");
+    _data = fetchEvent(
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/get-event-flutter/");
   }
 
   @override
@@ -100,16 +106,17 @@ class _EventHomeState extends State<EventHome> {
                 ),
               );
             }
-            return SizedBox(
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               height: 200 * snapshot.data!.length / 1 -
-                  (19 * snapshot.data!.length) +
-                  55,
+                  (20 * snapshot.data!.length) +
+                  60,
               child: ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 24),
+                        vertical: 10),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -216,10 +223,9 @@ class _EventHomeState extends State<EventHome> {
                                       children: [
                                         InkWell(
                                           onTap: () async {
-                                            // TODO : INTEGRASIKAN LINK
                                             final response =
                                                 await request.postJson(
-                                              "http://127.0.0.1:8000/eventbuddy/regis-flutter/",
+                                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/regis-flutter/",
                                               jsonEncode(
                                                 <String, String>{
                                                   'username':

@@ -73,8 +73,7 @@ class _AddThreadState extends State<AddThread> {
                                 : () async {
                                     if (_formKey.currentState!.validate()) {
                                       final response = await request.postJson(
-                                        // TODO: INTEGRASIIN LAGI
-                                        "http://127.0.0.1:8000/reachbuddy/create-thread-flutter/",
+                                        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/reachbuddy/create-thread-flutter/",
                                         jsonEncode(
                                           <String, String>{
                                             'username': logInUser!.username,

@@ -15,8 +15,8 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   Future<List<RequestBooks>> fetchProduct() async {
-   //TODO : INTEGRASIIN LINK
-    var url = Uri.parse('http://127.0.0.1:8000/findbuddy/get-request/');
+    var url = Uri.parse(
+        'https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-request/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

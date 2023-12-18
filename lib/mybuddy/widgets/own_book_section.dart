@@ -190,7 +190,8 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                     ),
                   ),
                 ),
-                SizedBox(
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   height: 210 * snapshot.data!.length / 1 -
                       (10 * snapshot.data!.length) +
                       80,
@@ -227,8 +228,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Container(
                             height: 180,
                             padding: const EdgeInsets.only(
@@ -404,10 +404,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                             children: [
                                               GestureDetector(
                                                 onTap: () async {
-                                                  // TODO : INTEGRASIKAN LINK
                                                   await http.patch(
                                                       Uri.parse(
-                                                          "http://127.0.0.1:8000/mybuddy/add-page-track/"),
+                                                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/add-page-track/"),
                                                       headers: {
                                                         "Content-Type":
                                                             "application/json"
@@ -464,10 +463,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                               const Spacer(),
                                               GestureDetector(
                                                 onTap: () async {
-                                                  // TODO : INTEGRASIKAN LINK
                                                   await http.patch(
                                                       Uri.parse(
-                                                          "http://127.0.0.1:8000/mybuddy/sub-page-track/"),
+                                                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/sub-page-track/"),
                                                       headers: {
                                                         "Content-Type":
                                                             "application/json"

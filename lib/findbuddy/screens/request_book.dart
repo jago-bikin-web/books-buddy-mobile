@@ -89,9 +89,8 @@ class _RequestBookState extends State<RequestBook> {
                         backgroundColor: primaryColour),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // TODO: INTEGRASI LINK
                         final response = await request.postJson(
-                          "http://127.0.0.1:8000/findbuddy/create-flutter/",
+                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/create-flutter/",
                           jsonEncode(<String, String>{
                             'title': _title,
                             'author': _author,
@@ -119,14 +118,14 @@ class _RequestBookState extends State<RequestBook> {
                                       Text(
                                         'Nama: $_title',
                                         style: defaultText.copyWith(
-                                            color: primaryColour,
+                                            color: blackColour,
                                             fontWeight: FontWeight.w300,
                                             fontSize: 14),
                                       ),
                                       Text(
                                         'Deskripsi: $_author',
                                         style: defaultText.copyWith(
-                                            color: primaryColour,
+                                            color: blackColour,
                                             fontWeight: FontWeight.w300,
                                             fontSize: 14),
                                       ),
@@ -135,7 +134,11 @@ class _RequestBookState extends State<RequestBook> {
                                 ),
                                 actions: [
                                   TextButton(
-                                    child: const Text('OK'),
+                                    child: Text(
+                                      'OK',
+                                      style: defaultText.copyWith(
+                                          color: primaryColour, fontSize: 16),
+                                    ),
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
@@ -152,6 +155,7 @@ class _RequestBookState extends State<RequestBook> {
                             ),
                           );
                         }
+                        _formKey.currentState!.reset();
                       }
                     },
                     child: Text(

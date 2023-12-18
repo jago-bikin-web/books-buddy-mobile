@@ -148,9 +148,8 @@ class ProfileScreen extends StatelessWidget {
                               gradient: gradient),
                           child: ElevatedButton(
                             onPressed: () async {
-                              // TODO : INTEGRASIKAN LINK
                               final response = await request.logout(
-                                "http://127.0.0.1:8000/auth/logout/",
+                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/auth/logout/",
                               );
                               String message = response["message"];
                               if (response['status']) {

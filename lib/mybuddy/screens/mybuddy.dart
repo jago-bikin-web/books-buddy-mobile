@@ -69,9 +69,8 @@ class _MyBuddyState extends State<MyBuddy> with SingleTickerProviderStateMixin {
                         ),
                       ),
                       OwnBookSection(
-                          // TODO : INTEGRASIKAN LINK
                           url:
-                              "http://127.0.0.1:8000/mybuddy/get-own-book/?username=${logInUser!.username}")
+                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/get-own-book/?username=${logInUser!.username}")
                     ],
                   ),
                   const SizedBox(

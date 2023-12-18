@@ -230,10 +230,9 @@ class _UpdateModalState extends State<UpdateModal> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              // TODO : INTEGRASIKAN LINK
                               await http.put(
                                 Uri.parse(
-                                    "http://127.0.0.1:8000/mybuddy/update-book-flutter/"),
+                                    "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/update-book-flutter/"),
                                 headers: {"Content-Type": "application/json"},
                                 body: jsonEncode(
                                   <String, String>{

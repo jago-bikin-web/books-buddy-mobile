@@ -73,8 +73,7 @@ class _BookSectionState extends State<BookSection> {
     super.initState();
     _dataCategory.sort();
     _data = fetchBooks(
-        // TODO : INTEGRASIKAN LINK
-        "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
+        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
   }
 
   @override
@@ -105,8 +104,7 @@ class _BookSectionState extends State<BookSection> {
               setState(() {
                 query = value;
                 _data = fetchBooks(
-                    // TODO : INTEGRASIKAN LINK
-                    "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
+                    "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
               });
             },
           ),
@@ -125,9 +123,8 @@ class _BookSectionState extends State<BookSection> {
                     onTap: () {
                       setState(() {
                         filter = _dataCategory[index];
-                        // TODO : INTEGRASIKAN LINK
                         _data = fetchBooks(
-                            "http://127.0.0.1:8000/findbuddy/get-search-books/?query=$query&filter=$filter");
+                            "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/findbuddy/get-search-books/?query=$query&filter=$filter");
                       });
                     },
                     child: ChipFilter(
