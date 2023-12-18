@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:books_buddy/auth/models/user_models.dart';
 import 'package:books_buddy/findbuddy/screens/displaybook.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/reachbuddy/screens/add_thread.dart';
@@ -21,6 +24,7 @@ class ThreadDetail extends StatefulWidget {
 class _ThreadDetailState extends State<ThreadDetail> {
   bool isLiked = false;
   Books? book;
+  String randomImageAsset = "images/community1.png";
 
   Future<Books> fetchBook() async {
     var url = Uri.parse(
@@ -35,11 +39,21 @@ class _ThreadDetailState extends State<ThreadDetail> {
   @override
   void initState() {
     super.initState();
+    randomImageAsset = getRandomImage();
     fetchBook().then((fetchedBook) {
       setState(() {
         book = fetchedBook;
       });
     });
+  }
+
+  String getRandomImage() {
+    final List<String> images = [
+      "images/community1.png",
+      "images/community2.png",
+      "images/community3.png"
+    ];
+    return images[Random().nextInt(images.length)]; // Return a random image
   }
 
   String formatMonthDay(DateTime dateTime) {
@@ -72,7 +86,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
     return Scaffold(
       backgroundColor: backgroundColour,
       body: Container(
-        decoration: BoxDecoration(gradient: gradient),
+        color: primaryColour,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -81,21 +95,23 @@ class _ThreadDetailState extends State<ThreadDetail> {
                 padding: const EdgeInsets.only(left: 24, top: 20),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          color: backgroundColour,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Center(
-                        child: Icon(
-                          Icons.arrow_back_rounded,
-                          size: 30,
-                          color: primaryColour,
+                  child: Consumer<PageProvider>(
+                    builder: (context, pageProvider, child) => GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context, true);
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            color: backgroundColour,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            size: 30,
+                            color: primaryColour,
+                          ),
                         ),
                       ),
                     ),
@@ -103,7 +119,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                 ),
               ),
               Image.asset(
-                "images/community2.png",
+                randomImageAsset,
                 height: MediaQuery.of(context).size.height *
                     0.4, // 40% of the screen height
                 width: double.infinity,
@@ -188,10 +204,10 @@ class _ThreadDetailState extends State<ThreadDetail> {
                               ],
                             ),
                           ),
-                          Consumer<PageProvider>(
+                          Material(
+                              child: Consumer<PageProvider>(
                             builder: (context, pageProvider, child) => InkWell(
                               onTap: () {
-                                pageProvider.setPage(2);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -214,7 +230,7 @@ class _ThreadDetailState extends State<ThreadDetail> {
                                 ),
                               ),
                             ),
-                          )
+                          ))
                         ],
                       ),
                       SizedBox(height: 12.0),
@@ -265,6 +281,50 @@ class _ThreadDetailState extends State<ThreadDetail> {
                         ],
                       ),
                       Divider(color: Colors.grey),
+                      widget.thread.profileName == logInUser!.username
+                          ? Consumer<PageProvider>(
+                              builder: (context, pageProvider, child) =>
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: ElevatedButton.icon(
+                                      onPressed: () async {
+                                        // Ensure necessary conditions are met (if any) before proceeding
+                                        var url = Uri.parse(
+                                            'http://127.0.0.1:8000/reachbuddy/delete_thread_ajax/${widget.thread.threadId}/');
+                                        var response = await http.delete(url);
+
+                                        if (response.statusCode == 200) {
+                                          // Successfully deleted
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text("Berhasil menghapus thread!"),
+                                              duration: Duration(seconds: 1),
+                                            ),
+                                          );
+                                          Navigator.pop(context, true);
+                                        }
+                                      },
+                                      icon: Icon(
+                                        Icons.delete, // Trash icon
+                                        color: Colors.white,
+                                      ),
+                                      label: Text(
+                                        "Delete",
+                                        style: defaultText.copyWith(
+                                            color: Colors.white, fontSize: 16),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary:
+                                            Colors.red, // Red background color
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                              18.0), // Rounded rectangle shape
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                          : const Padding(padding: EdgeInsets.all(0)),
                     ],
                   ),
                 ),

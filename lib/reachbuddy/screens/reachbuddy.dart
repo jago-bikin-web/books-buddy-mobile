@@ -219,12 +219,16 @@ class _ThreadsPageState extends State<ThreadsPage>
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: () {
-                                  // Define onTap action
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ThreadDetail(thread: thread)));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ThreadDetail(thread: thread), // Replace with your target page
+                                    ),
+                                  ).then((value) {
+                                    if (value == true) {
+                                      _updateThreadsList(filter); // Refresh the threads list
+                                    }
+                                  });
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
