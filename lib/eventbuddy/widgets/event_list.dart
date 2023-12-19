@@ -100,7 +100,8 @@ class _EventSectionState extends State<EventSection> {
                 ),
               );
             }
-            return SizedBox(
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               height: 200 * snapshot.data!.length / 1 -
                   (19 * snapshot.data!.length) +
                   50,
@@ -108,8 +109,7 @@ class _EventSectionState extends State<EventSection> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -210,178 +210,236 @@ class _EventSectionState extends State<EventSection> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            if (logInUser!.username ==
-                                                snapshot.data![index]
-                                                    .eventUsername) {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  List<dynamic>
-                                                      participantNames =
-                                                      snapshot.data![index]
-                                                          .eventParticipants
-                                                          .map((participant) =>
-                                                              participant
-                                                                  .participantName)
-                                                          .toList();
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              if (logInUser!.username ==
+                                                  snapshot.data![index]
+                                                      .eventUsername) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    List<dynamic>
+                                                        participantNames =
+                                                        snapshot.data![index]
+                                                            .eventParticipants
+                                                            .map((participant) =>
+                                                                participant
+                                                                    .participantName)
+                                                            .toList();
 
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                      'Attendees for ${snapshot.data![index].eventName}',
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                        'Attendees for ${snapshot.data![index].eventName}',
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
                                                       ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    backgroundColor:
-                                                        secondaryColour,
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            32.0),
-                                                    content:
-                                                        SingleChildScrollView(
-                                                      child: Column(
-                                                        children: [
-                                                          const Text(
-                                                            'List of attendees:',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                      backgroundColor:
+                                                          secondaryColour,
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              32.0),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          children: [
+                                                            const Text(
+                                                              'List of attendees:',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          for (int i = 0;
-                                                              i <
-                                                                  participantNames
-                                                                      .length;
-                                                              i++)
-                                                            Text(
-                                                              '${i + 1}. ${participantNames[i]}',
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                        ],
+                                                            for (int i = 0;
+                                                                i <
+                                                                    participantNames
+                                                                        .length;
+                                                                i++)
+                                                              Text(
+                                                                '${i + 1}. ${participantNames[i]}',
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child:
-                                                            const Text('Close'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Close'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  content: Text(
+                                                      "You are not the organizer of this event."),
+                                                ));
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 90,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 1.5),
+                                              decoration: BoxDecoration(
+                                                color: primaryColour,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Attendees",
+                                                  style: defaultText.copyWith(
+                                                    color: backgroundColour,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              final response =
+                                                  await request.postJson(
+                                                "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/regis-flutter/",
+                                                jsonEncode(
+                                                  <String, String>{
+                                                    'username':
+                                                        logInUser!.username,
+                                                    'id': snapshot
+                                                        .data![index].eventPk
+                                                        .toString(),
+                                                  },
+                                                ),
                                               );
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    "You are not the organizer of this event."),
-                                              ));
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: 90,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 1.5),
-                                            decoration: BoxDecoration(
-                                              color: primaryColour,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Attendees",
-                                                style: defaultText.copyWith(
-                                                  color: backgroundColour,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
+
+                                              if (response["status"] == 1) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  content: Text(
+                                                      "You have registered for this event."),
+                                                ));
+                                              }
+
+                                              if (response["status"] == 2) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  content: Text(
+                                                      "Successfully registered! See you soon!"),
+                                                ));
+                                              }
+
+                                              if (response["status"] == 3) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  content: Text(
+                                                      "You are the organizer of this event."),
+                                                ));
+                                              }
+                                            },
+                                            child: Container(
+                                              height: 30,
+                                              width: 90,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 1.5),
+                                              decoration: BoxDecoration(
+                                                color: primaryColour,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Register",
+                                                  style: defaultText.copyWith(
+                                                    color: backgroundColour,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        InkWell(
-                                          onTap: () async {
-                                            final response =
-                                                await request.postJson(
-                                              "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/regis-flutter/",
-                                              jsonEncode(
-                                                <String, String>{
-                                                  'username':
-                                                      logInUser!.username,
-                                                  'id': snapshot
-                                                      .data![index].eventPk
-                                                      .toString(),
-                                                },
-                                              ),
-                                            );
-
-                                            if (response["status"] == 1) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    "You have registered for this event."),
-                                              ));
-                                            }
-
-                                            if (response["status"] == 2) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    "Successfully registered! See you soon!"),
-                                              ));
-                                            }
-
-                                            if (response["status"] == 3) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                content: Text(
-                                                    "You are the organizer of this event."),
-                                              ));
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: 90,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 1.5),
-                                            decoration: BoxDecoration(
-                                              color: primaryColour,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "Register",
-                                                style: defaultText.copyWith(
-                                                  color: backgroundColour,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
+                                          const SizedBox(
+                                            width: 8,
                                           ),
-                                        ),
-                                      ],
+                                          if (logInUser!.role == "M")
+                                            InkWell(
+                                              onTap: () async {
+                                                final response =
+                                                    await request.postJson(
+                                                  "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/delete-flutter/",
+                                                  jsonEncode(
+                                                    <String, String>{
+                                                      'username':
+                                                          logInUser!.username,
+                                                      'id': snapshot
+                                                          .data![index].eventPk
+                                                          .toString(),
+                                                    },
+                                                  ),
+                                                );
+                                                if (response["status"]) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                          const SnackBar(
+                                                    content: Text(
+                                                        "Succesfully delete the event"),
+                                                  ));
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                          const SnackBar(
+                                                    content: Text(
+                                                        "You are not the organizer of the event."),
+                                                  ));
+                                                }
+                                              },
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],

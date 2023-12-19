@@ -73,7 +73,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
         }
       }
     }
-
+    books.sort((a, b) => a.pk.compareTo(b.pk));
     return books;
   }
 
@@ -264,7 +264,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                   width: 10,
                                 ),
                                 Expanded(
-                                  flex: 5,
+                                  flex: 7,
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -306,48 +306,13 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              height: 30,
-                                              width: 90,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 1.5),
-                                              decoration: BoxDecoration(
-                                                color: whiteColour,
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  snapshot.data![index].status,
-                                                  style: defaultText.copyWith(
-                                                    color: primaryColour,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                showModalBottomSheet(
-                                                  context: context,
-                                                  isScrollControlled: true,
-                                                  builder: (context) {
-                                                    return ReviewModal(
-                                                      context,
-                                                      book:
-                                                          snapshot.data![index],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: Container(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
                                                 height: 30,
                                                 width: 90,
                                                 padding:
@@ -355,16 +320,16 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                                         horizontal: 10,
                                                         vertical: 1.5),
                                                 decoration: BoxDecoration(
-                                                  color: primaryColour
-                                                      .withOpacity(0.9),
+                                                  color: whiteColour,
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                    "Review",
+                                                    snapshot
+                                                        .data![index].status,
                                                     style: defaultText.copyWith(
-                                                      color: backgroundColour,
+                                                      color: primaryColour,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 12,
@@ -372,131 +337,170 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  showModalBottomSheet(
+                                                    context: context,
+                                                    isScrollControlled: true,
+                                                    builder: (context) {
+                                                      return ReviewModal(
+                                                        context,
+                                                        book: snapshot
+                                                            .data![index],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                  height: 30,
+                                                  width: 90,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 1.5),
+                                                  decoration: BoxDecoration(
+                                                    color: primaryColour
+                                                        .withOpacity(0.9),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "Review",
+                                                      style:
+                                                          defaultText.copyWith(
+                                                        color: backgroundColour,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       )
                                     ],
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 160,
-                                          decoration: BoxDecoration(
-                                            color:
-                                                primaryColour.withOpacity(0.9),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  await http.patch(
-                                                      Uri.parse(
-                                                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/add-page-track/"),
-                                                      headers: {
-                                                        "Content-Type":
-                                                            "application/json"
-                                                      },
-                                                      body: jsonEncode(<String,
-                                                          String>{
-                                                        'pk': snapshot
-                                                            .data![index].pk
-                                                            .toString(),
-                                                      }));
-                                                  setState(() {
-                                                    _data = fetchBooks(filter);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: Image.asset(
-                                                      "assets/images/panah_atas.png"),
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              Text(
-                                                "PAGE",
-                                                style: defaultText.copyWith(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: whiteColour,
-                                                ),
-                                              ),
-                                              Text(
-                                                snapshot.data![index].pageTrack
-                                                    .toString(),
-                                                style: defaultText.copyWith(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: whiteColour,
-                                                ),
-                                              ),
-                                              Text(
-                                                "/ ${snapshot.data![index].pageCount}"
-                                                    .toString(),
-                                                style: defaultText.copyWith(
-                                                  fontSize: 9.5,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: whiteColour,
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  await http.patch(
-                                                      Uri.parse(
-                                                          "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/sub-page-track/"),
-                                                      headers: {
-                                                        "Content-Type":
-                                                            "application/json"
-                                                      },
-                                                      body: jsonEncode(<String,
-                                                          String>{
-                                                        'pk': snapshot
-                                                            .data![index].pk
-                                                            .toString(),
-                                                      }));
-                                                  setState(() {
-                                                    _data = fetchBooks(filter);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                  ),
-                                                  child: Image.asset(
-                                                      "assets/images/panah_bawah.png"),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: 160,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 2),
+                                        decoration: BoxDecoration(
+                                          color: primaryColour.withOpacity(0.9),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                      ],
-                                    ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                await http.patch(
+                                                    Uri.parse(
+                                                        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/add-page-track/"),
+                                                    headers: {
+                                                      "Content-Type":
+                                                          "application/json"
+                                                    },
+                                                    body: jsonEncode(<String,
+                                                        String>{
+                                                      'pk': snapshot
+                                                          .data![index].pk
+                                                          .toString(),
+                                                    }));
+                                                setState(() {
+                                                  _data = fetchBooks(filter);
+                                                });
+                                              },
+                                              child: Container(
+                                                width: 35,
+                                                height: 35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Image.asset(
+                                                    "assets/images/panah_atas.png"),
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              "PAGE",
+                                              style: defaultText.copyWith(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                                color: whiteColour,
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data![index].pageTrack
+                                                  .toString(),
+                                              style: defaultText.copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: whiteColour,
+                                              ),
+                                            ),
+                                            Text(
+                                              "/ ${snapshot.data![index].pageCount}"
+                                                  .toString(),
+                                              style: defaultText.copyWith(
+                                                fontSize: 9.5,
+                                                fontWeight: FontWeight.bold,
+                                                color: whiteColour,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                await http.patch(
+                                                    Uri.parse(
+                                                        "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/mybuddy/sub-page-track/"),
+                                                    headers: {
+                                                      "Content-Type":
+                                                          "application/json"
+                                                    },
+                                                    body: jsonEncode(<String,
+                                                        String>{
+                                                      'pk': snapshot
+                                                          .data![index].pk
+                                                          .toString(),
+                                                    }));
+                                                setState(() {
+                                                  _data = fetchBooks(filter);
+                                                });
+                                              },
+                                              child: Container(
+                                                width: 35,
+                                                height: 35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Image.asset(
+                                                    "assets/images/panah_bawah.png"),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],

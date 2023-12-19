@@ -69,7 +69,8 @@ class _CreateEventState extends State<CreateEvent> {
                   key: _formKey,
                   child: SingleChildScrollView(
                     padding: EdgeInsets.only(
-                        top: 15, bottom: MediaQuery.of(context).viewInsets.bottom),
+                        top: 15,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
@@ -176,7 +177,7 @@ class _CreateEventState extends State<CreateEvent> {
                                   );
                                 },
                               );
-                
+
                               if (pickedDate != null) {
                                 String formattedDate =
                                     DateFormat('yyyy-MM-dd').format(pickedDate);
@@ -234,11 +235,17 @@ class _CreateEventState extends State<CreateEvent> {
                                       },
                                     ),
                                   );
-                
+
                                   if (response["status"]) {
                                     Navigator.pop(context);
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("Event with book selected alreadt made"),
+                                    ));
                                   }
-                
+
                                   _formKey.currentState!.reset();
                                 }
                               },
