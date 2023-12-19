@@ -69,12 +69,15 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Hi, ${logInUser!.fullName}",
-                        style: defaultText.copyWith(
-                            color: backgroundColour,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 100,
+                        child: Text(
+                          "Hi, ${logInUser!.fullName}",
+                          style: defaultText.copyWith(
+                              color: backgroundColour,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Text(
                         logInUser!.username,
