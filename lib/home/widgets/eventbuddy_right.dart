@@ -115,8 +115,7 @@ class _EventHomeState extends State<EventHome> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
