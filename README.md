@@ -1,7 +1,7 @@
 [![Staging](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/staging.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/staging.yml)
 [![Pre-Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/pre-release.yml)
 [![Release](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml/badge.svg)](https://github.com/jago-bikin-web/books-buddy-mobile/actions/workflows/release.yml)
-[![Build status]()]()
+[![Build status](https://build.appcenter.ms/v0.1/apps/40e6bf4d-78ff-4e59-89dd-84b92c39cc68/branches/main/badge)](https://appcenter.ms)
 ![Hit Counter](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjago-bikin-web1212%2Fhit-counter)
 
 <hr>
@@ -18,7 +18,7 @@
 
 ## :link: Tautan Link Django dan Flutter :link:
 - Link to website [Books Buddy](http://books-buddy-e06-tk.pbp.cs.ui.ac.id/)
-- Link to app [TBA]()
+- Link to app [Books Buddy Mobile](https://install.appcenter.ms/orgs/jago-bikin-web/apps/books-buddy/distribution_groups/public)
 
 
 ## :books: Books Buddy (BB) :books:
