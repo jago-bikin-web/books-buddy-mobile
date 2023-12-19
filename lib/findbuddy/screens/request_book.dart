@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:books_buddy/shared/shared.dart';
 
 class RequestBook extends StatefulWidget {
   const RequestBook({Key? key}) : super(key: key);
@@ -27,10 +28,10 @@ class _RequestBookState extends State<RequestBook> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Daftar Produk',
+            'Request Book',
           ),
         ),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFFF8D038),
         foregroundColor: Colors.white,
       ),
       body: Form(
@@ -43,11 +44,33 @@ class _RequestBookState extends State<RequestBook> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Judul",
-                    labelText: "Judul",
+                    filled: true,
+                    fillColor: primaryColour.withOpacity(0.2),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: primaryColour, width: 2),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2),
+                    ),
+                    hintText: "Title",
+                    labelText: "Title",
+                    labelStyle: defaultText.copyWith(
+                        fontSize: 14,
+                        color: blackColour,
+                        fontWeight: FontWeight.w500),
+                    floatingLabelStyle: defaultText.copyWith(
+                        fontSize: 14,
+                        color: primaryColour,
+                        fontWeight: FontWeight.bold),
+                    focusColor: primaryColour,
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -65,12 +88,34 @@ class _RequestBookState extends State<RequestBook> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  decoration: InputDecoration(
+                 decoration: InputDecoration(
+                    filled: true,
+                    fillColor: primaryColour.withOpacity(0.2),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          BorderSide(color: primaryColour, width: 2),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2),
+                    ),
                     hintText: "Author",
                     labelText: "Author",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                    labelStyle: defaultText.copyWith(
+                        fontSize: 14,
+                        color: blackColour,
+                        fontWeight: FontWeight.w500),
+                    floatingLabelStyle: defaultText.copyWith(
+                        fontSize: 14,
+                        color: primaryColour,
+                        fontWeight: FontWeight.bold),
+                    focusColor: primaryColour,
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -90,8 +135,11 @@ class _RequestBookState extends State<RequestBook> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                   style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFF8D038)),
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 24, horizontal: 64),
+                      ),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
@@ -105,14 +153,14 @@ class _RequestBookState extends State<RequestBook> {
                         if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Produk baru berhasil disimpan!"),
+                              content: Text("Request Saved!"),
                             ),
                           );
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: const Text('Produk berhasil tersimpan'),
+                                title: const Text('Request Saved!'),
                                 content: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
@@ -138,7 +186,7 @@ class _RequestBookState extends State<RequestBook> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  "Terdapat kesalahan, silakan coba lagi."),
+                                  "Request Failed, Please Try Again"),
                             ),
                           );
                         }
@@ -162,8 +210,11 @@ class _RequestBookState extends State<RequestBook> {
           children: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.indigo),
-              ),
+                      backgroundColor: MaterialStateProperty.all(Color(0xFFF8D038)),
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 24, horizontal: 64),
+                      ),
+                    ),
               onPressed: () {
                 // Tombol ke ListPage
                 Navigator.push(

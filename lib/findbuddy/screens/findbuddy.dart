@@ -1,4 +1,5 @@
 import 'package:books_buddy/findbuddy/screens/request_book.dart';
+import 'package:books_buddy/findbuddy/widgets/animated_sheet.dart';
 import 'package:books_buddy/findbuddy/widgets/book_section.dart';
 import 'package:books_buddy/mybuddy/widgets/app_bar.dart';
 import 'package:books_buddy/shared/shared.dart';
@@ -9,6 +10,49 @@ class FindBuddy extends StatefulWidget {
 
   @override
   State<FindBuddy> createState() => _FindBuddyState();
+}
+
+class AddButton extends StatelessWidget {
+  const AddButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: primaryColour, // Ganti dengan warna primer Anda
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0), // Sesuaikan dengan kebutuhan
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          ),
+          onPressed: () {
+            _navigateToRequestBook(context);
+          },
+          child: Text(
+            'Request Book',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToRequestBook(BuildContext context) {
+    Navigator.push(
+  context,
+  PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => AnimatedBottomSheet(),
+  ),
+);
+  }
 }
 
 class _FindBuddyState extends State<FindBuddy> {
@@ -51,37 +95,23 @@ class _FindBuddyState extends State<FindBuddy> {
                         ),
                       ),
                     ),
+                  const BookSection(),
+                  const SizedBox(
+                    height: 60,
+                    ),
                   ],
                 ),
-                const BookSection(),
-                const SizedBox(
-                  height: 60,
-                )
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom : 60),
-            child: Positioned(
-                    child: FloatingActionButton(
-                      hoverColor: primaryColour.withOpacity(0.2),
-                      hoverElevation: 5,
-                      elevation: 3,
-                      shape: const CircleBorder(),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RequestBook(),
-                        ));
-                      },
-                      backgroundColor: primaryColour, // Replace with your primary color
-                      child: const Icon(
-                        Icons.add_rounded,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                    ),
+          Positioned(
+                bottom: 60,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: const AddButton(),
                   ),
-          ),
+                ),
         ],
       ),
     );
