@@ -418,12 +418,16 @@ class _EventSectionState extends State<EventSection> {
                                                   ),
                                                 );
                                                 if (response["status"]) {
+                                                  setState(() {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                           const SnackBar(
                                                     content: Text(
                                                         "Succesfully delete the event"),
                                                   ));
+                                                  _data = fetchEvent(
+                                                      "https://books-buddy-e06-tk.pbp.cs.ui.ac.id/eventbuddy/get-event-flutter/");
+                                                  });
                                                 } else {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
@@ -435,7 +439,7 @@ class _EventSectionState extends State<EventSection> {
                                               },
                                               child: const Icon(
                                                 Icons.delete,
-                                                color: Colors.black,
+                                                color: Colors.red,
                                               ),
                                             ),
                                         ],

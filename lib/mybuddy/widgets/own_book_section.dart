@@ -312,6 +312,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
                                               Container(
                                                 height: 30,
                                                 width: 90,
@@ -338,7 +341,7 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                                 ),
                                               ),
                                               const SizedBox(
-                                                width: 6,
+                                                width: 8,
                                               ),
                                               InkWell(
                                                 onTap: () {
@@ -381,6 +384,9 @@ class _OwnBookBuilderState extends State<OwnBookBuilder> {
                                                     ),
                                                   ),
                                                 ),
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
                                               ),
                                             ],
                                           ),
